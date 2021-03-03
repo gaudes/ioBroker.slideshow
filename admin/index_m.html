@@ -1,0 +1,233 @@
+<html>
+
+<head>
+
+	<!-- Load ioBroker scripts and styles-->
+	<link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+	<link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+
+	<script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+
+	<script type="text/javascript" src="../../js/translate.js"></script>
+	<script type="text/javascript" src="../../lib/js/materialize.js"></script>
+	<script type="text/javascript" src="../../js/adapter-settings.js"></script>
+
+	<!-- Load our own files -->
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript" src="words.js"></script>
+
+	<script type="text/javascript">
+		// This will be called by the admin adapter when the settings page loads
+		function load(settings, onChange) {
+			// example: select elements with id=key and class=value and insert value
+			if (!settings) return;
+			$('.value').each(function () {
+				var $key = $(this);
+				var id = $key.attr('id');
+				if ($key.attr('type') === 'checkbox') {
+					// do not call onChange direct, because onChange could expect some arguments
+					$key.prop('checked', settings[id])
+						.on('change', () => onChange())
+						;
+				} else if ($key.attr('type') === 'radio'){
+					$("input[name=provider][value=" + settings['provider'] + "]").attr('checked', 'checked');
+					$key.on('change', () => onChange());
+				} else {
+					// do not call onChange direct, because onChange could expect some arguments
+					$key.val(settings[id])
+						.on('change', () => onChange())
+						.on('keyup', () => onChange())
+						;
+				}
+			});
+
+			ChangeSource();
+
+			onChange(false);
+			// reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
+			if (M) M.updateTextFields();
+		}
+		
+		
+
+		$(document).on("change","input[type=radio]",function(){
+			ChangeSource();
+		});
+
+		function ChangeSource(){
+			switch(parseInt($("input:radio[name ='provider']:checked").val())){
+				case 3:
+					$("#syno_settings").hide();
+					$("#fs_settings").show();
+					break;
+				case 4:
+					$("#fs_settings").hide();	
+					$("#syno_settings").show();
+					break;
+				default:
+					$("#fs_settings").hide();
+					$("#syno_settings").hide();
+			} 
+		}
+
+		// This will be called by the admin adapter when the user presses the save button
+		function save(callback) {
+			// example: select elements with class=value and build settings object
+			var obj = {};
+			$('.value').each(function () {
+				var $this = $(this);
+				if ($this.attr('type') === 'checkbox') {
+					obj[$this.attr('id')] = $this.prop('checked');
+				} else if ($this.attr('type') === 'number') {
+					obj[$this.attr('id')] = parseFloat($this.val());
+				} else if ($this.hasClass("isNumeric")){
+					obj[$this.attr('id')] = parseInt($this.val());
+				} else if ($this.attr('type') === 'radio'){
+					obj['provider'] = parseInt($("input:radio[name ='provider']:checked").val());
+				} else { 
+					obj[$this.attr('id')] = $this.val();
+				}
+			});
+			callback(obj);
+		}
+	</script>
+
+</head>
+
+<body>
+
+	<div class="m adapter-container">
+
+		<div class="row">
+			<!-- Tabs Navigation-->
+			<div class="col s12">
+				<ul class="tabs">
+					<li class="tab col s2"><a href="#tab_settings" class="translate">tab_general</a></li>
+				</ul>
+			</div>
+
+			<!-- Tab Settings-->
+			<div id="tab_settings" class="col s12 page">
+				<div class="row">
+					<div class="col s12 m2 l1">
+						<img src="slideshow.png" class="logo">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s6">
+						<div>
+							<h5 class="translate">s_common</h5>
+						</div>
+						<div><br /></div>
+						<label class="translate">p_source</label>
+						<div class="input-field" id="fs_provider">
+							<p>
+								<label>
+								  <input name="provider" type="radio" checked value=1 class="value fs_provider" />
+								  <span class="translate">p_bing</span><br/>
+								  <span class="translate">p_bing_desc</span>
+								</label>
+							  </p>
+							  <p>
+								<label>
+								  <input name="provider" type="radio" value=2 class="value fs_provider" />
+								  <span class="translate">p_local</span><br/>
+								  <span class="translate">p_local_desc</span>
+								</label>
+							  </p>
+							  <p>
+								<label>
+								  <input name="provider" type="radio" value=3 class="value fs_provider" />
+								  <span class="translate">p_fs</span><br/>
+								  <span class="translate">p_fs_desc</span>
+								</label>
+							  </p>
+							  <p>
+								<label>
+								  <input name="provider" type="radio" value=4 class="value fs_provider" />
+								  <span class="translate">p_syno</span><br/>
+								  <span class="translate">p_syno_desc</span>
+								</label>
+							  </p>
+							</p>
+						</div>
+						<div><br /></div>
+						<div class="input-field">
+							<input type="number" class="value" min="3" id="update_interval" />
+							<label for="update_interval" class="translate">update_interval</label>
+						</div>
+						<div><br /></div>
+					</div>
+					<div class="col s6">
+						<div id="fs_settings" style="display: none;">
+							<div>
+								<h5 class="translate">s_filesystem</h5>
+							</div>
+							<div><br /></div>
+							<div class="input-field">
+								<input type="text" class="value" id="fs_path" />
+								<label for="fs_path" class="translate">fs_path</label>
+							</div>
+							<div><br /></div>
+							<div class="input-field">
+								<select class="value isNumeric" id="fs_format">
+									<option value=0 class="translate">fs_format_all</option>
+									<option value=1 class="translate">fs_format_landscape</option>
+									<option value=2 class="translate">fs_format_portrait</option>
+								</select>
+								<label for="fs_format" class="translate">fs_format</label>
+							</div>
+							<div><br /></div>
+							<p class="translate">config_check_log</p>
+						</div>
+						<div id="syno_settings" style="display: none;">
+							<div>
+								<h5 class="translate">s_syno</h5>
+							</div>
+							<div><br /></div>
+							<div class="input-field">
+								<input type="text" class="value" id="syno_path" />
+								<label for="syno_path" class="translate">syno_path</label>
+							</div>
+							<div><br /></div>
+							<div class="input-field">
+								<input type="text" class="value" id="syno_username" />
+								<label for="syno_username" class="translate">syno_username</label>
+							</div>
+							<div><br /></div>
+							<div class="input-field">
+								<input type="password" class="value" id="syno_userpass" />
+								<label for="syno_userpass" class="translate">syno_userpass</label>
+							</div>
+							<div><br /></div>
+							<div class="input-field">
+								<select class="value isNumeric" id="syno_format">
+									<option value=0 class="translate">fs_format_all</option>
+									<option value=1 class="translate">fs_format_landscape</option>
+									<option value=2 class="translate">fs_format_portrait</option>
+								</select>
+								<label for="syno_format" class="translate">fs_format</label>
+							</div>
+							<div><br /></div>
+							<div class="input-field">
+								<select class="value isNumeric" id="syno_order">
+									<option value=0 class="translate">syno_order_taken</option>
+									<option value=1 class="translate">syno_order_filename</option>
+									<option value=2 class="translate">syno_order_createdate</option>
+									<option value=3 class="translate">syno_order_random</option>
+								</select>
+								<label for="syno_order" class="translate">syno_order</label>
+							</div>
+							<div><br /></div>
+							<p class="translate">config_check_log</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

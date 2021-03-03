@@ -1,0 +1,167 @@
+{
+    "common": {
+        "name": "slideshow",
+        "version": "0.1.0",
+        "news": {
+            "0.1.0": {
+                "en": "Prepare for beta tests\nInclude Dependabot updates",
+                "de": "Bereiten Sie sich auf Betatests vor\nFügen Sie Dependabot-Updates hinzu",
+                "ru": "Подготовьтесь к бета-тестам\nВключите обновления Dependabot",
+                "pt": "Prepare-se para os testes beta\nIncluir atualizações Dependabot",
+                "nl": "Bereid je voor op bètatests\nVoeg Dependabot-updates toe",
+                "fr": "Préparez-vous aux tests bêta\nInclure les mises à jour de Dependabot",
+                "it": "Preparati per i beta test\nIncludi gli aggiornamenti di Dependabot",
+                "es": "Prepárate para las pruebas beta\nIncluir actualizaciones de Dependabot",
+                "pl": "Przygotuj się do testów beta\nDołącz aktualizacje Dependabot",
+                "zh-cn": "准备进行Beta测试\n包括Dependabot更新"
+            },
+            "0.0.5": {
+                "en": "Adaptive width and height in widget depending on orientation\nFix format option for Synology\nWriting extended picture information to objects\nButton for update picture list\nSave picture count as object\nQuality fixing (lgtm.com)\nInclude Sentry error reporting\nInclude Dependabot updates",
+                "de": "Adaptive Breite und Höhe im Widget je nach Ausrichtung\nFormatoption für Synology korrigieren\nSchreiben erweiterter Bildinformationen in Objekte\nSchaltfläche zum Aktualisieren der Bilderliste\nBildanzahl als Objekt speichern\nQualitätsfixierung (lgtm.com)\nSentry-Fehlerberichterstattung einschließen\nFügen Sie Dependabot-Updates hinzu",
+                "ru": "Адаптивная ширина и высота в виджете в зависимости от ориентации\nИсправить параметр формата для Synology\nЗапись расширенной графической информации в объекты\nКнопка для обновления списка изображений\nСохранить количество изображений как объект\nИсправление качества (lgtm.com)\nВключить отчет об ошибках Sentry\nВключите обновления Dependabot",
+                "pt": "Largura e altura adaptáveis no widget dependendo da orientação\nOpção de formato fixo para Synology\nEscrevendo informações estendidas da imagem para objetos\nBotão para atualizar a lista de imagens\nSalvar contagem de imagem como objeto\nFixação de qualidade (lgtm.com)\nIncluir relatório de erro do Sentry\nIncluir atualizações Dependabot",
+                "nl": "Adaptieve breedte en hoogte in widget afhankelijk van oriëntatie\nFix formaatoptie voor Synology\nUitgebreide afbeeldingsinformatie naar objecten schrijven\nKnop voor het bijwerken van de fotolijst\nSla het aantal afbeeldingen op als object\nKwaliteitsfixatie (lgtm.com)\nInclusief Sentry-foutrapportage\nVoeg Dependabot-updates toe",
+                "fr": "Largeur et hauteur adaptatives dans le widget en fonction de l'orientation\nCorrection de l'option de format pour Synology\nÉcriture d'informations d'image étendues sur des objets\nBouton pour mettre à jour la liste d'images\nEnregistrer le nombre d'images en tant qu'objet\nFixation de la qualité (lgtm.com)\nInclure le rapport d'erreurs Sentry\nInclure les mises à jour de Dependabot",
+                "it": "Larghezza e altezza adattive nel widget a seconda dell'orientamento\nCorrezione dell'opzione di formato per Synology\nScrittura di informazioni sulle immagini estese negli oggetti\nPulsante per l'aggiornamento dell'elenco delle immagini\nSalva il conteggio delle immagini come oggetto\nFissaggio di qualità (lgtm.com)\nIncludere la segnalazione degli errori di Sentry\nIncludi gli aggiornamenti di Dependabot",
+                "es": "Anchura y altura adaptables en el widget según la orientación\nOpción de formato fijo para Synology\nEscribir información ampliada de imágenes en objetos\nBotón para actualizar la lista de imágenes\nGuardar recuento de imágenes como objeto\nFijación de calidad (lgtm.com)\nIncluir informes de errores de Sentry\nIncluir actualizaciones de Dependabot",
+                "pl": "Adaptacyjna szerokość i wysokość w widgecie w zależności od orientacji\nNapraw opcję formatu dla Synology\nZapisywanie rozszerzonych informacji obrazkowych na obiektach\nPrzycisk aktualizacji listy zdjęć\nZapisz liczbę obrazów jako obiekt\nPoprawa jakości (lgtm.com)\nUwzględnij raportowanie błędów Sentry\nDołącz aktualizacje Dependabot",
+                "zh-cn": "小部件中的自适应宽度和高度取决于方向\nSynology的修复格式选项\n将扩展的图片信息写入对象\n用于更新图片列表的按钮\n将图片计数另存为对象\n质量修复（lgtm.com）\n包括哨兵错误报告\n包括Dependabot更新"
+            },
+            "0.0.4": {
+                "en": "Allow PNG-files in Filesystem\nFix config problem with formats\nHandle portrait orientation in widget",
+                "de": "PNG-Dateien im Dateisystem zulassen\nKonfigurationsproblem mit Formaten behoben\nBehandeln Sie die Porträtausrichtung im Widget",
+                "ru": "Разрешить PNG-файлы в файловой системе\nИсправить проблему конфигурации с форматами\nОбработка портретной ориентации в виджете",
+                "pt": "Permitir arquivos PNG no sistema de arquivos\nCorrigir problema de configuração com formatos\nLidar com a orientação retrato no widget",
+                "nl": "Sta PNG-bestanden toe in bestandssysteem\nFix configuratieprobleem met formaten\nBehandel staande oriëntatie in widget",
+                "fr": "Autoriser les fichiers PNG dans le système de fichiers\nCorrection d'un problème de configuration avec les formats\nGérer l'orientation portrait dans le widget",
+                "it": "Consenti file PNG nel file system\nRisolve il problema di configurazione con i formati\nGestisci l'orientamento verticale nel widget",
+                "es": "Permitir archivos PNG en el sistema de archivos\nSolucionar problema de configuración con formatos\nManejar la orientación vertical en el widget",
+                "pl": "Zezwalaj na pliki PNG w systemie plików\nNapraw problem z konfiguracją z formatami\nObsługuj orientację pionową w widgecie",
+                "zh-cn": "允许文件系统中的PNG文件\n修复格式配置问题\n在小部件中处理纵向方向"
+            },
+            "0.0.3": {
+                "en": "Prepare for alpha tests",
+                "de": "Bereiten Sie sich auf Alpha-Tests vor",
+                "ru": "Подготовьтесь к альфа-тестам",
+                "pt": "Prepare-se para testes alfa",
+                "nl": "Bereid je voor op alfatests",
+                "fr": "Préparez-vous aux tests alpha",
+                "it": "Preparati per i test alfa",
+                "es": "Prepárate para las pruebas alfa",
+                "pl": "Przygotuj się do testów alfa",
+                "zh-cn": "准备进行Alpha测试"
+            },
+            "0.0.2": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "Slideshow",
+        "titleLang": {
+            "en": "Slideshow",
+            "de": "Slideshow",
+            "ru": "Slideshow",
+            "pt": "Slideshow",
+            "nl": "Slideshow",
+            "fr": "Slideshow",
+            "it": "Slideshow",
+            "es": "Slideshow",
+            "pl": "Slideshow",
+            "zh-cn": "Slideshow"
+        },
+        "desc": {
+            "en": "Slideshow for VIS from different sources",
+            "de": "Diashow für VIS aus verschiedenen Quellen",
+            "ru": "Слайд-шоу для ВИС из разных источников",
+            "pt": "Apresentação de slides para VIS de diferentes fontes",
+            "nl": "Diavoorstelling voor VIS uit verschillende bronnen",
+            "fr": "Diaporama pour VIS de différentes sources",
+            "it": "Presentazione per VIS da diverse fonti",
+            "es": "Presentación de diapositivas para VIS de diferentes fuentes",
+            "pl": "Pokaz slajdów dla VIS z różnych źródeł",
+            "zh-cn": "来自不同来源的VIS幻灯片"
+        },
+        "authors": [
+            "Gaudes <ralf@gaudes.net>"
+        ],
+        "keywords": [
+            "ioBroker",
+            "slideshow",
+            "slide show",
+            "diashow"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "build/main.js",
+        "icon": "slideshow.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/gaudes/ioBroker.slideshow/main/admin/slideshow.png",
+        "readme": "https://github.com/gaudes/ioBroker.slideshow/blob/main/README.md",
+        "loglevel": "info",
+        "restartAdapters": [
+            "vis"
+        ],
+        "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
+        "mode": "daemon",
+        "type": "visualization",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "materialize": true,
+        "dependencies": [
+            {
+                "js-controller": ">=3.0.0"
+            },
+            "vis"
+        ],
+        "plugins": {
+            "sentry": {
+                "dsn": "https://0832d5a217aa4dfc95151afe565c835e@sentry.iobroker.net/117",
+                "errorBlacklist": [
+                    "SyntaxError",
+                    "HANDLED"
+                ]
+            }
+        }
+    },
+    "encryptedNative": [
+        "syno_username",
+        "syno_userpass"
+    ],
+    "protectedNative": [
+        "syno_username",
+        "syno_userpass"
+    ],
+    "native": {
+        "provider": 1,
+        "update_interval": 10,
+        "fs_path": "",
+        "fs_format": 0,
+        "sentry_disable": false,
+        "syno_path": "",
+        "syno_username": "",
+        "syno_userpass": "",
+        "syno_order": 0,
+        "syno_format": 0
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "",
+            "type": "meta",
+            "common": {
+                "name": "User files for Slideshow",
+                "type": "meta.user"
+            },
+            "native": {}
+        }
+    ]
+}

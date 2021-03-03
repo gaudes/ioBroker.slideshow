@@ -1,0 +1,37 @@
+{
+	"cli": true,
+	"adapterName": "slideshow",
+	"title": "Slideshow",
+	"description": "Slideshow for VIS from different sources",
+	"keywords": [
+		"slideshow"
+	],
+	"expert": "yes",
+	"features": [
+		"adapter",
+		"vis"
+	],
+	"adminFeatures": [],
+	"type": "visualization",
+	"startMode": "daemon",
+	"connectionType": "cloud",
+	"dataSource": "poll",
+	"connectionIndicator": "no",
+	"language": "TypeScript",
+	"adminReact": "no",
+	"tools": [
+		"ESLint"
+	],
+	"indentation": "Tab",
+	"quotes": "double",
+	"es6class": "yes",
+	"authorName": "Gaudes",
+	"authorGithub": "gaudes",
+	"authorEmail": "ralf@gaudes.net",
+	"gitRemoteProtocol": "HTTPS",
+	"gitCommit": "no",
+	"license": "MIT License",
+	"ci": "gh-actions",
+	"dependabot": "yes",
+	"creatorVersion": "1.31.0"
+}

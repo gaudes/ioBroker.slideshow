@@ -1,0 +1,23 @@
+.slideshow-class {
+	font-style: italic;
+}
+
+.slideshowpicture{
+	height: 100%;
+	overflow: hidden;
+	object-fit: cover;
+	opacity: 1;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.slideshowpicture1{
+	z-index: 1;
+}
+
+.slideshowpicturehidden{
+	opacity: 0;
+}
