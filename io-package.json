@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "slideshow",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "news": {
+            "0.1.1": {
+                "en": "Rename Adapter to slideshow\nFix directory access denied (Sentry #4)\nError handling for Synology Login (Sentry #3)\nFix empty result (Sentry #2)\nFix file-not-found (Sentry #1)\nInclude Dependabot updates",
+                "de": "Adapter in Diashow umbenennen\nFix Verzeichniszugriff verweigert (Sentry # 4)\nFehlerbehandlung für Synology Login (Sentry # 3)\nLeeres Ergebnis korrigieren (Wachposten Nr. 2)\nFix nicht gefundene Datei (Sentry # 1)\nFügen Sie Dependabot-Updates hinzu",
+                "ru": "Переименовать адаптер в слайд-шоу\nИсправить отказано в доступе к каталогу (Sentry # 4)\nОбработка ошибок при входе в Synology (Sentry # 3)\nИсправить пустой результат (Страж №2)\nИсправить \"файл не найден\" (Страж №1)\nВключите обновления Dependabot",
+                "pt": "Renomear adaptador para apresentação de slides\nCorrigir acesso ao diretório negado (Sentinela # 4)\nTratamento de erros para login de Synology (Sentry # 3)\nCorrigir resultado vazio (Sentinela # 2)\nCorrigir arquivo não encontrado (Sentinela # 1)\nIncluir atualizações Dependabot",
+                "nl": "Hernoem Adapter naar diavoorstelling\nFix directory-toegang geweigerd (Sentry # 4)\nFoutafhandeling voor Synology Login (Sentry # 3)\nLeeg resultaat repareren (Sentry # 2)\nFix bestand-niet-gevonden (Sentry # 1)\nVoeg Dependabot-updates toe",
+                "fr": "Renommer l'adaptateur en diaporama\nCorrection de l'accès au répertoire refusé (Sentry # 4)\nGestion des erreurs pour la connexion Synology (Sentry # 3)\nCorrection d'un résultat vide (Sentry # 2)\nCorrection du fichier introuvable (Sentry # 1)\nInclure les mises à jour de Dependabot",
+                "it": "Rinomina l'adattatore in presentazione\nCorrezione dell'accesso alla directory negato (Sentry # 4)\nGestione degli errori per Synology Login (Sentry # 3)\nCorreggi il risultato vuoto (Sentry # 2)\nCorreggi file non trovato (Sentry # 1)\nIncludi gli aggiornamenti di Dependabot",
+                "es": "Cambiar el nombre del adaptador a presentación de diapositivas\nArreglar el acceso al directorio denegado (Centinela # 4)\nManejo de errores para el inicio de sesión de Synology (Sentry n. ° 3)\nCorregir resultado vacío (Centinela # 2)\nCorregir archivo no encontrado (centinela n. ° 1)\nIncluir actualizaciones de Dependabot",
+                "pl": "Zmień nazwę adaptera na pokaz slajdów\nNapraw odmowę dostępu do katalogu (Sentry # 4)\nObsługa błędów dla logowania Synology (Sentry # 3)\nNapraw pusty wynik (Sentry # 2)\nNapraw nie znaleziono pliku (Wartownik nr 1)\nDołącz aktualizacje Dependabot",
+                "zh-cn": "将适配器重命名为幻灯片\n修复目录访问被拒绝的问题（步骤4）\nSynology登录的错误处理（步骤3）\n修正空结果（哨兵＃2）\n修复文件未找到（哨兵＃1）\n包括Dependabot更新"
+            },
             "0.1.0": {
                 "en": "Prepare for beta tests\nInclude Dependabot updates",
                 "de": "Bereiten Sie sich auf Betatests vor\nFügen Sie Dependabot-Updates hinzu",
