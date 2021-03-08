@@ -148,6 +148,9 @@ The following configuration options exist:
 	### __WORK IN PROGRESS__
 -->
 
+### __WORK IN PROGRESS__
+* (Gaudes) Fix error with breadcrumb on Synology login
+
 ### 0.1.1 (2021-03-08)
 * (Gaudes) Rename Adapter to slideshow
 * (Gaudes) Fix directory access denied (Sentry #4)
