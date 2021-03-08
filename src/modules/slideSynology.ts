@@ -209,7 +209,7 @@ async function loginSyno(Helper: GlobalHelper): Promise<boolean>{
 		// Run Login
 		try{
 			const synResult: AxiosResponse = await (synoConnection.get(`http://${Helper.Adapter.config.syno_path}/photo/webapi/auth.php?api=SYNO.PhotoStation.Auth&method=login&version=1&username=${Helper.Adapter.config.syno_username}&password=${Helper.Adapter.config.syno_userpass}`));
-			Helper.ReportingInfo("Debug", "Synology", "Synology result data", { result: JSON.stringify(synResult) } );
+			// Helper.ReportingInfo("Debug", "Synology", "Synology result data", { result: JSON.stringify(synResult) } );
 			if (synResult.data && synResult.data["data"] && synResult.data["data"]["username"] === Helper.Adapter.config.syno_username){
 				synoConnection.defaults.headers.Cookie = synResult.headers["set-cookie"][0];
 				synoConnectionState = true;
