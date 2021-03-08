@@ -148,7 +148,7 @@ The following configuration options exist:
 	### __WORK IN PROGRESS__
 -->
 
-### __WORK IN PROGRESS__
+### 0.1.2 (2021-03-09)
 * (Gaudes) Fix error with breadcrumb on Synology login
 
 ### 0.1.1 (2021-03-08)

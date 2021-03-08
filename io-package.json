@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "slideshow",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "news": {
+            "0.1.2": {
+                "en": "Fix error with breadcrumb on Synology login",
+                "de": "Behebung eines Fehlers mit Breadcrumb bei der Synology-Anmeldung",
+                "ru": "Исправить ошибку с навигационной цепочкой при входе в Synology",
+                "pt": "Corrigir erro com breadcrumb no login do Synology",
+                "nl": "Herstel fout met breadcrumb bij het inloggen op Synology",
+                "fr": "Correction d'une erreur avec le fil d'Ariane sur la connexion Synology",
+                "it": "Risolto l'errore con breadcrumb all'accesso a Synology",
+                "es": "Solucionar el error con la ruta de navegación en el inicio de sesión de Synology",
+                "pl": "Napraw błąd z menu nawigacyjnym przy logowaniu do Synology",
+                "zh-cn": "修复Synology登录上的面包屑错误"
+            },
             "0.1.1": {
                 "en": "Rename Adapter to slideshow\nFix directory access denied (Sentry #4)\nError handling for Synology Login (Sentry #3)\nFix empty result (Sentry #2)\nFix file-not-found (Sentry #1)\nInclude Dependabot updates",
                 "de": "Adapter in Diashow umbenennen\nFix Verzeichniszugriff verweigert (Sentry # 4)\nFehlerbehandlung für Synology Login (Sentry # 3)\nLeeres Ergebnis korrigieren (Wachposten Nr. 2)\nFix nicht gefundene Datei (Sentry # 1)\nFügen Sie Dependabot-Updates hinzu",
