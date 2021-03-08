@@ -60,7 +60,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 			return { success: false, picturecount: 0 };
 		}
 		// Filter for JPEG or JPG files
-		const CurrentFileList = await getAllFiles(Helper.Adapter.config.fs_path);
+		const CurrentFileList = await getAllFiles(Helper, Helper.Adapter.config.fs_path);
 		Helper.ReportingInfo("Info", "Filesystem", `${CurrentFileList.length} total files found in folder ${Helper.Adapter.config.fs_path}`, {JSON: JSON.stringify(CurrentFileList.slice(0, 99))} );
 		const CurrentImageList = CurrentFileList.filter(function(file){
 			if (path.extname(file).toLowerCase() === ".jpg" || path.extname(file).toLowerCase() === ".jpeg" || path.extname(file).toLowerCase() === ".png"){
@@ -121,15 +121,19 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 	}
 }
 
-async function getAllFiles(dirPath: string, _arrayOfFiles: string[] = []): Promise<string[]> {
-	const files = await fs.readdirSync(dirPath);
+async function getAllFiles(Helper: GlobalHelper, dirPath: string, _arrayOfFiles: string[] = []): Promise<string[]> {
 	_arrayOfFiles = _arrayOfFiles || [];
-	files.forEach(async function(file) {
-		if (fs.statSync(dirPath + "/" + file).isDirectory()) {
-			_arrayOfFiles = await getAllFiles(dirPath + "/" + file, _arrayOfFiles);
-	  	} else {
-			_arrayOfFiles.push(path.join(dirPath, "/", file));
-	  	}
-	})
+	try{
+		const files = await fs.readdirSync(dirPath);
+		files.forEach(async function(file) {
+			if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+				_arrayOfFiles = await getAllFiles(Helper, dirPath + "/" + file, _arrayOfFiles);
+			} else {
+				_arrayOfFiles.push(path.join(dirPath, "/", file));
+			}
+		})
+	} catch (err){
+		Helper.ReportingError(err, `Error scanning files: ${err} `, "Filesystem", "getAllFiles", "", false);
+	}
 	return _arrayOfFiles;
 }

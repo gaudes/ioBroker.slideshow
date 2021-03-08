@@ -150,6 +150,7 @@ The following configuration options exist:
 
 ### __WORK IN PROGRESS__
 * (Gaudes) Rename Adapter to slideshow
+* (Gaudes) Fix directory access denied (Sentry #4)
 * (Gaudes) Error handling for Synology Login (Sentry #3)
 * (Gaudes) Fix empty result (Sentry #2)
 * (Gaudes) Fix file-not-found (Sentry #1)
