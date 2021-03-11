@@ -257,7 +257,6 @@ async function loginSyno(Helper) {
             }
         }
     }
-    return false;
 }
 async function synoCheckConnection(Helper) {
     var _a, _b;

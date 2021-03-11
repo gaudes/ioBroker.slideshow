@@ -235,7 +235,6 @@ async function loginSyno(Helper: GlobalHelper): Promise<boolean>{
 			}
 		}
 	}
-	return false;
 }
 
 async function synoCheckConnection(Helper: GlobalHelper): Promise<boolean>{
