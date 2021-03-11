@@ -4,7 +4,6 @@
 systemDictionary = {
 	"slideshow adapter settings": {
 		"en": "Adapter settings for slideshow",
-		"en": "Adapter settings for slideshow",
 		"de": "Adaptereinstellungen für Diashow",
 		"ru": "Настройки адаптера для слайд-шоу",
 		"pt": "Configurações do adaptador para apresentação de slides",
