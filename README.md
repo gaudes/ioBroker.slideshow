@@ -151,6 +151,7 @@ The following configuration options exist:
 ### __WORK IN PROGRESS__
 * (Gaudes) Handle passwords with special characters for Synology
 * (Gaudes) Fix empty result (Sentry #9)
+* (Gaudes) Prepare for WebLate translations
 * (Gaudes) Quality fixing (lgtm.com)
 
 ### 0.1.2 (2021-03-09)
