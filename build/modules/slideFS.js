@@ -109,14 +109,16 @@ async function updatePictureList(Helper) {
             }
         }
         // Fillup picture information
-        if (CurrentImages.length > 0) {
-            await Promise.all(CurrentImages.map(async (CurrentImage) => {
-                const fileInfo = await exif_1.getPictureInformation(Helper, CurrentImage.path);
-                (fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info1) ? CurrentImage.info1 = fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info1 : CurrentImage.info1 = "";
-                (fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info2) ? CurrentImage.info2 = fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info2 : CurrentImage.info2 = "";
-                (fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info3) ? CurrentImage.info3 = fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info3 : CurrentImage.info3 = "";
-                (fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.date) ? CurrentImage.date = fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.date : CurrentImage.date = null;
-            }));
+        if (Array.isArray(CurrentImages)) {
+            if (CurrentImages.length > 0) {
+                await Promise.all(CurrentImages.map(async (CurrentImage) => {
+                    const fileInfo = await exif_1.getPictureInformation(Helper, CurrentImage.path);
+                    (fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info1) ? CurrentImage.info1 = fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info1 : CurrentImage.info1 = "";
+                    (fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info2) ? CurrentImage.info2 = fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info2 : CurrentImage.info2 = "";
+                    (fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info3) ? CurrentImage.info3 = fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info3 : CurrentImage.info3 = "";
+                    (fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.date) ? CurrentImage.date = fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.date : CurrentImage.date = null;
+                }));
+            }
         }
         // Images found ?
         if (!(CurrentImages.length > 0)) {

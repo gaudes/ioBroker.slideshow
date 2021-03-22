@@ -97,14 +97,16 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 		}
 
 		// Fillup picture information
-		if (CurrentImages.length > 0) {
-			await Promise.all(CurrentImages.map(async CurrentImage => {
-				const fileInfo = await getPictureInformation(Helper, CurrentImage.path);
-				fileInfo?.info1 ? CurrentImage.info1 = fileInfo?.info1 : CurrentImage.info1 = "";
-				fileInfo?.info2 ? CurrentImage.info2 = fileInfo?.info2 : CurrentImage.info2 = "";
-				fileInfo?.info3 ? CurrentImage.info3 = fileInfo?.info3 : CurrentImage.info3 = "";
-				fileInfo?.date ? CurrentImage.date = fileInfo?.date : CurrentImage.date = null;
-			}))
+		if (Array.isArray(CurrentImages)){
+			if (CurrentImages.length > 0) {
+				await Promise.all(CurrentImages.map(async CurrentImage => {
+					const fileInfo = await getPictureInformation(Helper, CurrentImage.path);
+					fileInfo?.info1 ? CurrentImage.info1 = fileInfo?.info1 : CurrentImage.info1 = "";
+					fileInfo?.info2 ? CurrentImage.info2 = fileInfo?.info2 : CurrentImage.info2 = "";
+					fileInfo?.info3 ? CurrentImage.info3 = fileInfo?.info3 : CurrentImage.info3 = "";
+					fileInfo?.date ? CurrentImage.date = fileInfo?.date : CurrentImage.date = null;
+				}))
+			}
 		}
 
 		// Images found ?
