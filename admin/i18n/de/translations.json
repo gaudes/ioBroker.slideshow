@@ -1,6 +1,6 @@
 {
     "Instance": "Instanz",
-    "config_check_log": "Bitte überprüfen Sie die korrekte Konfiguration nach dem Speichern im ioBroker-Log",
+    "config_check_log": "Bitte korrekte Konfiguration nach dem Speichern im ioBroker-Log überprüfen",
     "fs_format": "Formate anzeigen",
     "fs_format_all": "Alle Formate",
     "fs_format_landscape": "Querformat",
@@ -18,7 +18,7 @@
     "s_common": "Allgemeine Einstellungen",
     "s_filesystem": "Dateisystemeinstellungen",
     "s_syno": "Einstellungen Synology PhotoStation",
-    "slideshow adapter settings": "Adaptereinstellungen für Diashow",
+    "slideshow adapter settings": "Adaptereinstellungen für Slideshow",
     "syno_order": "Reihenfolge",
     "syno_order_createdate": "Erstellungsdatum",
     "syno_order_filename": "Dateiname",
