@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "slideshow",
-        "version": "0.1.2",
+        "version": "0.1.3",
         "news": {
+            "0.1.3": {
+                "en": "Handle Synology picture download error 502 (Sentry #A)\nFix update picture list (Git #30)\nHandle passwords with special characters for Synology (Git #12)\nFix empty result (Sentry #9)\nPrepare for WebLate translations\nQuality fixing (lgtm.com)\nInclude Dependabot updates",
+                "de": "Fehler beim Herunterladen von Synology-Bildern behandeln 502 (Sentry #A)\nUpdate Bildliste korrigieren (Git # 30)\nBehandeln Sie Passwörter mit Sonderzeichen für Synology (Git # 12).\nLeeres Ergebnis korrigieren (Wachposten Nr. 9)\nBereiten Sie sich auf WebLate-Übersetzungen vor\nQualitätsfixierung (lgtm.com)\nFügen Sie Dependabot-Updates hinzu",
+                "ru": "Обработка ошибки загрузки изображения Synology 502 (Sentry #A)\nИсправить обновление списка изображений (Git # 30)\nОбработка паролей со специальными символами для Synology (Git # 12)\nИсправить пустой результат (Sentry # 9)\nПодготовьтесь к переводам WebLate\nИсправление качества (lgtm.com)\nВключите обновления Dependabot",
+                "pt": "Lidar com o erro 502 de download de imagem Synology (Sentry #A)\nCorrigir atualização da lista de imagens (Git # 30)\nManipule senhas com caracteres especiais para Synology (Git # 12)\nCorrigir resultado vazio (Sentinela # 9)\nPrepare-se para traduções WebLate\nFixação de qualidade (lgtm.com)\nIncluir atualizações Dependabot",
+                "nl": "Omgaan met Synology Picture Download Error 502 (Sentry #A)\nUpdate foto lijst repareren (Git # 30)\nOmgaan met wachtwoorden met speciale tekens voor Synology (Git # 12)\nLeeg resultaat repareren (Sentry # 9)\nBereid je voor op WebLate-vertalingen\nKwaliteitsbepaling (lgtm.com)\nVoeg Dependabot-updates toe",
+                "fr": "Gérer l'erreur de téléchargement d'image Synology 502 (Sentry #A)\nCorrection de la liste des images de mise à jour (Git # 30)\nGérer les mots de passe avec des caractères spéciaux pour Synology (Git # 12)\nCorrection d'un résultat vide (Sentry # 9)\nPréparez-vous aux traductions WebLate\nFixation de la qualité (lgtm.com)\nInclure les mises à jour de Dependabot",
+                "it": "Gestire l'errore di download delle immagini Synology 502 (Sentry #A)\nCorreggi l'elenco delle immagini di aggiornamento (Git # 30)\nGestisci le password con caratteri speciali per Synology (Git # 12)\nCorreggi il risultato vuoto (Sentry # 9)\nPreparati per le traduzioni WebLate\nFissaggio di qualità (lgtm.com)\nIncludi gli aggiornamenti di Dependabot",
+                "es": "Manejar el error 502 de descarga de imágenes de Synology (Sentry #A)\nArreglar la lista de actualización de imágenes (Git # 30)\nManejar contraseñas con caracteres especiales para Synology (Git # 12)\nCorregir resultado vacío (centinela n. ° 9)\nPrepárese para las traducciones WebLate\nFijación de calidad (lgtm.com)\nIncluir actualizaciones de Dependabot",
+                "pl": "Obsługa błędu pobierania obrazu Synology 502 (Sentry #A)\nNapraw aktualizację listy zdjęć (Git # 30)\nObsługa haseł ze znakami specjalnymi dla Synology (Git # 12)\nNapraw pusty wynik (Działka nr 9)\nPrzygotuj się na tłumaczenia WebLate\nPoprawa jakości (lgtm.com)\nDołącz aktualizacje Dependabot",
+                "zh-cn": "处理Synology图片下载错误502（Sentry #A）\n修复更新图片列表（Git＃30）\n处理具有特殊字符的Synology密码（Git＃12）\n修正空结果（步骤9）\n准备WebLate翻译\n质量修复（lgtm.com）\n包括Dependabot更新"
+            },
             "0.1.2": {
                 "en": "Fix error with breadcrumb on Synology login",
                 "de": "Behebung eines Fehlers mit Breadcrumb bei der Synology-Anmeldung",
