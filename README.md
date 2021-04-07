@@ -150,6 +150,7 @@ The following configuration options exist:
 -->
 
 ### __WORK IN PROGRESS__
+* (Gaudes) Handle Synology picture download error 502 (Sentry #A)
 * (Gaudes) Fix update picture list (Git #30)
 * (Gaudes) Handle passwords with special characters for Synology (Git #12)
 * (Gaudes) Fix empty result (Sentry #9)

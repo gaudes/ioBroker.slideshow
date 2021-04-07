@@ -48,6 +48,7 @@ async function getPicture(Helper) {
 }
 exports.getPicture = getPicture;
 async function getPicturePrefetch(Helper) {
+    var _a;
     // Select Image from list
     try {
         if (CurrentImages.length !== 0) {
@@ -76,7 +77,12 @@ async function getPicturePrefetch(Helper) {
         CurrentPicture = { ...CurrentImage, url: `data:image/jpeg;base64,${PicContentB64}` };
     }
     catch (err) {
-        Helper.ReportingError(err, "Unknown Error", "Synology", "getPicturePrefetch/Retrieve");
+        if (((_a = err.response) === null || _a === void 0 ? void 0 : _a.status) === 502) {
+            Helper.ReportingError(err, `Unknown Error downloading Picture ${CurrentImage.path}`, "Synology", "getPicturePrefetch/Retrieve", "", false);
+        }
+        else {
+            Helper.ReportingError(err, "Unknown Error", "Synology", "getPicturePrefetch/Retrieve");
+        }
     }
 }
 exports.getPicturePrefetch = getPicturePrefetch;
