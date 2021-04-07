@@ -150,10 +150,12 @@ The following configuration options exist:
 -->
 
 ### __WORK IN PROGRESS__
-* (Gaudes) Handle passwords with special characters for Synology
+* (Gaudes) Fix update picture list (Git #30)
+* (Gaudes) Handle passwords with special characters for Synology (Git #12)
 * (Gaudes) Fix empty result (Sentry #9)
 * (Gaudes) Prepare for WebLate translations
 * (Gaudes) Quality fixing (lgtm.com)
+* (Gaudes) Include Dependabot updates
 
 ### 0.1.2 (2021-03-09)
 * (Gaudes) Fix error with breadcrumb on Synology login
