@@ -60,6 +60,7 @@ export async function getPicture(Helper: GlobalHelper): Promise<BingPicture | nu
 export async function updatePictureList(Helper: GlobalHelper): Promise<BingPictureListUpdateResult> {
 	// Getting List from Bing.com
 	try{
+		BingPictureList = [];
 		const WebResult = await axios.get(BingUrl);
 		Helper.ReportingInfo("Debug", "Bing", "Picture list received", { JSON: JSON.stringify(WebResult.data) });
 		((WebResult.data) as BingJSONImageList).images.forEach(Image =>{

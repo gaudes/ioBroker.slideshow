@@ -44,6 +44,7 @@ export async function getPicture(Helper: GlobalHelper): Promise<LocalPicture | n
 
 export async function updatePictureList(Helper: GlobalHelper): Promise<LocalPictureListUpdateResult> {
 	try{
+		CurrentImages = [];
 		const CurrentImageFiles = await (Helper.Adapter.readDirAsync("vis.0", "/slideshow"));
 		if (!(CurrentImageFiles.length > 0)){
 			Helper.ReportingError(null, "No pictures found in folder", "Local", "updatePictureList/List","", false);

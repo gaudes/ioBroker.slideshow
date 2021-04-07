@@ -81,6 +81,7 @@ async function getPicturePrefetch(Helper) {
 }
 exports.getPicturePrefetch = getPicturePrefetch;
 async function updatePictureList(Helper) {
+    CurrentImages = [];
     await loginSyno(Helper);
     const CurrentImageList = [{ path: "0", url: "", info1: "", info2: "", info3: "", date: null, x: 0, y: 0 }];
     if (synoConnectionState === true) {

@@ -38,6 +38,7 @@ exports.getPicture = getPicture;
 async function updatePictureList(Helper) {
     // Getting List from Bing.com
     try {
+        BingPictureList = [];
         const WebResult = await axios_1.default.get(BingUrl);
         Helper.ReportingInfo("Debug", "Bing", "Picture list received", { JSON: JSON.stringify(WebResult.data) });
         (WebResult.data).images.forEach(Image => {

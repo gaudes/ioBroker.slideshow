@@ -63,6 +63,7 @@ async function getPicture(Helper) {
 exports.getPicture = getPicture;
 async function updatePictureList(Helper) {
     try {
+        CurrentImages = [];
         // Check if folder exists
         if (!fs.existsSync(Helper.Adapter.config.fs_path)) {
             Helper.Adapter.log.error(`Folder ${Helper.Adapter.config.fs_path} does not exist`);

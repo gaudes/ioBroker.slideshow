@@ -75,6 +75,7 @@ export async function getPicturePrefetch(Helper: GlobalHelper): Promise<void> {
 }
 
 export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictureListUpdateResult> {
+	CurrentImages = [];
 	await loginSyno(Helper);
 	const CurrentImageList: SynoPicture[] = [ { path: "0", url: "", info1: "", info2: "", info3: "", date: null, x: 0, y: 0} ];
 	if (synoConnectionState === true){

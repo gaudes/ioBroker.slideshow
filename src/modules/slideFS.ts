@@ -54,6 +54,7 @@ export async function getPicture(Helper: GlobalHelper): Promise<FSPicture | null
 
 export async function updatePictureList(Helper: GlobalHelper): Promise<FSPictureListUpdateResult> {
 	try{
+		CurrentImages = [];
 		// Check if folder exists
 		if (! fs.existsSync(Helper.Adapter.config.fs_path)){
 			Helper.Adapter.log.error(`Folder ${Helper.Adapter.config.fs_path} does not exist`);
