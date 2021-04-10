@@ -181,12 +181,13 @@
         "update_interval": 10,
         "fs_path": "",
         "fs_format": 0,
+        "fs_order": 0,
         "sentry_disable": false,
         "syno_path": "",
         "syno_username": "",
         "syno_userpass": "",
-        "syno_order": 0,
-        "syno_format": 0
+        "syno_format": 0,
+        "syno_order": 0
     },
     "objects": [],
     "instanceObjects": [

@@ -50,7 +50,7 @@ Weitere Details und für Informationen zur Deaktivierung der Fehlerberichterstat
 ### Konfiguration
 In den Einstellungen des Adapters wird die Quelle der Bilder ausgewählt, außerdem das Intervall für den Wechsel der Bilder, beispielsweise 10 Sekunden.
 
-Bei Auswahl der Quelle "Dateisystem" kann dann noch der Pfad im Dateisystem ausgewählt werden, außerdem das Format (Hoch- oder Querformat) der anzuzeigenden Bilder.
+Bei Auswahl der Quelle "Dateisystem" kann dann noch der Pfad im Dateisystem ausgewählt werden, außerdem das Format (Hoch- oder Querformat) der anzuzeigenden Bilder sowie die Reihenfolge.
 
 Bei Auswahl der Quelle "Synology PhotoStation" muss die IP-Adresse oder der Hostname sowie Benutzername und Passwort angegeben werden. Download von Bildern durch Benutzer muss in den Einstellungen von PhotoStation aktiviert sein.
 
@@ -111,7 +111,7 @@ For more details and for information how to disable the error reporting see [Sen
 ### Configuration
 In the Adapter settings the picture source can be choosen. Although the interval for picture change.
 
-When source "File system" is selected, the path can be entered and the format (landscape or portrait) of the pictures to be shown.
+When source "File system" is selected, the path can be entered and the format (landscape or portrait) of the pictures to be shown. Also the order can be configured.
 
 When source "Synology PhotoStation" is selected, the IP address or hostname and an username with password has to be configured. Download of pictures has to be enabled in PhotoStation settings.
 
@@ -148,6 +148,9 @@ The following configuration options exist:
 	Placeholder for the next version (at the beginning of the line):
 	### __WORK IN PROGRESS__
 -->
+
+### __WORK IN PROGRESS__
+* (Gaudes) Configurable order for Filesystem (Git #37)
 
 ### 0.1.3 (2021-04-07)
 * (Gaudes) Handle Synology picture download error 502 (Sentry #A)

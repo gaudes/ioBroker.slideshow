@@ -110,12 +110,46 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 			}
 		}
 
+		// Sort
+		switch (Helper.Adapter.config.fs_order){
+			case 1:
+				//Filename
+				Helper.ReportingInfo("Debug", "Filesystem", "Sort pictures by filename");
+				CurrentImages.sort((a,b) => (a.path > b.path) ? 1 : ((b.path > a.path) ? -1 : 0))
+				break;
+			case 3:
+				// Random order ?
+				Helper.ReportingInfo("Debug", "Filesystem", "Sort pictures random");
+				// See https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+				for (let i = CurrentImages.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[CurrentImages[i], CurrentImages[j]] = [CurrentImages[j], CurrentImages[i]];
+				}
+				break;
+			default:
+				//Takendate
+				Helper.ReportingInfo("Debug", "Filesystem", "Sort pictures by takendate");
+				CurrentImages.sort((a, b) => {
+					if (a.date !== null && b.date !== null){
+						if ( a.date < b.date ){
+							return -1;
+						}
+						if ( a.date > b.date ){
+							return 1;
+						}
+					}
+					return 0;
+				} )
+				break;
+		}
+
 		// Images found ?
 		if (!(CurrentImages.length > 0)){
 			Helper.ReportingError(null, "No pictures found in folder", "Filesystem", "updatePictureList","", false);
 			return { success: false, picturecount: 0 };
 		}else{
 			Helper.ReportingInfo("Info", "Filesystem", `${CurrentImages.length} pictures found in folder ${Helper.Adapter.config.fs_path}`, {JSON: JSON.stringify(CurrentImages.slice(0, 99))} );
+			Helper.ReportingInfo("Debug", "Filesystem", `Pictures: ${JSON.stringify(CurrentImages.slice(0, 99))}`)
 			return { success: true, picturecount: CurrentImages.length };
 		}
 	}catch(err) {

@@ -9,11 +9,12 @@ declare global {
 			sentry_disable: boolean;
 			fs_path: string;
 			fs_format: number;
+			fs_order: number;
 			syno_path: string;
 			syno_username: string;
 			syno_userpass: string;
-			syno_order: number;
 			syno_format: number;
+			syno_order: number;
 		}
 	}
 }
