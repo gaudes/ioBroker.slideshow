@@ -28,5 +28,6 @@
     "syno_username": "Имя пользователя для Synology PhotoStation",
     "syno_userpass": "Пароль для Synology PhotoStation",
     "tab_general": "настройки",
-    "update_interval": "интервал смены изображения в секундах"
+    "update_interval": "интервал смены изображения в секундах",
+    "update_picture_list": "обновлять список изображений каждые n часов, 0 = отключено"
 }

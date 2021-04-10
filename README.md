@@ -49,6 +49,7 @@ Weitere Details und für Informationen zur Deaktivierung der Fehlerberichterstat
 
 ### Konfiguration
 In den Einstellungen des Adapters wird die Quelle der Bilder ausgewählt, außerdem das Intervall für den Wechsel der Bilder, beispielsweise 10 Sekunden.
+Außerdem kann eingestellt werden, wie oft die Liste der Bilder aktualisiert werden soll. Die Einstellung erfolgt in Stunden, bei 0 ist die automatische Aktualisierung deaktiviert.
 
 Bei Auswahl der Quelle "Dateisystem" kann dann noch der Pfad im Dateisystem ausgewählt werden, außerdem das Format (Hoch- oder Querformat) der anzuzeigenden Bilder sowie die Reihenfolge.
 
@@ -110,6 +111,7 @@ For more details and for information how to disable the error reporting see [Sen
 
 ### Configuration
 In the Adapter settings the picture source can be choosen. Although the interval for picture change.
+Also configurable is how often the list of images should be updated. The setting is made in hours, 0 disables the automatic update.
 
 When source "File system" is selected, the path can be entered and the format (landscape or portrait) of the pictures to be shown. Also the order can be configured.
 
@@ -151,6 +153,7 @@ The following configuration options exist:
 
 ### __WORK IN PROGRESS__
 * (Gaudes) Configurable order for Filesystem (Git #37)
+* (Gaudes) Configurable picture list update every n hours (Git #41)
 
 ### 0.1.3 (2021-04-07)
 * (Gaudes) Handle Synology picture download error 502 (Sentry #A)

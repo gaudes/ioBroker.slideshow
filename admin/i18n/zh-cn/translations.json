@@ -28,5 +28,6 @@
     "syno_username": "Synology PhotoStation的用户名",
     "syno_userpass": "Synology PhotoStation的密码",
     "tab_general": "设定值",
-    "update_interval": "图片更改间隔（以秒为单位）"
+    "update_interval": "图片更改间隔（以秒为单位）",
+    "update_picture_list": "每n小时更新图片列表，0 =禁用"
 }

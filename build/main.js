@@ -139,15 +139,16 @@ class Slideshow extends utils.Adapter {
             Helper.ReportingError(err, MsgErrUnknown, "updatePictureStoreTimer", "Call Timer Action");
         }
         try {
-            if (this.config.provider === 1 && updatePictureStoreResult.success === true) {
+            if (this.config.update_picture_list && this.config.update_picture_list > 0 && updatePictureStoreResult.success === true) {
+                Helper.ReportingInfo("Debug", "updatePictureStoreTimer", `Update every ${this.config.update_picture_list} hours, starting timer`);
                 this.tUpdatePictureStoreTimeout = setTimeout(() => {
                     this.updatePictureStoreTimer();
-                }, (this.config.update_interval * 3600000)); // Update every hour if successfull
+                }, (this.config.update_picture_list * 3600000)); // Update every configured hours if successfull
             }
-            else if (this.config.provider === 1) {
+            else if (updatePictureStoreResult.success === false) {
                 this.tUpdatePictureStoreTimeout = setTimeout(() => {
                     this.updatePictureStoreTimer();
-                }, (this.config.update_interval * 60000)); // Update every minute if error
+                }, (this.config.update_interval * 300000)); // Update every minute if error
             }
             if (updatePictureStoreResult.success === true && updatePictureStoreResult.picturecount > 0) {
                 // Save picturecount

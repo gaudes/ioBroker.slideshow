@@ -6,6 +6,7 @@ declare global {
 		interface AdapterConfig {
 			provider: number;
 			update_interval: number;
+			update_picture_list: number;
 			sentry_disable: boolean;
 			fs_path: string;
 			fs_format: number;

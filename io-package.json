@@ -179,6 +179,7 @@
     "native": {
         "provider": 1,
         "update_interval": 10,
+        "update_picture_list": 0,
         "fs_path": "",
         "fs_format": 0,
         "fs_order": 0,
