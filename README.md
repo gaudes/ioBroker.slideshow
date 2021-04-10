@@ -52,7 +52,7 @@ In den Einstellungen des Adapters wird die Quelle der Bilder ausgewählt, außer
 
 Bei Auswahl der Quelle "Dateisystem" kann dann noch der Pfad im Dateisystem ausgewählt werden, außerdem das Format (Hoch- oder Querformat) der anzuzeigenden Bilder.
 
-Bei Auswahl der Quelle "Synology PhotoStation" muss die IP-Adresse oder der Hostname sowie Benutzername und Passwort angegeben werden.
+Bei Auswahl der Quelle "Synology PhotoStation" muss die IP-Adresse oder der Hostname sowie Benutzername und Passwort angegeben werden. Download von Bildern durch Benutzer muss in den Einstellungen von PhotoStation aktiviert sein.
 
 ### VIS-Widget
 Das Widget ist in der Kategorie "slideshow" enthalten.
@@ -113,7 +113,7 @@ In the Adapter settings the picture source can be choosen. Although the interval
 
 When source "File system" is selected, the path can be entered and the format (landscape or portrait) of the pictures to be shown.
 
-When source "Synology PhotoStation" is selected, the IP address or hostname and an username with password has to be configured.
+When source "Synology PhotoStation" is selected, the IP address or hostname and an username with password has to be configured. Download of pictures has to be enabled in PhotoStation settings.
 
 Attention:  After changes (Adding or Deleting) a restart of the adapter is required.
 
