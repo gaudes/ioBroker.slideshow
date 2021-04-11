@@ -71,7 +71,7 @@ export async function getPicturePrefetch(Helper: GlobalHelper): Promise<void> {
 		CurrentPicture = { ...CurrentImage, url: `data:image/jpeg;base64,${PicContentB64}` };
 	} catch (err){
 		if (err.response?.status === 502){
-			Helper.ReportingError(err, `Unknown Error downloading Picture ${CurrentImage.path}`, "Synology", "getPicturePrefetch/Retrieve", "", false)
+			Helper.ReportingError(err, `Unknown Error downloading Picture ${CurrentImage.path}`, "Synology", "getPicturePrefetch/Retrieve", "", false);
 		}else{
 			Helper.ReportingError(err, "Unknown Error", "Synology", "getPicturePrefetch/Retrieve");
 		}
