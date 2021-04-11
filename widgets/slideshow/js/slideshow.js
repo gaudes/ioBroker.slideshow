@@ -108,6 +108,30 @@ $.extend(
 			"pl": "Docelowy widok po wyjściu z pokazu slajdów za pomocą kliknięcia na zdjęcie",
 			"zh-cn": "单击图片离开幻灯片放映时的目标视图"
 		},
+		"Debug":{
+			"en": "Debug",
+			"de": "Debuggen",
+			"ru": "Отлаживать",
+			"pt": "Depurar",
+			"nl": "Foutopsporing",
+			"fr": "Déboguer",
+			"it": "Debug",
+			"es": "Depurar",
+			"pl": "Odpluskwić",
+			"zh-cn": "除错"
+		},
+		"Debug_tooltip":{
+			"en": "Debugging to Console",
+			"de": "Debuggen in die Konsole",
+			"ru": "Отладка в консоль",
+			"pt": "Depuração para console",
+			"nl": "Foutopsporing naar console",
+			"fr": "Débogage vers la console",
+			"it": "Debug sulla console",
+			"es": "Depurando a la consola",
+			"pl": "Debugowanie do konsoli",
+			"zh-cn": "调试到控制台"
+		},
 		"SlideShowEffect":{
 			"en": "Effect style",
 			"de": "Effektstil",
@@ -359,6 +383,7 @@ vis.binds["slideshow"] = {
 		let FadeTime = parseInt(data.FadeTime) || 0;
 
 		function onChange(e, newVal, oldVal) {
+			if (data.Debug === true){ console.log("Picture change occured")};
 			switch(data.SlideshowEffect){
 				case "EffectFade":
 					$('.slideshowpicture1').fadeOut(FadeTime, function() {
@@ -368,8 +393,17 @@ vis.binds["slideshow"] = {
 					});
 					break;
 				case "EffectTransition":
-					$(".slideshowpicturehidden").attr("src", newVal);
-					$(".slideshowpicture").toggleClass("slideshowpicturehidden");
+					if (data.Debug === true){ console.log("Load new picture in hidden img")};
+					$(".slideshowpicturehidden").load(function(){
+						if (data.Debug === true){ console.log("Toggle hidden class")};
+						if ($(this)[0].classList.contains("slideshowpicture1")){
+							$(".slideshowpicture2").addClass("slideshowpicturehidden");
+							$(".slideshowpicture1").removeClass("slideshowpicturehidden");
+						} else{
+							$(".slideshowpicture1").addClass("slideshowpicturehidden");
+							$(".slideshowpicture2").removeClass("slideshowpicturehidden");
+						}  
+					}).attr("src", newVal);
 					break;
 				case "EffectJQuery":
 					console.log(`Starting effect ${data.EffectJQuery}`)
