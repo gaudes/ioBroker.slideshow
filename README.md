@@ -62,7 +62,11 @@ Das Widget sollte in eine eigene View integriert werden. Hierdurch lässt sich d
 
 Folgende Einstellungen sind möglich:
 
-* Object-ID: Hier muss der vom Adapter erzeugte Datenpunkt ausgewählt werden, beispielsweise "slideshow.0.picture"
+* Abschnitt "Allgemein"
+	* Object-ID: Hier muss der vom Adapter erzeugte Datenpunkt ausgewählt werden, beispielsweise "slideshow.0.picture"
+	* Widget mit Bild füllen
+		* True (Standard) = Bild füllt das Widget, der Bildrand ist möglicherweise abgeschnitten
+		* False = Das vollständige Bild wird angezeigt, das Widget kann jedoch leere Zonen haben
 * Abschnitt "Effekt"
 	* SlideshowEffect: Als Effekt kann zwischen folgenden gewählt werden:
 		* "Kein"
@@ -126,7 +130,11 @@ The widget should be integrated in an own view, so the automatic start of the Sl
 
 The following configuration options exist:
 
-* Object-ID: The ioBroker object created by the adapter must be provided, for example "slideshow.0.picture"
+* Category "Common"
+	* Object-ID: The ioBroker object created by the adapter must be provided, for example "slideshow.0.picture"
+	* Fill widget with picture
+		* True (Default) = Picture fills widget, border of picture may be cut off
+		* False = Complete picture is shown, but widget may have empty zones
 * Category "Effect"
 	* SlideshowEffect: The following options are available:
 		* "None"
@@ -155,6 +163,7 @@ The following configuration options exist:
 * (Gaudes) Configurable order for Filesystem (Git #37)
 * (Gaudes) Configurable picture list update every n hours (Git #41)
 * (Gaudes) Fix toggleClass for effect Transition (Git #42)
+* (Gaudes) Configurable picture filling in widget (Git #38)
 
 ### 0.1.3 (2021-04-07)
 * (Gaudes) Handle Synology picture download error 502 (Sentry #A)

@@ -108,6 +108,30 @@ $.extend(
 			"pl": "Docelowy widok po wyjściu z pokazu slajdów za pomocą kliknięcia na zdjęcie",
 			"zh-cn": "单击图片离开幻灯片放映时的目标视图"
 		},
+		"PictureFitWidget":{
+			"en": "Fill widget with picture",
+			"de": "Widget mit Bild füllen",
+			"ru": "Заполнить виджет картинкой",
+			"pt": "Preencher widget com imagem",
+			"nl": "Vul widget met afbeelding",
+			"fr": "Remplir le widget avec une image",
+			"it": "Riempi il widget con l'immagine",
+			"es": "Rellenar widget con imagen",
+			"pl": "Wypełnij widżet obrazem",
+			"zh-cn": "用图片填充小部件"
+		},
+		"PictureFitWidget_tooltip":{
+			"en": "True = Picture fills widget, border of picture may be cut off\nFalse = Complete picture is shown, but widget may have empty zones",
+			"de": "True = Bild füllt das Widget, der Bildrand ist möglicherweise abgeschnitten \nFalse = Das vollständige Bild wird angezeigt, das Widget kann jedoch leere Zonen haben",
+			"ru": "True = изображение заполняет виджет, граница изображения может быть обрезана \nFalse = изображение отображается полностью, но виджет может иметь пустые зоны",
+			"pt": "True = A imagem preenche o widget, a borda da imagem pode ser cortada \nFalse = A imagem completa é exibida, mas o widget pode ter zonas vazias",
+			"nl": "True = Widget afbeelding vult, rand van afbeelding kan worden afgesneden \nFalse = Volledige afbeelding wordt weergegeven, maar widget kan lege zones hebben",
+			"fr": "True = L'image remplit le widget, la bordure de l'image peut être coupée \nFalse = L'image complète est affichée, mais le widget peut avoir des zones vides",
+			"it": "Vero = Widget riempimenti immagine, il bordo dell'immagine potrebbe essere tagliato \nFalse = Viene visualizzata l'immagine completa, ma il widget potrebbe avere zone vuote",
+			"es": "Verdadero = La imagen llena el widget, el borde de la imagen puede estar cortado \nFalse = Se muestra la imagen completa, pero el widget puede tener zonas vacías",
+			"pl": "True = Widżet wypełnia obraz, krawędź obrazu może zostać obcięta \nFalse = Wyświetlany jest cały obraz, ale widżet może mieć puste strefy",
+			"zh-cn": "True =图片填充小部件，图片的边框可能被剪掉\nFalse =显示完整图片，但小部件可能有空白区域"
+		},
 		"Debug":{
 			"en": "Debug",
 			"de": "Debuggen",
@@ -438,21 +462,25 @@ vis.binds["slideshow"] = {
 		})
 
 		function SlideShowFitImage(image){
-			const imgFormat = image.naturalWidth / image.naturalHeight;
-  			if (imgFormat > 1) {
-				// image is landscape
-				image.style.width = '100%';
-				image.style.height = '100%';
-			} else if (imgFormat < 1) {
-				// image is portrait
-				image.style.width = 'auto';
-			  	image.style.height = '100%';
-			} else {
-				// image is square
-				image.style.maxWidth = '100%';
-				image.style.height = '100%';
+			if (data.PictureFitWidget === false){
+				$(".slideshowpicture").css("object-fit", "contain");
+			}else{ 	
+				const imgFormat = image.naturalWidth / image.naturalHeight;
+				if (imgFormat > 1) {
+					// image is landscape
+					image.style.width = '100%';
+					image.style.maxHeight = '100%';
+				} else if (imgFormat < 1) {
+					// image is portrait
+					image.style.width = '100%';
+			  		image.style.maxHeight = '100%';
+				} else {
+					// image is square
+					image.style.Width = '100%';
+					image.style.maxHeight = '100%';
+				}	
 			}
-		} 
+		}
 
 		if (vis.editMode){
 			setTimeout(function () {
