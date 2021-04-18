@@ -159,7 +159,7 @@ The following configuration options exist:
 	### __WORK IN PROGRESS__
 -->
 
-### __WORK IN PROGRESS__
+### 0.1.4 (2021-04-18)
 * (Gaudes) Configurable order for Filesystem (Git #37)
 * (Gaudes) Configurable picture list update every n hours (Git #41)
 * (Gaudes) Fix toggleClass for effect Transition (Git #42)
