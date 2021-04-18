@@ -165,6 +165,7 @@ The following configuration options exist:
 * (Gaudes) Fix toggleClass for effect Transition (Git #42)
 * (Gaudes) Configurable picture filling in widget (Git #38)
 * (Gaudes) Fix for multiple widgets (Git #44)
+* (Gaudes) Include Dependabot updates
 
 ### 0.1.3 (2021-04-07)
 * (Gaudes) Handle Synology picture download error 502 (Sentry #A)
