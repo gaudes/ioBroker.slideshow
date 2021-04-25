@@ -85,6 +85,22 @@ Folgende Einstellungen sind möglich:
 		* Kein, falls beispielsweise ein eigener Button integriert werden soll
 	* Zielansicht: Aufzurufende Ansicht beim Verlassen der Diashow
 
+### FAQ
+
+**Quelle Dateisystem**
+
+Können Netzlaufwerke eingebunden werden?
+
+Ja, aber nicht direkt durch den Adapter. ioBroker unterstützt mittlerweile sehr viele Betriebssysteme. Der Zugriff und das Verbinden von Netzwerkfreigaben ist je nach Betriebssystem komplett unterschiedlich. Teilweise werden auch weitere Komponenten wie z.B. Samba bei Linux benötigt. Das Verbinden des Netzlaufwerks (Mappen bzw. Mount) kann aber direkt über das Betriebssystem durchgeführt werden. Unter Linux erfolgt der Mount in ein angegebenes Verzeichnis, z.B. /mnt/pictures. Dieses Verzeichnis kann dann in der Adapter-Konfiguration verwendet werden.
+
+**Synology**
+
+Können für Synology PhotoStation weitere Einstellungen wie z.B. Auswahl des Albums integriert werden?
+Kann DSM 7 (Synology Photos) unterstützt werden?
+
+Synology PhotoStation wird mit DSM 6 enden. Der Nachfolger, Synology Photos, erscheint mit DSM 7. DSM 7 ist aktuell noch Beta, die finale Version wird vermutlich Sommer 2021 erscheinen. Vermutlich ändert sich auch die Entwickler-Schnittstelle. Daher investiere ich keinen Aufwand mehr in die bisherige Version. Sobald DSM 7 offiziell erscheint werden ich die Integration prüfen. Leider gab es für die bisherige Version keine offizielle Dokumentation von Synology.
+Der Zugriff auf bestimmte Fotoalben bzw. Ordner kann jedoch in der aktuellen Version von PhotoStation einfach realisiert werden. Hierzu unter DSM einen Benutzer für Slideshow anlegen und diesem Benutzer in der PhotoStation nur Berechtigungen auf die gewünschten Fotoalben bzw. Ordner geben.
+
 ## <a name="english"></a>Slideshow Adapter for ioBroker
 This Adapter for ioBroker provides a Slideshow for VIS, like a screensaver.
 
@@ -152,6 +168,22 @@ The following configuration options exist:
 		* Configured view (see next setting)
 		* None, for example when integrating another widget therefore
 	* Target view: View to show when leaving Slideshow
+
+### FAQ
+
+**Source FileSystem**
+
+Can network drives be integrated?
+
+Yes, but not directly through the adapter. ioBroker now supports a large number of operating systems. Accessing and connecting network shares is completely different depending on the operating system. In some cases, additional components such as Samba for Linux are also required. The connection of the network drive (mapping or mount) can  be done directly by the operating system. Under Linux, the mount takes place in a specified directory, e.g. / mnt / pictures. This directory can then be used in the adapter configuration.
+
+**Source Synology**
+
+Can additional settings like album selection be integrated for Synology PhotoStation?
+Can DSM 7 (Synology Photos) be supported?
+
+Synology PhotoStation will end with DSM 6. The successor, Synology Photos, appears with DSM 7. DSM 7 is currently still beta, the final version will probably appear in summer 2021. Presumably the developer interface will also change. So I won't invest any more effort in the previous version. As soon as DSM 7 is officially released, I will check the integration. Unfortunately, there was no official Synology documentation for the previous version.
+However, access to certain photo albums or folders can easily be implemented in the current version of PhotoStation. To do this, create a user for slideshow under DSM and only give this user permissions to the desired photo albums or folders in the PhotoStation.
 
 ## Changelog
 <!--
