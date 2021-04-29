@@ -78,6 +78,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<BingPictu
 				BingPictureList = [ {bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate} ];
 			}
 		});
+		Helper.ReportingInfo("Debug", "Bing", `Picture List from Bing: ${JSON.stringify(BingPictureList)}`,{JSON: JSON.stringify(BingPictureList.slice(0,10))});
 	} catch (err) {
 		Helper.ReportingError(err, "Unknown Error", "Bing", "updatePictureList/List");
 		return { success: false, picturecount: 0};
