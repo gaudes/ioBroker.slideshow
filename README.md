@@ -247,7 +247,7 @@ However, access to certain photo albums or folders can easily be implemented in 
 ## License
 MIT License
 
-Copyright (c) 2020 Gaudes <ralf@gaudes.net>
+Copyright (c) 2021 Gaudes <ralf@gaudes.net>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
