@@ -1,5 +1,5 @@
 {
-    "Instance": "Инстанция",
+    "Instance": "Экземпляр",
     "config_check_log": "Пожалуйста, проверьте правильность конфигурации после сохранения в журнале ioBroker",
     "display_order": "последовательность",
     "display_order_createdate": "Дата создания",
