@@ -53,7 +53,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                node-version: [12.x, 14.x, 16.x]
+                node-version: [10.x, 12.x, 14.x]
                 os: [ubuntu-latest, windows-latest, macos-latest]
 
         steps:
@@ -73,7 +73,7 @@ jobs:
 
             - name: Run integration tests (unix only)
               if: startsWith(runner.OS, 'windows') == false
-              run: DEBUG=testing:* npm run test:integration --verbose
+              run: DEBUG=testing:* npm run test:integration
 
             - name: Run integration tests (windows only)
               if: startsWith(runner.OS, 'windows')
