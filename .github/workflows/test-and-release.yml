@@ -73,7 +73,7 @@ jobs:
 
             - name: Run integration tests (unix only)
               if: startsWith(runner.OS, 'windows') == false
-              run: DEBUG=testing:* npm run test:integration
+              run: DEBUG=testing:* npm run test:integration --verbose
 
             - name: Run integration tests (windows only)
               if: startsWith(runner.OS, 'windows')
