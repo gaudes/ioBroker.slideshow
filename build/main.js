@@ -47,6 +47,7 @@ class Slideshow extends utils.Adapter {
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
         this.on("unload", this.onUnload.bind(this));
+        this.isUnloaded = false;
     }
     /**
      * Is called when databases are connected and adapter received configuration.
@@ -101,6 +102,7 @@ class Slideshow extends utils.Adapter {
      */
     onUnload(callback) {
         try {
+            this.isUnloaded = true;
             clearTimeout(this.tUpdateCurrentPictureTimeout);
             clearTimeout(this.tUpdatePictureStoreTimeout);
             callback();
@@ -150,7 +152,7 @@ class Slideshow extends utils.Adapter {
                     this.updatePictureStoreTimer();
                 }, (this.config.update_interval * 300000)); // Update every minute if error
             }
-            if (updatePictureStoreResult.success === true && updatePictureStoreResult.picturecount > 0) {
+            if (updatePictureStoreResult.success === true && updatePictureStoreResult.picturecount > 0 && this.isUnloaded === false) {
                 // Save picturecount
                 await this.setObjectNotExistsAsync("picturecount", {
                     type: "state",
@@ -209,7 +211,7 @@ class Slideshow extends utils.Adapter {
             Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Call Timer Action");
         }
         try {
-            if (CurrentPictureResult !== null) {
+            if (CurrentPictureResult !== null && this.isUnloaded === false) {
                 Helper.ReportingInfo("Debug", Provider, `Set picture to ${CurrentPictureResult.path}`);
                 // Set picture
                 await this.setObjectNotExistsAsync("picture", {

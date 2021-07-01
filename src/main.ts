@@ -31,6 +31,8 @@ interface PictureListUpdateResult{
 
 class Slideshow extends utils.Adapter {
 
+	isUnloaded: boolean;
+
 	//#region Basic Adapter Functions
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -41,6 +43,8 @@ class Slideshow extends utils.Adapter {
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
 		this.on("unload", this.onUnload.bind(this));
+
+		this.isUnloaded = false;
 	}
 
 	/**
@@ -98,6 +102,7 @@ class Slideshow extends utils.Adapter {
 	 */
 	private onUnload(callback: () => void): void {
 		try {
+			this.isUnloaded = true;
 			clearTimeout(this.tUpdateCurrentPictureTimeout);
 			clearTimeout(this.tUpdatePictureStoreTimeout);
 			callback();
@@ -151,7 +156,7 @@ class Slideshow extends utils.Adapter {
 					this.updatePictureStoreTimer();
 				}, (this.config.update_interval * 300000)); // Update every minute if error
 			}
-			if (updatePictureStoreResult.success === true && updatePictureStoreResult.picturecount > 0){
+			if (updatePictureStoreResult.success === true && updatePictureStoreResult.picturecount > 0 && this.isUnloaded === false){
 				// Save picturecount
 				await this.setObjectNotExistsAsync("picturecount", {
 					type: "state",
@@ -208,7 +213,7 @@ class Slideshow extends utils.Adapter {
 			Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Call Timer Action");
 		}
 		try{
-			if (CurrentPictureResult !== null){
+			if (CurrentPictureResult !== null && this.isUnloaded === false){
 				Helper.ReportingInfo("Debug", Provider, `Set picture to ${CurrentPictureResult.path}`);
 				// Set picture
 				await this.setObjectNotExistsAsync("picture", {
