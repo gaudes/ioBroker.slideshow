@@ -27,7 +27,7 @@
     "@alcalzone/release-script": "^2.2.1",
     "@iobroker/testing": "^2.4.4",
     "@sentry/types": "^6.10.0",
-    "@types/chai": "^4.2.19",
+    "@types/chai": "^4.2.21",
     "@types/chai-as-promised": "^7.1.4",
     "@types/gulp": "^4.0.9",
     "@types/image-size": "^0.8.0",
