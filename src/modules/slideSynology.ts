@@ -1,8 +1,8 @@
 import { GlobalHelper } from "./global-helper";
 import axios, { AxiosError } from "axios";
 import {
-	AxiosInstance,
-	AxiosResponse
+	AxiosInstance
+	// ,AxiosResponse
 } from "axios";
 import * as path from "path";
 
