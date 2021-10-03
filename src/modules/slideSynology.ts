@@ -66,7 +66,7 @@ export async function getPicturePrefetch(Helper: GlobalHelper): Promise<void> {
 	try{
 		await loginSyno(Helper);
 		const synURL = `http://${Helper.Adapter.config.syno_path}/photo/webapi/download.php?api=SYNO.PhotoStation.Download&method=getphoto&version=1&id=${CurrentImage.path}&download=true`;
-		const synResult: AxiosResponse = await synoConnection.get(synURL,{responseType: "arraybuffer"});
+		const synResult = await synoConnection.get<any>(synURL,{responseType: "arraybuffer"});
 		const PicContentB64 = synResult.data.toString("base64");
 		CurrentPicture = { ...CurrentImage, url: `data:image/jpeg;base64,${PicContentB64}` };
 	} catch (err){
@@ -103,7 +103,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictu
 						synURL = synURL + "&sort_by=takendate";
 						break;
 				}
-				const synResult: AxiosResponse = await (synoConnection.get(synURL));
+				const synResult = await (synoConnection.get<any>(synURL));
 				if (synResult.data["success"] === true && Array.isArray(synResult.data["data"]["items"])){
 					synResult.data["data"]["items"].forEach(element => {
 						let PictureDate: Date | null = null;
@@ -213,9 +213,9 @@ async function loginSyno(Helper: GlobalHelper): Promise<boolean>{
 	} else{
 		// Run Login
 		try{
-			const synResult: AxiosResponse = await (synoConnection.get(`http://${Helper.Adapter.config.syno_path}/photo/webapi/auth.php?api=SYNO.PhotoStation.Auth&method=login&version=1&username=${Helper.Adapter.config.syno_username}&password=${encodeURIComponent(Helper.Adapter.config.syno_userpass)}`));
+			const synResult = await (synoConnection.get<any>(`http://${Helper.Adapter.config.syno_path}/photo/webapi/auth.php?api=SYNO.PhotoStation.Auth&method=login&version=1&username=${Helper.Adapter.config.syno_username}&password=${encodeURIComponent(Helper.Adapter.config.syno_userpass)}`));
 			Helper.ReportingInfo("Debug", "Synology", "Synology result data", { result: synResult } );
-			if (synResult.data && synResult.data["data"] && synResult.data["data"]["username"] === Helper.Adapter.config.syno_username){
+			if (synResult.data && synResult.data["data"] && synResult.data["data"]["username"] === Helper.Adapter.config.syno_username && synoConnection.defaults?.headers?.Cookie){
 				synoConnection.defaults.headers.Cookie = synResult.headers["set-cookie"][0];
 				synoConnectionState = true;
 				Helper.ReportingInfo("Debug", "Synology", "Synology Login successfull");
@@ -244,7 +244,7 @@ async function loginSyno(Helper: GlobalHelper): Promise<boolean>{
 
 async function synoCheckConnection(Helper: GlobalHelper): Promise<boolean>{
 	try{
-		const synResult: AxiosResponse = await (synoConnection.get(`http://${Helper.Adapter.config.syno_path}/photo/webapi/auth.php?api=SYNO.PhotoStation.Auth&method=checkauth&version=1`));
+		const synResult = await (synoConnection.get<any>(`http://${Helper.Adapter.config.syno_path}/photo/webapi/auth.php?api=SYNO.PhotoStation.Auth&method=checkauth&version=1`));
 		if (synResult.status === 200){
 			if (synResult.data.data?.username === Helper.Adapter.config.syno_username){
 				synoConnectionState = true;
