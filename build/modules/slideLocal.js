@@ -42,7 +42,7 @@ async function updatePictureList(Helper) {
         else {
             await Promise.all(CurrentImageFiles.map(async (file) => {
                 const CurrentImageFile = await Helper.Adapter.readFileAsync("vis.0", `/slideshow/${file.file}`);
-                const fileInfo = await exif_1.getPictureInformation(Helper, CurrentImageFile.file);
+                const fileInfo = await (0, exif_1.getPictureInformation)(Helper, CurrentImageFile.file);
                 let info1, info2, info3 = "";
                 let date = null;
                 (fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info1) ? info1 = fileInfo === null || fileInfo === void 0 ? void 0 : fileInfo.info1 : info1 = "";

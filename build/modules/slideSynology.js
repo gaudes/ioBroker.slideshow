@@ -205,7 +205,7 @@ async function updatePictureList(Helper) {
 }
 exports.updatePictureList = updatePictureList;
 async function loginSyno(Helper) {
-    var _a;
+    var _a, _b, _c;
     // Check parameters
     try {
         if (Helper.Adapter.config.syno_path === "" || Helper.Adapter.config.syno_path === null) {
@@ -235,7 +235,7 @@ async function loginSyno(Helper) {
         try {
             const synResult = await (synoConnection.get(`http://${Helper.Adapter.config.syno_path}/photo/webapi/auth.php?api=SYNO.PhotoStation.Auth&method=login&version=1&username=${Helper.Adapter.config.syno_username}&password=${encodeURIComponent(Helper.Adapter.config.syno_userpass)}`));
             Helper.ReportingInfo("Debug", "Synology", "Synology result data", { result: synResult });
-            if (synResult.data && synResult.data["data"] && synResult.data["data"]["username"] === Helper.Adapter.config.syno_username) {
+            if (synResult.data && synResult.data["data"] && synResult.data["data"]["username"] === Helper.Adapter.config.syno_username && ((_b = (_a = synoConnection.defaults) === null || _a === void 0 ? void 0 : _a.headers) === null || _b === void 0 ? void 0 : _b.Cookie)) {
                 synoConnection.defaults.headers.Cookie = synResult.headers["set-cookie"][0];
                 synoConnectionState = true;
                 Helper.ReportingInfo("Debug", "Synology", "Synology Login successfull");
@@ -248,7 +248,7 @@ async function loginSyno(Helper) {
             }
         }
         catch (err) {
-            if (((_a = err.response) === null || _a === void 0 ? void 0 : _a.status) === 403) {
+            if (((_c = err.response) === null || _c === void 0 ? void 0 : _c.status) === 403) {
                 synoConnectionState = false;
                 return false;
             }
