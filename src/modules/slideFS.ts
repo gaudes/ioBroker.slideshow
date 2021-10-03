@@ -47,7 +47,7 @@ export async function getPicture(Helper: GlobalHelper): Promise<FSPicture | null
 		}
 		return null;
 	}catch(err){
-		Helper.ReportingError(err, "Unknown Error", "Filesystem", "getPicture");
+		Helper.ReportingError(err as Error, "Unknown Error", "Filesystem", "getPicture");
 		return null;
 	}
 }
@@ -153,7 +153,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 			return { success: true, picturecount: CurrentImages.length };
 		}
 	}catch(err) {
-		Helper.ReportingError(err, "Unknown Error", "Filesystem", "updatePictureList");
+		Helper.ReportingError(err as Error, "Unknown Error", "Filesystem", "updatePictureList");
 		return { success: false, picturecount: 0 };
 	}
 }
@@ -170,7 +170,7 @@ async function getAllFiles(Helper: GlobalHelper, dirPath: string, _arrayOfFiles:
 			}
 		})
 	} catch (err){
-		Helper.ReportingError(err, `Error scanning files: ${err} `, "Filesystem", "getAllFiles", "", false);
+		Helper.ReportingError(err as Error, `Error scanning files: ${err} `, "Filesystem", "getAllFiles", "", false);
 	}
 	return _arrayOfFiles;
 }

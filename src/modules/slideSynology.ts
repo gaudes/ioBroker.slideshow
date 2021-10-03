@@ -1,5 +1,5 @@
 import { GlobalHelper } from "./global-helper";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import {
 	AxiosInstance,
 	AxiosResponse
@@ -40,7 +40,7 @@ export async function getPicture(Helper: GlobalHelper): Promise<SynoPicture | nu
 		getPicturePrefetch(Helper);
 		return CurrentPictureResult;
 	} catch (err){
-		Helper.ReportingError(err, "Unknown Error", "Synology", "getPicture");
+		Helper.ReportingError(err as Error, "Unknown Error", "Synology", "getPicture");
 		return null;
 	}
 }
@@ -60,7 +60,7 @@ export async function getPicturePrefetch(Helper: GlobalHelper): Promise<void> {
 			}
 		}
 	}catch(err){
-		Helper.ReportingError(err, "Unknown Error", "Synology", "getPicturePrefetch/Select");
+		Helper.ReportingError(err as Error, "Unknown Error", "Synology", "getPicturePrefetch/Select");
 	}
 	// Retrieve Image
 	try{
@@ -70,10 +70,10 @@ export async function getPicturePrefetch(Helper: GlobalHelper): Promise<void> {
 		const PicContentB64 = synResult.data.toString("base64");
 		CurrentPicture = { ...CurrentImage, url: `data:image/jpeg;base64,${PicContentB64}` };
 	} catch (err){
-		if (err.response?.status === 502){
-			Helper.ReportingError(err, `Unknown Error downloading Picture ${CurrentImage.path}`, "Synology", "getPicturePrefetch/Retrieve", "", false);
+		if ((err as AxiosError).response?.status === 502){
+			Helper.ReportingError(err as Error, `Unknown Error downloading Picture ${CurrentImage.path}`, "Synology", "getPicturePrefetch/Retrieve", "", false);
 		}else{
-			Helper.ReportingError(err, "Unknown Error", "Synology", "getPicturePrefetch/Retrieve");
+			Helper.ReportingError(err as Error, "Unknown Error", "Synology", "getPicturePrefetch/Retrieve");
 		}
 	}
 }
@@ -123,7 +123,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictu
 				}
 			}
 		} catch (err){
-			Helper.ReportingError(err, "Unknown Error", "Synology", "updatePictureList/List");
+			Helper.ReportingError(err as Error, "Unknown Error", "Synology", "updatePictureList/List");
 			return { success: false, picturecount: 0 };
 		}
 		// Filter pictures
@@ -171,7 +171,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictu
 				}
 			}
 		} catch (err){
-			Helper.ReportingError(err, "Unknown Error", "Synology", "updatePictureList/Filter");
+			Helper.ReportingError(err as Error, "Unknown Error", "Synology", "updatePictureList/Filter");
 			return { success: false, picturecount: 0 };
 		}
 		// Images found ?
@@ -203,7 +203,7 @@ async function loginSyno(Helper: GlobalHelper): Promise<boolean>{
 			return false;
 		}
 	} catch (err){
-		Helper.ReportingError(err, "Unknown error", "Synology", "loginSyno/CheckParameters");
+		Helper.ReportingError(err as Error, "Unknown error", "Synology", "loginSyno/CheckParameters");
 		synoConnectionState = false;
 		return false;
 	}
@@ -226,15 +226,15 @@ async function loginSyno(Helper: GlobalHelper): Promise<boolean>{
 				return false;
 			}
 		} catch (err){
-			if (err.response?.status === 403){
+			if ((err as AxiosError).response?.status === 403){
 				synoConnectionState = false;
 				return false;
-			}else if (err.isAxiosError === true){
+			}else if ((err as AxiosError).isAxiosError === true){
 				Helper.Adapter.log.error("No connection to Synology PhotoStation, misconfigured name or IP address");
 				synoConnectionState = false;
 				return false;
 			}else{
-				Helper.ReportingError(err, "Unknown error", "Synology", "loginSyno/Login");
+				Helper.ReportingError(err as Error, "Unknown error", "Synology", "loginSyno/Login");
 				synoConnectionState = false;
 				return false;
 			}
@@ -256,15 +256,15 @@ async function synoCheckConnection(Helper: GlobalHelper): Promise<boolean>{
 			synoConnectionState = false;
 		}
 	}catch(err){
-		if (err.response?.status === 403){
+		if ((err as AxiosError).response?.status === 403){
 			synoConnectionState = false;
 			return false;
-		}else if (err.isAxiosError === true){
+		}else if ((err as AxiosError).isAxiosError === true){
 			Helper.Adapter.log.error("No connection to Synology PhotoStation, misconfigured name or IP address");
 			synoConnectionState = false;
 			return false;
 		}else{
-			Helper.ReportingError(err, "Unknown error", "Synology", "synoCheckConnection");
+			Helper.ReportingError(err as Error, "Unknown error", "Synology", "synoCheckConnection");
 			synoConnectionState = false;
 			return false;
 		}
