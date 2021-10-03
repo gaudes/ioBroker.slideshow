@@ -1,6 +1,6 @@
 "use strict";
 /*
- * Created with @iobroker/create-adapter v1.31.0
+ * Created with @iobroker/create-adapter v2.0.1
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
