@@ -215,8 +215,9 @@ async function loginSyno(Helper: GlobalHelper): Promise<boolean>{
 		try{
 			const synResult = await (synoConnection.get<any>(`http://${Helper.Adapter.config.syno_path}/photo/webapi/auth.php?api=SYNO.PhotoStation.Auth&method=login&version=1&username=${Helper.Adapter.config.syno_username}&password=${encodeURIComponent(Helper.Adapter.config.syno_userpass)}`));
 			Helper.ReportingInfo("Debug", "Synology", "Synology result data", { result: synResult } );
-			if (synResult.data && synResult.data["data"] && synResult.data["data"]["username"] === Helper.Adapter.config.syno_username && synoConnection.defaults?.headers?.Cookie){
-				synoConnection.defaults.headers.Cookie = synResult.headers["set-cookie"][0];
+			//if (synResult.data && synResult.data["data"] && synResult.data["data"]["username"] === Helper.Adapter.config.syno_username && synoConnection.defaults?.headers?.Cookie){
+			//	synoConnection.defaults.headers.Cookie = synResult.headers["set-cookie"][0];
+			if (synResult.data && synResult.data["data"] && synResult.data["data"]["username"] === Helper.Adapter.config.syno_username){
 				synoConnectionState = true;
 				Helper.ReportingInfo("Debug", "Synology", "Synology Login successfull");
 				return true;
