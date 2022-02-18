@@ -12,6 +12,7 @@ declare global {
 			fs_format: number;
 			fs_order: number;
 			syno_path: string;
+			syno_version: number;
 			syno_username: string;
 			syno_userpass: string;
 			syno_format: number;
