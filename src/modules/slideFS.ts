@@ -71,22 +71,26 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 		// Checking orientation of pictures (landscape or portrait) if configured
 		for (const ImageIndex in CurrentImageList){
 			if (Helper.Adapter.config.fs_format !== 0){
-				const ImageSize = await imgsize.imageSize(CurrentImageList[ImageIndex]);
-				if (ImageSize.width && ImageSize.height){
-					if ((Helper.Adapter.config.fs_format === 1 && ImageSize.width > ImageSize.height) === true){
-						if (Array.isArray(CurrentImages)){
-							CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
-						}else{
-							CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
+				try {
+					const ImageSize = await imgsize.imageSize(CurrentImageList[ImageIndex]);
+					if (ImageSize.width && ImageSize.height){
+						if ((Helper.Adapter.config.fs_format === 1 && ImageSize.width > ImageSize.height) === true){
+							if (Array.isArray(CurrentImages)){
+								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
+							}else{
+								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
+							}
+						}
+						if ((Helper.Adapter.config.fs_format === 2 && ImageSize.height > ImageSize.width) === true){
+							if (Array.isArray(CurrentImages)){
+								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
+							}else{
+								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
+							}
 						}
 					}
-					if ((Helper.Adapter.config.fs_format === 2 && ImageSize.height > ImageSize.width) === true){
-						if (Array.isArray(CurrentImages)){
-							CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
-						}else{
-							CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
-						}
-					}
+				} catch (err) {
+					Helper.Adapter.log.error((err as Error).message);
 				}
 			}else{
 				if (Array.isArray(CurrentImages)){

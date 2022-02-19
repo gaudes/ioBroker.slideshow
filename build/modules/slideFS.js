@@ -99,22 +99,26 @@ async function updatePictureList(Helper) {
     });
     for (const ImageIndex in CurrentImageList) {
       if (Helper.Adapter.config.fs_format !== 0) {
-        const ImageSize = await imgsize.imageSize(CurrentImageList[ImageIndex]);
-        if (ImageSize.width && ImageSize.height) {
-          if ((Helper.Adapter.config.fs_format === 1 && ImageSize.width > ImageSize.height) === true) {
-            if (Array.isArray(CurrentImages)) {
-              CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null });
-            } else {
-              CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null }];
+        try {
+          const ImageSize = await imgsize.imageSize(CurrentImageList[ImageIndex]);
+          if (ImageSize.width && ImageSize.height) {
+            if ((Helper.Adapter.config.fs_format === 1 && ImageSize.width > ImageSize.height) === true) {
+              if (Array.isArray(CurrentImages)) {
+                CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null });
+              } else {
+                CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null }];
+              }
+            }
+            if ((Helper.Adapter.config.fs_format === 2 && ImageSize.height > ImageSize.width) === true) {
+              if (Array.isArray(CurrentImages)) {
+                CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null });
+              } else {
+                CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null }];
+              }
             }
           }
-          if ((Helper.Adapter.config.fs_format === 2 && ImageSize.height > ImageSize.width) === true) {
-            if (Array.isArray(CurrentImages)) {
-              CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null });
-            } else {
-              CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null }];
-            }
-          }
+        } catch (err) {
+          Helper.Adapter.log.error(err.message);
         }
       } else {
         if (Array.isArray(CurrentImages)) {
