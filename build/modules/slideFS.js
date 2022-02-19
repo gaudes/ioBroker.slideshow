@@ -184,10 +184,14 @@ async function getAllFiles(Helper, dirPath, _arrayOfFiles = []) {
   try {
     const files = await fs.readdirSync(dirPath);
     files.forEach(async function(file) {
-      if (fs.statSync(dirPath + "/" + file).isDirectory()) {
-        _arrayOfFiles = await getAllFiles(Helper, dirPath + "/" + file, _arrayOfFiles);
-      } else {
-        _arrayOfFiles.push(path.join(dirPath, "/", file));
+      try {
+        if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+          _arrayOfFiles = await getAllFiles(Helper, dirPath + "/" + file, _arrayOfFiles);
+        } else {
+          _arrayOfFiles.push(path.join(dirPath, "/", file));
+        }
+      } catch (err) {
+        Helper.ReportingError(err, `Error scanning files: ${err} `, "Filesystem", "getAllFiles", "", false);
       }
     });
   } catch (err) {
