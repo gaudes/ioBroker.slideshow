@@ -69,9 +69,14 @@ async function getPicture(Helper) {
         }
       }
       if (fs.existsSync(CurrentImage.path) === true) {
-        const PicContent = fs.readFileSync(CurrentImage.path);
-        const PicContentB64 = PicContent.toString("base64");
-        return __spreadProps(__spreadValues({}, CurrentImage), { url: `data:image/jpeg;base64,${PicContentB64}` });
+        try {
+          const PicContent = fs.readFileSync(CurrentImage.path);
+          const PicContentB64 = PicContent.toString("base64");
+          return __spreadProps(__spreadValues({}, CurrentImage), { url: `data:image/jpeg;base64,${PicContentB64}` });
+        } catch (err) {
+          Helper.ReportingError(null, `File not accessible: ${CurrentImage.path}`, "Filesystem", "getPicture", "", false);
+          return null;
+        }
       } else {
         Helper.ReportingError(null, `File not accessible: ${CurrentImage.path}`, "Filesystem", "getPicture", "", false);
         return null;
