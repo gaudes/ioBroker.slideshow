@@ -29,7 +29,7 @@
     "@alcalzone/release-script": "^3.5.2",
     "@iobroker/adapter-dev": "^1.0.0",
     "@iobroker/testing": "^2.5.4",
-    "@sentry/types": "^6.17.9",
+    "@sentry/types": "^6.18.1",
     "@types/chai": "^4.3.0",
     "@types/chai-as-promised": "^7.1.5",
     "@types/image-size": "^0.8.0",
