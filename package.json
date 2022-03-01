@@ -18,7 +18,7 @@
     "url": "https://github.com/gaudes/ioBroker.slideshow"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.5.1",
+    "@iobroker/adapter-core": "^2.6.0",
     "axios": "^0.26.0",
     "axios-cookiejar-support": "^2.0.4",
     "exifr": "^7.1.1",
