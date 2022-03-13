@@ -1,1 +1,7 @@
-{"version":3,"file":"exif.js","sourceRoot":"","sources":["../../src/modules/exif.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;AAAA,6CAA+B;AAUxB,KAAK,UAAU,qBAAqB,CAAC,MAAoB,EAAE,IAAqB;IACtF,IAAG;QACF,MAAM,WAAW,GAAG,MAAM,KAAK,CAAC,KAAK,CAAC,IAAI,EAAE,CAAC,SAAS,EAAE,WAAW,EAAE,WAAW,EAAE,kBAAkB,CAAC,CAAE,CAAC;QACxG,OAAO,EAAE,KAAK,EAAE,WAAW,CAAC,SAAS,CAAC,IAAI,EAAE,EAAE,KAAK,EAAE,WAAW,CAAC,WAAW,CAAC,IAAI,EAAE,EAAE,KAAK,EAAE,WAAW,CAAC,WAAW,CAAC,IAAI,EAAE,EAAE,IAAI,EAAE,IAAI,IAAI,CAAE,WAAW,CAAC,kBAAkB,CAAC,CAAC,EAAC,CAAC;KAC9K;IAAC,OAAO,KAAK,EAAE;QACf,OAAO,IAAI,CAAC;KACZ;AACF,CAAC;AAPD,sDAOC"}
+{
+  "version": 3,
+  "sources": ["../../src/modules/exif.ts"],
+  "sourcesContent": ["import * as exifr from \"exifr\";\nimport { GlobalHelper } from \"./global-helper\"\n\nexport interface exifinfo{\n\tinfo1: string;\n\tinfo2: string;\n\tinfo3: string;\n\tdate: Date;\n}\n\nexport async function getPictureInformation(Helper: GlobalHelper, file: string | Buffer ): Promise<exifinfo | null >{\n\ttry{\n\t\tconst PictureInfo = await exifr.parse(file, [\"XPTitle\", \"XPComment\", \"XPSubject\", \"DateTimeOriginal\"] );\n\t\treturn { info1: PictureInfo[\"XPTitle\"] || \"\", info2: PictureInfo[\"XPSubject\"] || \"\", info3: PictureInfo[\"XPComment\"] || \"\", date: new Date (PictureInfo[\"DateTimeOriginal\"])};\n\t} catch (error) {\n\t\treturn null;\n\t}\n}"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA,YAAuB;AAUvB,qCAA4C,QAAsB,MAAkD;AACnH,MAAG;AACF,UAAM,cAAc,MAAM,MAAM,MAAM,MAAM,CAAC,WAAW,aAAa,aAAa;AAClF,WAAO,EAAE,OAAO,YAAY,cAAc,IAAI,OAAO,YAAY,gBAAgB,IAAI,OAAO,YAAY,gBAAgB,IAAI,MAAM,IAAI,KAAM,YAAY;AAAA,WAChJ,OAAP;AACD,WAAO;AAAA;AAAA;",
+  "names": []
+}

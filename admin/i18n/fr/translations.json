@@ -2,7 +2,6 @@
     "Instance": "Instance",
     "config_check_log": "Veuillez vérifier la configuration correcte après l'enregistrement dans le journal ioBroker",
     "display_order": "séquence",
-    "display_order_createdate": "Créer un rendez-vous",
     "display_order_filename": "Nom de fichier",
     "display_order_random": "Aléatoire",
     "display_order_taken": "Date d'enregistrement",
@@ -27,6 +26,7 @@
     "syno_path": "Adresse IP ou nom d'hôte de Synology PhotoStation",
     "syno_username": "Nom d'utilisateur pour Synology PhotoStation",
     "syno_userpass": "Mot de passe pour Synology PhotoStation",
+    "syno_version": "Version de Synology DSM",
     "tab_general": "Paramètres",
     "update_interval": "intervalle de changement d'image en secondes",
     "update_picture_list": "mettre à jour la liste d'images toutes les n heures, 0 = désactivé"

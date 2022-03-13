@@ -37,9 +37,14 @@ export async function getPicture(Helper: GlobalHelper): Promise<FSPicture | null
 				}
 			}
 			if (fs.existsSync(CurrentImage.path) === true){
-				const PicContent = fs.readFileSync(CurrentImage.path);
-				const PicContentB64 = PicContent.toString("base64");
-				return { ...CurrentImage, url: `data:image/jpeg;base64,${PicContentB64}`};
+				try {
+					const PicContent = fs.readFileSync(CurrentImage.path);
+					const PicContentB64 = PicContent.toString("base64");
+					return { ...CurrentImage, url: `data:image/jpeg;base64,${PicContentB64}`};
+				} catch (err) {
+					Helper.ReportingError(null, `File not accessible: ${CurrentImage.path}`, "Filesystem", "getPicture", "", false);
+					return null;
+				}
 			}else{
 				Helper.ReportingError(null, `File not accessible: ${CurrentImage.path}`, "Filesystem", "getPicture", "", false);
 				return null;
@@ -47,7 +52,7 @@ export async function getPicture(Helper: GlobalHelper): Promise<FSPicture | null
 		}
 		return null;
 	}catch(err){
-		Helper.ReportingError(err, "Unknown Error", "Filesystem", "getPicture");
+		Helper.ReportingError(err as Error, "Unknown Error", "Filesystem", "getPicture");
 		return null;
 	}
 }
@@ -71,22 +76,26 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 		// Checking orientation of pictures (landscape or portrait) if configured
 		for (const ImageIndex in CurrentImageList){
 			if (Helper.Adapter.config.fs_format !== 0){
-				const ImageSize = await imgsize.imageSize(CurrentImageList[ImageIndex]);
-				if (ImageSize.width && ImageSize.height){
-					if ((Helper.Adapter.config.fs_format === 1 && ImageSize.width > ImageSize.height) === true){
-						if (Array.isArray(CurrentImages)){
-							CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
-						}else{
-							CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
+				try {
+					const ImageSize = await imgsize.imageSize(CurrentImageList[ImageIndex]);
+					if (ImageSize.width && ImageSize.height){
+						if ((Helper.Adapter.config.fs_format === 1 && ImageSize.width > ImageSize.height) === true){
+							if (Array.isArray(CurrentImages)){
+								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
+							}else{
+								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
+							}
+						}
+						if ((Helper.Adapter.config.fs_format === 2 && ImageSize.height > ImageSize.width) === true){
+							if (Array.isArray(CurrentImages)){
+								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
+							}else{
+								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
+							}
 						}
 					}
-					if ((Helper.Adapter.config.fs_format === 2 && ImageSize.height > ImageSize.width) === true){
-						if (Array.isArray(CurrentImages)){
-							CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
-						}else{
-							CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
-						}
-					}
+				} catch (err) {
+					Helper.Adapter.log.error((err as Error).message);
 				}
 			}else{
 				if (Array.isArray(CurrentImages)){
@@ -153,7 +162,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 			return { success: true, picturecount: CurrentImages.length };
 		}
 	}catch(err) {
-		Helper.ReportingError(err, "Unknown Error", "Filesystem", "updatePictureList");
+		Helper.ReportingError(err as Error, "Unknown Error", "Filesystem", "updatePictureList");
 		return { success: false, picturecount: 0 };
 	}
 }
@@ -163,14 +172,18 @@ async function getAllFiles(Helper: GlobalHelper, dirPath: string, _arrayOfFiles:
 	try{
 		const files = await fs.readdirSync(dirPath);
 		files.forEach(async function(file) {
-			if (fs.statSync(dirPath + "/" + file).isDirectory()) {
-				_arrayOfFiles = await getAllFiles(Helper, dirPath + "/" + file, _arrayOfFiles);
-			} else {
-				_arrayOfFiles.push(path.join(dirPath, "/", file));
+			try{
+				if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+					_arrayOfFiles = await getAllFiles(Helper, dirPath + "/" + file, _arrayOfFiles);
+				} else {
+					_arrayOfFiles.push(path.join(dirPath, "/", file));
+				}
+			} catch (err) {
+				Helper.ReportingError(err as Error, `Error scanning files: ${err} `, "Filesystem", "getAllFiles", "", false);
 			}
 		})
 	} catch (err){
-		Helper.ReportingError(err, `Error scanning files: ${err} `, "Filesystem", "getAllFiles", "", false);
+		Helper.ReportingError(err as Error, `Error scanning files: ${err} `, "Filesystem", "getAllFiles", "", false);
 	}
 	return _arrayOfFiles;
 }

@@ -52,7 +52,7 @@ export async function getPicture(Helper: GlobalHelper): Promise<BingPicture | nu
 		}
 		return null;
 	}catch (err){
-		Helper.ReportingError(err, "Unknown Error", "Bing", "getPicture");
+		Helper.ReportingError(err as Error, "Unknown Error", "Bing", "getPicture");
 		return null;
 	}
 }
@@ -80,7 +80,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<BingPictu
 		});
 		Helper.ReportingInfo("Debug", "Bing", `Picture List from Bing: ${JSON.stringify(BingPictureList)}`,{JSON: JSON.stringify(BingPictureList.slice(0,10))});
 	} catch (err) {
-		Helper.ReportingError(err, "Unknown Error", "Bing", "updatePictureList/List");
+		Helper.ReportingError(err as Error, "Unknown Error", "Bing", "updatePictureList/List");
 		return { success: false, picturecount: 0};
 	}
 	// Saving list to files
@@ -94,7 +94,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<BingPictu
 		Helper.ReportingInfo("Info", "Bing", `${BingPictureList.length} pictures downloaded from Bing`, {JSON: JSON.stringify(BingPictureList.slice(0, 10))} );
 		return { success: true, picturecount: BingPictureList.length};
 	} catch (err){
-		Helper.ReportingError(err, "Unknown Error", "Bing", "updatePictureList/Download");
+		Helper.ReportingError(err as Error, "Unknown Error", "Bing", "updatePictureList/Download");
 		return { success: false, picturecount: 0};
 	}
 }

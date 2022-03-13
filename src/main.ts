@@ -1,5 +1,5 @@
 /*
- * Created with @iobroker/create-adapter v1.31.0
+ * Created with @iobroker/create-adapter v2.0.1
  */
 
 //#region Imports, Variables and Global
@@ -75,7 +75,7 @@ class Slideshow extends utils.Adapter {
 			// Starting updatePictureStoreTimer action
 			await this.updatePictureStoreTimer();
 		}catch(err){
-			Helper.ReportingError(err, MsgErrUnknown, "onReady");
+			Helper.ReportingError(err as Error, MsgErrUnknown, "onReady");
 		}
 	}
 
@@ -125,7 +125,7 @@ class Slideshow extends utils.Adapter {
 		try{
 			this.tUpdatePictureStoreTimeout && clearTimeout(this.tUpdatePictureStoreTimeout);
 		}catch(err){
-			Helper.ReportingError(err, MsgErrUnknown, "updatePictureStoreTimer", "Clear Timer");
+			Helper.ReportingError(err as Error, MsgErrUnknown, "updatePictureStoreTimer", "Clear Timer");
 		}
 		try{
 			switch(this.config.provider){
@@ -143,7 +143,7 @@ class Slideshow extends utils.Adapter {
 					break;
 			}
 		}catch(err){
-			Helper.ReportingError(err, MsgErrUnknown, "updatePictureStoreTimer", "Call Timer Action");
+			Helper.ReportingError(err as Error, MsgErrUnknown, "updatePictureStoreTimer", "Call Timer Action");
 		}
 		try{
 			if (this.config.update_picture_list && this.config.update_picture_list > 0 && updatePictureStoreResult.success === true){
@@ -176,7 +176,7 @@ class Slideshow extends utils.Adapter {
 				this.updateCurrentPictureTimer();
 			}
 		}catch(err){
-			Helper.ReportingError(err, MsgErrUnknown, "updatePictureStoreTimer", "Set Timer");
+			Helper.ReportingError(err as Error, MsgErrUnknown, "updatePictureStoreTimer", "Set Timer");
 		}
 		UpdateRunning = false;
 	}
@@ -188,7 +188,7 @@ class Slideshow extends utils.Adapter {
 		try{
 			this.tUpdateCurrentPictureTimeout && clearTimeout(this.tUpdateCurrentPictureTimeout);
 		}catch(err){
-			Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Clear Timer");
+			Helper.ReportingError(err as Error, MsgErrUnknown, "updateCurrentPictureTimer", "Clear Timer");
 		}
 		try{
 			switch(this.config.provider){
@@ -210,7 +210,7 @@ class Slideshow extends utils.Adapter {
 					break;
 			}
 		}catch(err){
-			Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Call Timer Action");
+			Helper.ReportingError(err as Error, MsgErrUnknown, "updateCurrentPictureTimer", "Call Timer Action");
 		}
 		try{
 			if (CurrentPictureResult !== null && this.isUnloaded === false){
@@ -287,14 +287,14 @@ class Slideshow extends utils.Adapter {
 				await this.setStateAsync("date", { val: CurrentPictureResult.date?.getTime() || null , ack: true });
 			}
 		}catch(err){
-			Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Call Timer Action");
+			Helper.ReportingError(err as Error, MsgErrUnknown, "updateCurrentPictureTimer", "Call Timer Action");
 		}
 		try{
 			this.tUpdateCurrentPictureTimeout = setTimeout(() => {
 				this.updateCurrentPictureTimer();
 			}, (this.config.update_interval * 1000));
 		}catch(err){
-			Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Set Timer");
+			Helper.ReportingError(err as Error, MsgErrUnknown, "updateCurrentPictureTimer", "Set Timer");
 		}
 	}
 

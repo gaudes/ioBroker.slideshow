@@ -37,7 +37,7 @@ export async function getPicture(Helper: GlobalHelper): Promise<LocalPicture | n
 		}
 		return null;
 	}catch(err){
-		Helper.ReportingError(err, "Unknown Error", "Local", "getPicture");
+		Helper.ReportingError(err as Error, "Unknown Error", "Local", "getPicture");
 		return null;
 	}
 }
@@ -69,7 +69,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<LocalPict
 		Helper.ReportingInfo("Info", "Local", `${CurrentImages.length} pictures found`, {JSON: JSON.stringify(CurrentImages.slice(0, 10))} );
 		return { success: true, picturecount: CurrentImages.length};
 	}catch(err) {
-		Helper.ReportingError(err, "Unknown Error", "Local", "updatePictureList/List");
+		Helper.ReportingError(err as Error, "Unknown Error", "Local", "updatePictureList/List");
 		return { success: false, picturecount: 0};
 	}
 }

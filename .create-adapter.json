@@ -1,10 +1,16 @@
 {
 	"cli": true,
-	"adapterName": "slideshow",
+	"target": "directory",
+	"adapterName": "slideshowupdate",
 	"title": "Slideshow",
 	"description": "Slideshow for VIS from different sources",
 	"keywords": [
-		"slideshow"
+		"ioBroker",
+		"Smart home",
+		"home automation",
+		"slideshow",
+		"VIS",
+		"pictures"
 	],
 	"expert": "yes",
 	"features": [
@@ -22,6 +28,9 @@
 	"tools": [
 		"ESLint"
 	],
+	"releaseScript": "yes",
+	"devServer": "yes",
+	"devServerPort": 8081,
 	"indentation": "Tab",
 	"quotes": "double",
 	"es6class": "yes",
@@ -30,8 +39,8 @@
 	"authorEmail": "ralf@gaudes.net",
 	"gitRemoteProtocol": "HTTPS",
 	"gitCommit": "no",
+	"defaultBranch": "main",
 	"license": "MIT License",
-	"ci": "gh-actions",
 	"dependabot": "yes",
-	"creatorVersion": "1.31.0"
+	"creatorVersion": "2.0.1"
 }

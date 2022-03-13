@@ -18,7 +18,7 @@ export class GlobalHelper{
 	//#region Helper Function ReportingError
 	/**
 	 * Function for global error reporting
-	 * @param {Error} Err Error-Object
+	 * @param {Object} Err Error-Object
 	 * @param {string} FriendlyError Error message for user
 	 * @param {string} NameFunction Name of the function where error occured
 	 * @param {string} NameAction Name of the subfunction where error occured
