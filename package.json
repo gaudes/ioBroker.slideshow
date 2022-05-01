@@ -30,7 +30,7 @@
     "@iobroker/adapter-dev": "^1.0.0",
     "@iobroker/testing": "^2.5.6",
     "@sentry/types": "^6.19.3",
-    "@types/chai": "^4.3.0",
+    "@types/chai": "^4.3.1",
     "@types/chai-as-promised": "^7.1.5",
     "@types/image-size": "^0.8.0",
     "@types/iobroker": "^4.0.1",
