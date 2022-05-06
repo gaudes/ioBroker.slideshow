@@ -7,7 +7,9 @@ export interface LocalPicture{
 	info1: string,
 	info2: string,
 	info3: string,
-	date: Date | null
+	date: Date | null,
+	latitude: number | null,
+	longitude: number | null
 }
 
 export interface LocalPictureListUpdateResult{
@@ -55,14 +57,19 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<LocalPict
 				const fileInfo = await getPictureInformation(Helper, CurrentImageFile.file);
 				let info1, info2, info3 = "";
 				let date = null;
+				let latitude = null;
+				let longitude = null;
+
 				fileInfo?.info1 ? info1 = fileInfo?.info1 : info1 = "";
 				fileInfo?.info2 ? info2 = fileInfo?.info2 : info2 = "";
 				fileInfo?.info3 ? info3 = fileInfo?.info3 : info3 = "";
 				fileInfo?.date ? date = fileInfo?.date : date = null;
+				fileInfo?.latitude ? latitude = fileInfo?.latitude : latitude = null;
+				fileInfo?.longitude ? longitude = fileInfo?.longitude : longitude = null;
 				if (Array.isArray(CurrentImages)){
-					CurrentImages.push( {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date} );
+					CurrentImages.push( {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date, latitude: latitude, longitude: longitude} );
 				}else{
-					CurrentImages = [ {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date} ];
+					CurrentImages = [ {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date, latitude: latitude, longitude: longitude} ];
 				}
 			}))
 		}

@@ -260,6 +260,32 @@ class Slideshow extends utils.Adapter {
           native: {}
         });
         await this.setStateAsync("date", { val: ((_a = CurrentPictureResult.date) == null ? void 0 : _a.getTime()) || null, ack: true });
+        await this.setObjectNotExistsAsync("latitude", {
+          type: "state",
+          common: {
+            name: "latitude",
+            type: "number",
+            role: "latitude",
+            read: true,
+            write: false,
+            desc: "Latitude of picture"
+          },
+          native: {}
+        });
+        await this.setStateAsync("latitude", { val: CurrentPictureResult.latitude || null, ack: true });
+        await this.setObjectNotExistsAsync("longitude", {
+          type: "state",
+          common: {
+            name: "longitude",
+            type: "number",
+            role: "longitude",
+            read: true,
+            write: false,
+            desc: "Longitude of picture"
+          },
+          native: {}
+        });
+        await this.setStateAsync("longitude", { val: CurrentPictureResult.longitude || null, ack: true });
       }
     } catch (err) {
       Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Call Timer Action");

@@ -32,8 +32,9 @@ __export(exif_exports, {
 var exifr = __toESM(require("exifr"));
 async function getPictureInformation(Helper, file) {
   try {
-    const PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal"]);
-    return { info1: PictureInfo["XPTitle"] || "", info2: PictureInfo["XPSubject"] || "", info3: PictureInfo["XPComment"] || "", date: new Date(PictureInfo["DateTimeOriginal"]) };
+    const PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal", "latitude", "longitude"]);
+    const GpsInfo = await exifr.gps(file);
+    return { info1: PictureInfo["XPTitle"] || "", info2: PictureInfo["XPSubject"] || "", info3: PictureInfo["XPComment"] || "", date: new Date(PictureInfo["DateTimeOriginal"]), latitude: GpsInfo["latitude"] || null, longitude: GpsInfo["longitude"] || null };
   } catch (error) {
     return null;
   }

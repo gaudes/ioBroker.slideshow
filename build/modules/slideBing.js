@@ -72,9 +72,9 @@ async function updatePictureList(Helper) {
       }
       const ImageDate = new Date(parseInt(Image.startdate.substring(0, 4)), parseInt(Image.startdate.substring(4, 6)), parseInt(Image.startdate.substring(6, 8)));
       if (Array.isArray(BingPictureList)) {
-        BingPictureList.push({ bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate });
+        BingPictureList.push({ bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate, latitude: null, longitude: null });
       } else {
-        BingPictureList = [{ bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate }];
+        BingPictureList = [{ bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate, latitude: null, longitude: null }];
       }
     });
     Helper.ReportingInfo("Debug", "Bing", `Picture List from Bing: ${JSON.stringify(BingPictureList)}`, { JSON: JSON.stringify(BingPictureList.slice(0, 10)) });

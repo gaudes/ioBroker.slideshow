@@ -13,7 +13,9 @@ export interface SynoPicture{
 	info3: string,
 	date: Date | null,
 	x: number,
-	y: number
+	y: number,
+	latitude: number | null,
+	longitude: number | null
 }
 
 export interface SynoPictureListUpdateResult{
@@ -101,7 +103,7 @@ export async function getPicturePrefetch(Helper: GlobalHelper): Promise<void> {
 export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictureListUpdateResult> {
 	CurrentImages = [];
 	await loginSyno(Helper);
-	const CurrentImageList: SynoPicture[] = [ { path: "0", url: "", info1: "", info2: "", info3: "", date: null, x: 0, y: 0} ];
+	const CurrentImageList: SynoPicture[] = [ { path: "0", url: "", info1: "", info2: "", info3: "", date: null, x: 0, y: 0, latitude: null, longitude: null} ];
 	if (synoConnectionState === true){
 		// Retrieve complete list of pictures
 		try{
@@ -130,7 +132,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictu
 								if (element.time){
 									PictureDate = new Date(element.time);
 								}
-								CurrentImageList.push( {path: element.id, url: "", info1: element.description, info2: "", info3: element.filename, date: PictureDate, x: element.additional.resolution.height, y: element.additional.resolution.width } );
+								CurrentImageList.push( {path: element.id, url: "", info1: element.description, info2: "", info3: element.filename, date: PictureDate, x: element.additional.resolution.height, y: element.additional.resolution.width, latitude: null, longitude: null } );
 							});
 							synOffset = synOffset + 500;
 						}
@@ -161,7 +163,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictu
 							if (element.info.takendate){
 								PictureDate = new Date(element.info.takendate);
 							}
-							CurrentImageList.push( {path: element.id, url: "", info1: element.info.title, info2: element.info.description, info3: element.info.name, date: PictureDate, x: element.info.resolutionx, y: element.info.resolutiony } );
+							CurrentImageList.push( {path: element.id, url: "", info1: element.info.title, info2: element.info.description, info3: element.info.name, date: PictureDate, x: element.info.resolutionx, y: element.info.resolutiony, latitude: null, longitude: null } );
 						});
 						if (synResult.data["data"]["total"] === synResult.data["data"]["offset"]){
 							synEndOfFiles = true;
