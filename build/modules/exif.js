@@ -98,7 +98,7 @@ async function getExifFallback(Helper, file) {
   return new Promise((resolve) => {
     new import_exif.ExifImage(file, (error, data) => {
       if (error) {
-        if (error.message === "The Exif data is not valid.") {
+        if (error.message.includes("The Exif data is not valid") || error.message.includes("No Exif segment found in the given image")) {
           Helper.ReportingInfo("Debug", "Adapter", `[getExifFallback]: ${error.message}`);
         } else {
           Helper.ReportingError(error, "Unknown Error", "exif", "getExifFallback");

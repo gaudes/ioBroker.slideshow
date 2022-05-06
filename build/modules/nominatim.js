@@ -34,12 +34,13 @@ async function getLocationInfos(Helper, lat, long) {
   try {
     const locationInfos = await downloadLocationInfos(Helper, lat, long);
     let result = null;
-    if (locationInfos && locationInfos.address) {
+    if (locationInfos) {
       result = {
-        country: locationInfos.address.country ? locationInfos.address.country : null,
-        state: locationInfos.address.state ? locationInfos.address.state : null,
-        county: locationInfos.address.county ? locationInfos.address.county : null,
-        city: locationInfos.address.city ? locationInfos.address.city : null
+        country: locationInfos.address && locationInfos.address.country ? locationInfos.address.country : null,
+        state: locationInfos.address && locationInfos.address.state ? locationInfos.address.state : null,
+        county: locationInfos.address && locationInfos.address.county ? locationInfos.address.county : null,
+        city: locationInfos.address && locationInfos.address.city ? locationInfos.address.city : null,
+        display_name: locationInfos.display_name ? locationInfos.display_name : null
       };
     }
     return result;

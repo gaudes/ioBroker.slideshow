@@ -101,7 +101,7 @@ async function getExifFallback(Helper: GlobalHelper, file: string | Buffer): Pro
 	return new Promise(resolve => {
 		new ExifImage(file, (error, data) => {
 			if (error) {
-				if (error.message === "The Exif data is not valid.") {
+				if (error.message.includes("The Exif data is not valid") || error.message.includes("No Exif segment found in the given image")) {
 					Helper.ReportingInfo("Debug", "Adapter", `[getExifFallback]: ${error.message}`);
 				} else {
 					Helper.ReportingError(error as Error, "Unknown Error", "exif", "getExifFallback");

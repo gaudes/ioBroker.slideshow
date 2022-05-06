@@ -1,11 +1,13 @@
 import { GlobalHelper } from "./global-helper";
 import nominatim from "nominatim-client";
+import { devNull } from "node:os";
 
 export interface locationInfos {
 	country: string | null;
 	state: string | null;
 	county: string | null;
 	city: string | null;
+	display_name: string | null;
 }
 
 export async function getLocationInfos(Helper: GlobalHelper, lat: number, long: number): Promise<locationInfos | null> {
@@ -13,12 +15,13 @@ export async function getLocationInfos(Helper: GlobalHelper, lat: number, long: 
 		const locationInfos = await downloadLocationInfos(Helper, lat, long);
 		let result = null;
 
-		if (locationInfos && locationInfos.address) {
+		if (locationInfos) {
 			result = {
-				country: locationInfos.address.country ? locationInfos.address.country : null,
-				state: locationInfos.address.state ? locationInfos.address.state : null,
-				county: locationInfos.address.county ? locationInfos.address.county : null,
-				city: locationInfos.address.city ? locationInfos.address.city : null
+				country: locationInfos.address && locationInfos.address.country ? locationInfos.address.country : null,
+				state: locationInfos.address && locationInfos.address.state ? locationInfos.address.state : null,
+				county: locationInfos.address && locationInfos.address.county ? locationInfos.address.county : null,
+				city: locationInfos.address && locationInfos.address.city ? locationInfos.address.city : null,
+				display_name: locationInfos.display_name ? locationInfos.display_name: null
 			}
 		}
 

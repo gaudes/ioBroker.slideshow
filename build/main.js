@@ -362,12 +362,25 @@ class Slideshow extends utils.Adapter {
             },
             native: {}
           });
+          await this.setObjectNotExistsAsync("location.display_name", {
+            type: "state",
+            common: {
+              name: "display_name",
+              type: "string",
+              role: "display_name",
+              read: true,
+              write: false,
+              desc: "Full Infos of picture"
+            },
+            native: {}
+          });
           if (storedLocations && CurrentPictureResult.path && storedLocations[CurrentPictureResult.path]) {
             Helper.ReportingInfo("Debug", "Adapter", `[setLocationStates]: loading from cache (file: ${CurrentPictureResult.path}, data: ${JSON.stringify(storedLocations[CurrentPictureResult.path])}`);
             await this.setStateAsync("location.country", { val: storedLocations[CurrentPictureResult.path].country || "", ack: true });
             await this.setStateAsync("location.state", { val: storedLocations[CurrentPictureResult.path].state || "", ack: true });
             await this.setStateAsync("location.county", { val: storedLocations[CurrentPictureResult.path].county || "", ack: true });
             await this.setStateAsync("location.city", { val: storedLocations[CurrentPictureResult.path].city || "", ack: true });
+            await this.setStateAsync("location.display_name", { val: storedLocations[CurrentPictureResult.path].display_name || "", ack: true });
           } else {
             const locationInfos = await nominatim.getLocationInfos(Helper, CurrentPictureResult.latitude, CurrentPictureResult.longitude);
             if (locationInfos && CurrentPictureResult.path) {
@@ -377,6 +390,14 @@ class Slideshow extends utils.Adapter {
               await this.setStateAsync("location.state", { val: locationInfos.state || "", ack: true });
               await this.setStateAsync("location.county", { val: locationInfos.county || "", ack: true });
               await this.setStateAsync("location.city", { val: locationInfos.city || "", ack: true });
+              await this.setStateAsync("location.display_name", { val: locationInfos.display_name || "", ack: true });
+            } else {
+              storedLocations[CurrentPictureResult.path] = { country: "", state: "", county: "", city: "", display_name: "" };
+              await this.setStateAsync("location.country", { val: "", ack: true });
+              await this.setStateAsync("location.state", { val: "", ack: true });
+              await this.setStateAsync("location.county", { val: "", ack: true });
+              await this.setStateAsync("location.city", { val: "", ack: true });
+              await this.setStateAsync("location.display_name", { val: "", ack: true });
             }
           }
         } else {
@@ -384,6 +405,7 @@ class Slideshow extends utils.Adapter {
           await this.setStateAsync("location.state", { val: "", ack: true });
           await this.setStateAsync("location.county", { val: "", ack: true });
           await this.setStateAsync("location.city", { val: "", ack: true });
+          await this.setStateAsync("location.display_name", { val: "", ack: true });
         }
       }
     } catch (error) {
