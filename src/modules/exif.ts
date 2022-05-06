@@ -15,8 +15,13 @@ export interface exifinfo {
 
 export async function getPictureInformation(Helper: GlobalHelper, file: string | Buffer): Promise<exifinfo | null> {
 	try {
-		const PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal", "CreateDate", "latitude", "longitude"]);
+		let PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal", "CreateDate", "latitude", "longitude"]);
 		const GpsInfo = await exifr.gps(file);
+
+		if (!PictureInfo) {
+			// Sometimes full data load is needed		
+			PictureInfo = await exifr.parse(file, true);
+		}
 
 		let fallbackData = await getFallbackData(Helper, file, PictureInfo, GpsInfo);
 
@@ -80,8 +85,6 @@ async function getFallbackData(Helper: GlobalHelper, file: string | Buffer, Pict
 					}
 				}
 			}
-
-
 		}
 	}
 
