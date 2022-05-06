@@ -4,6 +4,7 @@ import { ExifImage } from "exif";
 import moment from "moment";
 import gpsCoordParser from "coordinate-parser";
 
+
 export interface exifinfo {
 	info1: string;
 	info2: string;
@@ -39,6 +40,7 @@ export async function getPictureInformation(Helper: GlobalHelper, file: string |
 	}
 }
 
+//#region Fallback
 export interface fallbackLib {
 	date: Date | null;
 	latitude: number | null;
@@ -111,3 +113,4 @@ async function getExifFallback(Helper: GlobalHelper, file: string | Buffer): Pro
 		});
 	});
 }
+//#endregion

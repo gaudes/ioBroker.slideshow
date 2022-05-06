@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as imgsize from "image-size";
 import { getPictureInformation } from "./exif"
+import * as nominatim from "./nominatim"
 
 export interface FSPicture{
 	path:string,
@@ -12,7 +13,8 @@ export interface FSPicture{
 	info3: string,
 	date: Date | null,
 	latitude: number | null,
-	longitude: number | null
+	longitude: number | null,
+	locationInfos: nominatim.locationInfos | null
 }
 
 export interface FSPictureListUpdateResult{
@@ -83,16 +85,16 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 					if (ImageSize.width && ImageSize.height){
 						if ((Helper.Adapter.config.fs_format === 1 && ImageSize.width > ImageSize.height) === true){
 							if (Array.isArray(CurrentImages)){
-								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null} );
+								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null} );
 							}else{
-								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null} ];
+								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null} ];
 							}
 						}
 						if ((Helper.Adapter.config.fs_format === 2 && ImageSize.height > ImageSize.width) === true){
 							if (Array.isArray(CurrentImages)){
-								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null} );
+								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null} );
 							}else{
-								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null} ];
+								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null} ];
 							}
 						}
 					}
@@ -101,9 +103,9 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 				}
 			}else{
 				if (Array.isArray(CurrentImages)){
-					CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null} );
+					CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null} );
 				}else{
-					CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null} ];
+					CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null} ];
 				}
 			}
 		}

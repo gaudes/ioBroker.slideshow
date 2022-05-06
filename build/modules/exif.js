@@ -30,14 +30,85 @@ __export(exif_exports, {
   getPictureInformation: () => getPictureInformation
 });
 var exifr = __toESM(require("exifr"));
+var import_exif = require("exif");
+var import_moment = __toESM(require("moment"));
+var import_coordinate_parser = __toESM(require("coordinate-parser"));
 async function getPictureInformation(Helper, file) {
   try {
-    const PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal", "latitude", "longitude"]);
+    let PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal", "CreateDate", "latitude", "longitude"]);
     const GpsInfo = await exifr.gps(file);
-    return { info1: PictureInfo["XPTitle"] || "", info2: PictureInfo["XPSubject"] || "", info3: PictureInfo["XPComment"] || "", date: new Date(PictureInfo["DateTimeOriginal"]), latitude: GpsInfo["latitude"] || null, longitude: GpsInfo["longitude"] || null };
+    if (!PictureInfo) {
+      PictureInfo = await exifr.parse(file, true);
+    }
+    let fallbackData = await getFallbackData(Helper, file, PictureInfo, GpsInfo);
+    return {
+      info1: PictureInfo && PictureInfo["XPTitle"] ? PictureInfo["XPTitle"] : "",
+      info2: PictureInfo && PictureInfo["XPSubject"] ? PictureInfo["XPSubject"] : "",
+      info3: PictureInfo && PictureInfo["XPComment"] ? PictureInfo["XPComment"] : "",
+      date: PictureInfo && PictureInfo["DateTimeOriginal"] ? new Date(PictureInfo["DateTimeOriginal"]) : PictureInfo && PictureInfo["CreateDate"] ? new Date(PictureInfo["CreateDate"]) : fallbackData.date,
+      latitude: GpsInfo && GpsInfo.latitude ? GpsInfo.latitude : fallbackData.latitude,
+      longitude: GpsInfo && GpsInfo.longitude ? GpsInfo.longitude : fallbackData.longitude
+    };
   } catch (error) {
+    Helper.ReportingError(error, "Unknown Error", "exifr", "getPictureInformation");
     return null;
   }
+}
+async function getFallbackData(Helper, file, PictureInfo, GpsInfo) {
+  let fallbackDate = null;
+  let fallbackLatitude = null;
+  let fallbackLongitude = null;
+  if (!PictureInfo || !PictureInfo["DateTimeOriginal"] || !GpsInfo || !GpsInfo.latitude || !GpsInfo.longitude) {
+    let fallbackData = await getExifFallback(Helper, file);
+    if (fallbackData) {
+      if (!PictureInfo || !PictureInfo["DateTimeOriginal"]) {
+        if (fallbackData.exif && fallbackData.exif.DateTimeOriginal) {
+          Helper.ReportingInfo("Debug", "Adapter", `using fallback lib: file: '${file}', DateTimeOriginal: '${fallbackData.exif.DateTimeOriginal}'`);
+          fallbackDate = fallbackData.exif && fallbackData.exif.DateTimeOriginal ? new Date((0, import_moment.default)(fallbackData.exif.DateTimeOriginal, "YYYY:MM:DD HH:mm:ss").toString()) : null;
+        }
+      }
+      if (fallbackDate === null && fallbackData.gps && fallbackData.gps.GPSDateStamp) {
+        Helper.ReportingInfo("Debug", "Adapter", `using fallback lib: file: '${file}', GPSDateStamp: '${fallbackData.gps.GPSDateStamp}'`);
+        fallbackDate = new Date((0, import_moment.default)(fallbackData.gps.GPSDateStamp, "YYYY:MM:DD").toString());
+      }
+      if (!GpsInfo || !GpsInfo.latitude || !GpsInfo.longitude) {
+        if (fallbackData.gps && fallbackData.gps.GPSLatitudeRef && fallbackData.gps.GPSLatitude && fallbackData.gps.GPSLongitudeRef && fallbackData.gps.GPSLongitude) {
+          let latitudeTmp = `${fallbackData.gps.GPSLatitude[0]}:${fallbackData.gps.GPSLatitude[1]}:${fallbackData.gps.GPSLatitude[2]}${fallbackData.gps.GPSLatitudeRef}`;
+          let longitudeTmp = `${fallbackData.gps.GPSLongitude[0]}:${fallbackData.gps.GPSLongitude[1]}:${fallbackData.gps.GPSLongitude[2]}${fallbackData.gps.GPSLongitudeRef}`;
+          let coordTmp = `${latitudeTmp} ${longitudeTmp}`;
+          Helper.ReportingInfo("Debug", "Adapter", `using fallback lib: file: '${file}', Coordinates: '${coordTmp}'`);
+          try {
+            let position = new import_coordinate_parser.default(coordTmp);
+            fallbackLatitude = position.getLatitude();
+            fallbackLongitude = position.getLongitude();
+          } catch (err) {
+            Helper.ReportingError(err, "Unknown Error", "gpsCoordParser", "getFallbackData");
+          }
+        }
+      }
+    }
+  }
+  return {
+    date: fallbackDate,
+    latitude: fallbackLatitude,
+    longitude: fallbackLongitude
+  };
+}
+async function getExifFallback(Helper, file) {
+  return new Promise((resolve) => {
+    new import_exif.ExifImage(file, (error, data) => {
+      if (error) {
+        if (error.message === "The Exif data is not valid.") {
+          Helper.ReportingInfo("Debug", "Adapter", `[getExifFallback]: ${error.message}`);
+        } else {
+          Helper.ReportingError(error, "Unknown Error", "exif", "getExifFallback");
+        }
+        resolve(null);
+      } else {
+        resolve(data);
+      }
+    });
+  });
 }
 module.exports = __toCommonJS(exif_exports);
 // Annotate the CommonJS export names for ESM import in node:

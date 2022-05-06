@@ -9,10 +9,13 @@ import * as slideBing from "./modules/slideBing";
 import * as slideLocal from "./modules/slideLocal";
 import * as slideFS from "./modules/slideFS";
 import * as slideSyno from "./modules/slideSynology"
+import * as nominatim from "./modules/nominatim"
 
 let Helper: GlobalHelper;
 const MsgErrUnknown = "Unknown Error";
 let UpdateRunning = false;
+let language = 'en';
+let storedLocations: { [key: string]: nominatim.locationInfos } = {};
 
 interface Picture {
 	url: string;
@@ -23,12 +26,14 @@ interface Picture {
 	date: Date | null;
 	latitude: number | null;
 	longitude: number | null;
+	locationInfos: nominatim.locationInfos | null;
 }
 
 interface PictureListUpdateResult {
 	success: boolean;
 	picturecount: number;
 }
+
 //#endregion
 
 class Slideshow extends utils.Adapter {
@@ -55,7 +60,12 @@ class Slideshow extends utils.Adapter {
 	private async onReady(): Promise<void> {
 		try {
 			// Init Helper
-			Helper = new GlobalHelper(this);
+			var sysConfig = await this.getForeignObjectAsync('system.config');
+			if (sysConfig && sysConfig.common && sysConfig.common['language']) {
+				language = sysConfig.common['language']
+			}
+
+			Helper = new GlobalHelper(this, language);
 
 			// Create button for updates
 			await this.setObjectNotExistsAsync("updatepicturelist", {
@@ -122,6 +132,8 @@ class Slideshow extends utils.Adapter {
 
 	private async updatePictureStoreTimer(): Promise<void> {
 		UpdateRunning = true;
+		storedLocations = {};
+
 		let updatePictureStoreResult: PictureListUpdateResult = { success: false, picturecount: 0 };
 		Helper.ReportingInfo("Debug", "Adapter", "UpdatePictureStoreTimer occured");
 		try {
@@ -315,6 +327,8 @@ class Slideshow extends utils.Adapter {
 					native: {},
 				});
 				await this.setStateAsync("longitude", { val: CurrentPictureResult.longitude || null, ack: true });
+
+				await this.setLocationStates(CurrentPictureResult);
 			}
 		} catch (err) {
 			Helper.ReportingError(err as Error, MsgErrUnknown, "updateCurrentPictureTimer", "Call Timer Action");
@@ -328,7 +342,108 @@ class Slideshow extends utils.Adapter {
 		}
 	}
 
+	private async setLocationStates(CurrentPictureResult: Picture): Promise<void> {
+		try {
+			if (this.config.downloadLocationData) {
+				if (CurrentPictureResult && CurrentPictureResult.latitude !== null && CurrentPictureResult.longitude !== null) {
+					if (!await this.getObjectAsync("location")) {
+						await this.createChannelAsync("", "location");
+					}
+
+					await this.setObjectNotExistsAsync("location.country", {
+						type: "state",
+						common: {
+							name: "country",
+							type: "string",
+							role: "country",
+							read: true,
+							write: false,
+							desc: "Country of picture"
+						},
+						native: {},
+					});
+
+					await this.setObjectNotExistsAsync("location.state", {
+						type: "state",
+						common: {
+							name: "state",
+							type: "string",
+							role: "state",
+							read: true,
+							write: false,
+							desc: "State of picture"
+						},
+						native: {},
+					});
+
+					await this.setObjectNotExistsAsync("location.county", {
+						type: "state",
+						common: {
+							name: "county",
+							type: "string",
+							role: "county",
+							read: true,
+							write: false,
+							desc: "County of picture"
+						},
+						native: {},
+					});
+
+					await this.setObjectNotExistsAsync("location.city", {
+						type: "state",
+						common: {
+							name: "city",
+							type: "string",
+							role: "city",
+							read: true,
+							write: false,
+							desc: "City of picture"
+						},
+						native: {},
+					});
+
+					if (storedLocations && CurrentPictureResult.path && storedLocations[CurrentPictureResult.path]) {
+						Helper.ReportingInfo("Debug", "Adapter", `[setLocationStates]: loading from cache (file: ${CurrentPictureResult.path}, data: ${JSON.stringify(storedLocations[CurrentPictureResult.path])}`);
+
+						await this.setStateAsync("location.country", { val: storedLocations[CurrentPictureResult.path].country || "", ack: true });
+						await this.setStateAsync("location.state", { val: storedLocations[CurrentPictureResult.path].state || "", ack: true });
+						await this.setStateAsync("location.county", { val: storedLocations[CurrentPictureResult.path].county || "", ack: true });
+						await this.setStateAsync("location.city", { val: storedLocations[CurrentPictureResult.path].city || "", ack: true });
+					} else {
+						const locationInfos = await nominatim.getLocationInfos(Helper, CurrentPictureResult.latitude, CurrentPictureResult.longitude);
+
+						if (locationInfos && CurrentPictureResult.path) {
+							storedLocations[CurrentPictureResult.path] = locationInfos;
+
+							Helper.ReportingInfo("Debug", "Adapter", `[setLocationStates]: data downloaded (file: ${CurrentPictureResult.path}, data: ${JSON.stringify(storedLocations[CurrentPictureResult.path])}`);
+
+							await this.setStateAsync("location.country", { val: locationInfos.country || "", ack: true });
+							await this.setStateAsync("location.state", { val: locationInfos.state || "", ack: true });
+							await this.setStateAsync("location.county", { val: locationInfos.county || "", ack: true });
+							await this.setStateAsync("location.city", { val: locationInfos.city || "", ack: true });
+						}
+						else {
+							storedLocations[CurrentPictureResult.path] = { country: "", state: "", county: "", city: "" };
+
+							await this.setStateAsync("location.country", { val: "", ack: true });
+							await this.setStateAsync("location.state", { val: "", ack: true });
+							await this.setStateAsync("location.county", { val: "", ack: true });
+							await this.setStateAsync("location.city", { val: "", ack: true });
+						}
+					}
+				} else {
+					await this.setStateAsync("location.country", { val: "", ack: true });
+					await this.setStateAsync("location.state", { val: "", ack: true });
+					await this.setStateAsync("location.county", { val: "", ack: true });
+					await this.setStateAsync("location.city", { val: "", ack: true });
+				}
+			}
+		} catch (error) {
+			Helper.ReportingError(error as Error, "Unknown Error", "main", "setLocationStates");
+		}
+	}
 }
+
 
 if (module.parent) {
 	// Export the constructor in compact mode

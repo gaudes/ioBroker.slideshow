@@ -1,14 +1,16 @@
 import * as SentryObj from "@sentry/types";
 
-export class GlobalHelper{
+export class GlobalHelper {
 	Adapter: ioBroker.Adapter;
 	Sentry?: SentryObj.Hub;
+	Language: string;
 
-	constructor(adapterInstance: ioBroker.Adapter){
+	constructor(adapterInstance: ioBroker.Adapter, language: string) {
 		this.Adapter = adapterInstance;
+		this.Language = language;
 		// Init Sentry
 		if (this.Adapter.supportsFeature && this.Adapter.supportsFeature("PLUGINS")) {
-			const sentryInstance: ioBroker.Plugin|null  = this.Adapter.getPluginInstance("sentry");
+			const sentryInstance: ioBroker.Plugin | null = this.Adapter.getPluginInstance("sentry");
 			if (sentryInstance) {
 				this.Sentry = sentryInstance.getSentryObject();
 			}
@@ -25,32 +27,32 @@ export class GlobalHelper{
 	 * @param {string} Info Contextual information
 	 * @param {boolean} ReportSentry Report error to sentry, default true
 	 */
-	async ReportingError(Err: Error|null, FriendlyError: string, NameFunction: string, NameAction = "", Info = "", ReportSentry = true): Promise<void>{
-		try{
+	async ReportingError(Err: Error | null, FriendlyError: string, NameFunction: string, NameAction = "", Info = "", ReportSentry = true): Promise<void> {
+		try {
 			let sErrMsg = `Error occured: ${FriendlyError} in ${NameFunction}`;
 			if (NameAction !== "") sErrMsg = sErrMsg + `(${NameAction})`;
 			if (Err !== null) sErrMsg = sErrMsg + ` [${Err}] [${Info}]`;
 			this.Adapter.log.error(sErrMsg);
-		} catch (e){
+		} catch (e) {
 			this.Adapter.log.error(`Exception in ErrorReporting [${e}]`);
 		}
 		// Sentry reporting
-		try{
+		try {
 			if (this.Sentry && this.Adapter.config.sentry_disable === false && ReportSentry === true) {
 				this.Sentry && this.Sentry.withScope(scope => {
 					scope.setLevel(SentryObj.Severity.Error);
 					scope.setExtra("NameFunction", NameFunction);
 					scope.setExtra("NameAction", NameAction);
-					if (Info){
+					if (Info) {
 						scope.setExtra("Info", Info);
 					}
 					//scope.setExtra("Config", this.config);
-					if (this.Sentry){
+					if (this.Sentry) {
 						this.Sentry.captureException(Err);
 					}
 				});
 			}
-		} catch (e){
+		} catch (e) {
 			this.Adapter.log.error(`Exception in ErrorReporting Sentry [${e}]`);
 		}
 	}
@@ -64,12 +66,12 @@ export class GlobalHelper{
 	 * @param {string} Message Message
 	 * @param {{[Key: string]: any}|undefined} Data Contextual data information
 	 */
-	ReportingInfo(Level: "Info"|"Debug", Category: string, Message: string, Data?:{[Key: string]: any}|undefined): void {
+	ReportingInfo(Level: "Info" | "Debug", Category: string, Message: string, Data?: { [Key: string]: any } | undefined): void {
 		let iobMessage = Message;
-		if (this.Adapter.log.level === "debug" || this.Adapter.log.level === "silly"){
+		if (this.Adapter.log.level === "debug" || this.Adapter.log.level === "silly") {
 			iobMessage = `[${Category}] ${Message}`;
 		}
-		switch(Level){
+		switch (Level) {
 			case "Debug":
 				this.Adapter.log.debug(iobMessage);
 				break;
@@ -85,4 +87,8 @@ export class GlobalHelper{
 		})
 	}
 	//#endregion
+
+	getLanguage() {
+		return this.Language;
+	}
 }

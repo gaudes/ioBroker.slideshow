@@ -1,5 +1,6 @@
 import { GlobalHelper } from "./global-helper";
 import { getPictureInformation } from "./exif"
+import * as nominatim from "./nominatim"
 
 export interface LocalPicture{
 	url: string,
@@ -9,7 +10,8 @@ export interface LocalPicture{
 	info3: string,
 	date: Date | null,
 	latitude: number | null,
-	longitude: number | null
+	longitude: number | null,
+	locationInfos: nominatim.locationInfos | null
 }
 
 export interface LocalPictureListUpdateResult{
@@ -67,9 +69,9 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<LocalPict
 				fileInfo?.latitude ? latitude = fileInfo?.latitude : latitude = null;
 				fileInfo?.longitude ? longitude = fileInfo?.longitude : longitude = null;
 				if (Array.isArray(CurrentImages)){
-					CurrentImages.push( {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date, latitude: latitude, longitude: longitude} );
+					CurrentImages.push( {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date, latitude: latitude, longitude: longitude, locationInfos: null} );
 				}else{
-					CurrentImages = [ {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date, latitude: latitude, longitude: longitude} ];
+					CurrentImages = [ {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date, latitude: latitude, longitude: longitude, locationInfos: null} ];
 				}
 			}))
 		}

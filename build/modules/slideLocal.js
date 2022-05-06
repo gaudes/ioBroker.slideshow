@@ -73,9 +73,9 @@ async function updatePictureList(Helper) {
         (fileInfo == null ? void 0 : fileInfo.latitude) ? latitude = fileInfo == null ? void 0 : fileInfo.latitude : latitude = null;
         (fileInfo == null ? void 0 : fileInfo.longitude) ? longitude = fileInfo == null ? void 0 : fileInfo.longitude : longitude = null;
         if (Array.isArray(CurrentImages)) {
-          CurrentImages.push({ url: `/vis.0/slideshow/${file.file}`, path: file.file, info1, info2, info3, date, latitude, longitude });
+          CurrentImages.push({ url: `/vis.0/slideshow/${file.file}`, path: file.file, info1, info2, info3, date, latitude, longitude, locationInfos: null });
         } else {
-          CurrentImages = [{ url: `/vis.0/slideshow/${file.file}`, path: file.file, info1, info2, info3, date, latitude, longitude }];
+          CurrentImages = [{ url: `/vis.0/slideshow/${file.file}`, path: file.file, info1, info2, info3, date, latitude, longitude, locationInfos: null }];
         }
       }));
     }
