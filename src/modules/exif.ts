@@ -16,7 +16,7 @@ export interface exifinfo {
 
 export async function getPictureInformation(Helper: GlobalHelper, file: string | Buffer): Promise<exifinfo | null> {
 	try {
-		let PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal", "CreateDate", "latitude", "longitude"]);
+		let PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal", "latitude", "longitude"]);
 		const GpsInfo = await exifr.gps(file);
 
 		if (!PictureInfo) {
@@ -30,7 +30,7 @@ export async function getPictureInformation(Helper: GlobalHelper, file: string |
 			info1: PictureInfo && PictureInfo["XPTitle"] ? PictureInfo["XPTitle"] : "",
 			info2: PictureInfo && PictureInfo["XPSubject"] ? PictureInfo["XPSubject"] : "",
 			info3: PictureInfo && PictureInfo["XPComment"] ? PictureInfo["XPComment"] : "",
-			date: PictureInfo && PictureInfo["DateTimeOriginal"] ? new Date(PictureInfo["DateTimeOriginal"]) : PictureInfo && PictureInfo["CreateDate"] ? new Date(PictureInfo["CreateDate"]) : fallbackData.date,
+			date: PictureInfo && PictureInfo["DateTimeOriginal"] ? new Date(PictureInfo["DateTimeOriginal"]) : fallbackData.date,
 			latitude: GpsInfo && GpsInfo.latitude ? GpsInfo.latitude : fallbackData.latitude,
 			longitude: GpsInfo && GpsInfo.longitude ? GpsInfo.longitude : fallbackData.longitude
 		};
