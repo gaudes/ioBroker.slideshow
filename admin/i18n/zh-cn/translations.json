@@ -1,5 +1,5 @@
 {
-    "Instance": "例",
+    "Instance": "实例",
     "config_check_log": "保存到ioBroker日志后，请验证正确的配置",
     "display_order": "顺序",
     "display_order_filename": "文档名称",
