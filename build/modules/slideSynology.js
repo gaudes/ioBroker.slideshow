@@ -111,7 +111,7 @@ async function getPicturePrefetch(Helper) {
 async function updatePictureList(Helper) {
   CurrentImages = [];
   await loginSyno(Helper);
-  const CurrentImageList = [{ path: "0", url: "", info1: "", info2: "", info3: "", date: null, x: 0, y: 0 }];
+  const CurrentImageList = [{ path: "0", url: "", info1: "", info2: "", info3: "", date: null, x: 0, y: 0, latitude: null, longitude: null, locationInfos: null }];
   if (synoConnectionState === true) {
     try {
       let synEndOfFiles = false;
@@ -137,7 +137,7 @@ async function updatePictureList(Helper) {
                 if (element.time) {
                   PictureDate = new Date(element.time);
                 }
-                CurrentImageList.push({ path: element.id, url: "", info1: element.description, info2: "", info3: element.filename, date: PictureDate, x: element.additional.resolution.height, y: element.additional.resolution.width });
+                CurrentImageList.push({ path: element.id, url: "", info1: element.description, info2: "", info3: element.filename, date: PictureDate, x: element.additional.resolution.height, y: element.additional.resolution.width, latitude: null, longitude: null, locationInfos: null });
               });
               synOffset = synOffset + 500;
             }
@@ -165,7 +165,7 @@ async function updatePictureList(Helper) {
               if (element.info.takendate) {
                 PictureDate = new Date(element.info.takendate);
               }
-              CurrentImageList.push({ path: element.id, url: "", info1: element.info.title, info2: element.info.description, info3: element.info.name, date: PictureDate, x: element.info.resolutionx, y: element.info.resolutiony });
+              CurrentImageList.push({ path: element.id, url: "", info1: element.info.title, info2: element.info.description, info3: element.info.name, date: PictureDate, x: element.info.resolutionx, y: element.info.resolutiony, latitude: null, longitude: null, locationInfos: null });
             });
             if (synResult.data["data"]["total"] === synResult.data["data"]["offset"]) {
               synEndOfFiles = true;

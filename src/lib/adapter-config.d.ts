@@ -17,6 +17,7 @@ declare global {
 			syno_userpass: string;
 			syno_format: number;
 			syno_order: number;
+			downloadLocationData: boolean;
 		}
 	}
 }

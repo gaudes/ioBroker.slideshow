@@ -33,4 +33,16 @@ systemDictionary = {
     "tab_general": {                                 "en": "Settings",                                        "de": "Einstellungen",                                   "ru": "настройки",                                       "pt": "Configurações",                                   "nl": "Instellingen",                                    "fr": "Paramètres",                                      "it": "impostazioni",                                    "es": "Configuraciones",                                 "pl": "Ustawienia",                                      "zh-cn": "设定值"},
     "update_interval": {                             "en": "picture change interval in seconds",              "de": "Bildwechselintervall in Sekunden",                "ru": "интервал смены изображения в секундах",           "pt": "intervalo de mudança de imagem em segundos",      "nl": "beeldwisselinterval in seconden",                 "fr": "intervalle de changement d'image en secondes",    "it": "intervallo di cambio immagine in secondi",        "es": "intervalo de cambio de imagen en segundos",       "pl": "interwał zmiany obrazu w sekundach",              "zh-cn": "图片更改间隔（以秒为单位）"},
     "update_picture_list": {                         "en": "update picture list every n hours, 0 = disabled", "de": "Bildliste alle n Stunden aktualisieren, 0 = deaktiviert", "ru": "обновлять список изображений каждые n часов, 0 = отключено", "pt": "atualizar lista de imagens a cada n horas, 0 = desativado", "nl": "update fotolijst elke n uur, 0 = uitgeschakeld",  "fr": "mettre à jour la liste d'images toutes les n heures, 0 = désactivé", "it": "aggiorna l'elenco delle immagini ogni n ore, 0 = disabilitato", "es": "actualizar la lista de imágenes cada n horas, 0 = deshabilitado", "pl": "aktualizuj listę zdjęć co n godzin, 0 = wyłączone", "zh-cn": "每n小时更新图片列表，0 =禁用"},
+    "downloadLocationData": {
+        "en": "download location infos (internet connection required)",
+        "de": "Standortinformationen herunterladen (Internetverbindung erforderlich)",
+        "ru": "загрузить информацию о местоположении (требуется подключение к Интернету)",
+        "pt": "baixar informações de localização (requer conexão com a internet)",
+        "nl": "download locatie-informatie (internetverbinding vereist)",
+        "fr": "télécharger les informations de localisation (connexion Internet requise)",
+        "it": "scarica le informazioni sulla posizione (è richiesta una connessione a Internet)",
+        "es": "descargar información de ubicación (se requiere conexión a Internet)",
+        "pl": "pobierz informacje o lokalizacji (wymagane połączenie internetowe)",
+        "zh-cn": "下载位置信息（需要互联网连接）"
+      }
 };

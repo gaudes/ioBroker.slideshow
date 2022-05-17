@@ -109,16 +109,16 @@ async function updatePictureList(Helper) {
           if (ImageSize.width && ImageSize.height) {
             if ((Helper.Adapter.config.fs_format === 1 && ImageSize.width > ImageSize.height) === true) {
               if (Array.isArray(CurrentImages)) {
-                CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null });
+                CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null });
               } else {
-                CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null }];
+                CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null }];
               }
             }
             if ((Helper.Adapter.config.fs_format === 2 && ImageSize.height > ImageSize.width) === true) {
               if (Array.isArray(CurrentImages)) {
-                CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null });
+                CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null });
               } else {
-                CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null }];
+                CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null }];
               }
             }
           }
@@ -127,9 +127,9 @@ async function updatePictureList(Helper) {
         }
       } else {
         if (Array.isArray(CurrentImages)) {
-          CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null });
+          CurrentImages.push({ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null });
         } else {
-          CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null }];
+          CurrentImages = [{ path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, latitude: null, longitude: null, locationInfos: null }];
         }
       }
     }
@@ -141,6 +141,8 @@ async function updatePictureList(Helper) {
           (fileInfo == null ? void 0 : fileInfo.info2) ? CurrentImage2.info2 = fileInfo == null ? void 0 : fileInfo.info2 : CurrentImage2.info2 = "";
           (fileInfo == null ? void 0 : fileInfo.info3) ? CurrentImage2.info3 = fileInfo == null ? void 0 : fileInfo.info3 : CurrentImage2.info3 = "";
           (fileInfo == null ? void 0 : fileInfo.date) ? CurrentImage2.date = fileInfo == null ? void 0 : fileInfo.date : CurrentImage2.date = null;
+          (fileInfo == null ? void 0 : fileInfo.latitude) ? CurrentImage2.latitude = fileInfo == null ? void 0 : fileInfo.latitude : CurrentImage2.latitude = null;
+          (fileInfo == null ? void 0 : fileInfo.longitude) ? CurrentImage2.longitude = fileInfo == null ? void 0 : fileInfo.longitude : CurrentImage2.longitude = null;
         }));
       }
     }

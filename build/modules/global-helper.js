@@ -31,8 +31,9 @@ __export(global_helper_exports, {
 });
 var SentryObj = __toESM(require("@sentry/types"));
 class GlobalHelper {
-  constructor(adapterInstance) {
+  constructor(adapterInstance, language) {
     this.Adapter = adapterInstance;
+    this.Language = language;
     if (this.Adapter.supportsFeature && this.Adapter.supportsFeature("PLUGINS")) {
       const sentryInstance = this.Adapter.getPluginInstance("sentry");
       if (sentryInstance) {
@@ -89,6 +90,9 @@ class GlobalHelper {
       level: Level,
       data: Data
     });
+  }
+  getLanguage() {
+    return this.Language;
   }
 }
 module.exports = __toCommonJS(global_helper_exports);

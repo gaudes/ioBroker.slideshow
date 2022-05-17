@@ -200,7 +200,8 @@
         "syno_username": "",
         "syno_userpass": "",
         "syno_format": 0,
-        "syno_order": 0
+        "syno_order": 0,
+        "downloadLocationData": false
     },
     "objects": [],
     "instanceObjects": [
