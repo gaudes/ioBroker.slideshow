@@ -21,6 +21,14 @@ export interface SynoPictureListUpdateResult{
 	picturecount: number;
 }
 
+// Internal use for iterating folders
+interface SynoFolders{
+	id: number,
+	name: string,
+	parent: number
+}
+const synoFolders: SynoFolders[] =[];
+
 // Connection State for internal use
 let synoConnectionState  = false;
 // Synology Login Token
@@ -105,55 +113,41 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictu
 	if (synoConnectionState === true){
 		// Retrieve complete list of pictures
 		try{
-			let synEndOfFiles = false;
-			let synOffset = 0;
-			while (synEndOfFiles === false){
-				if (Helper.Adapter.config.syno_version === 0){
-					let synURL = `http://${Helper.Adapter.config.syno_path}/photo/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Item&method=list_with_filter&version=1&limit=500&item_type=%5B0%5D&additional=%5B%22description%22%2C%22orientation%22%2C%22tag%22%2C%22resolution%22%5D&offset=${synOffset}&SynoToken=${synoToken}`;
-					switch (Helper.Adapter.config.syno_order){
-						case 1:
-							//Filename
-							synURL = synURL + "&sort_by=filename&sort_direction=asc";
-							break;
-						default:
-							//Takendate
-							synURL = synURL + "&sort_by=takentime";
-							break;
-					}
-					const synResult = await (synoConnection.get<any>(synURL));
-					if (synResult.data["success"] === true && Array.isArray(synResult.data["data"]["list"])){
-						if (synResult.data["data"]["list"].length === 0){
-							synEndOfFiles = true;
-						} else {
-							synResult.data["data"]["list"].forEach(element => {
-								let PictureDate: Date | null = null;
-								if (element.time){
-									PictureDate = new Date(element.time);
-								}
-								CurrentImageList.push( {path: element.id, url: "", info1: element.description, info2: "", info3: element.filename, date: PictureDate, x: element.additional.resolution.height, y: element.additional.resolution.width } );
-							});
-							synOffset = synOffset + 500;
+			if (Helper.Adapter.config.syno_version === 0){
+				Helper.ReportingInfo("Debug", "Synology", `Start iterating folders`);
+				synoFolders.length = 0;
+				await synoGetFolders(Helper, 1);
+				Helper.ReportingInfo("Debug", "Synology", `${synoFolders.length} folders found, receiving pictures`);
+				for(const synoFolder of synoFolders){
+					let synEndOfFiles = false;
+					let synOffset = 0;
+					while (synEndOfFiles === false){
+						const synURL = `http://${Helper.Adapter.config.syno_path}/photo/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Item&method=list&version=1&limit=500&item_type=%5B0%5D&additional=%5B%22description%22%2C%22orientation%22%2C%22tag%22%2C%22resolution%22%5D&offset=${synOffset}&SynoToken=${synoToken}&folder_id=${synoFolder.id}`;
+						const synResult = await (synoConnection.get<any>(synURL));
+						if (synResult.data["success"] === true && Array.isArray(synResult.data["data"]["list"])){
+							if (synResult.data["data"]["list"].length === 0){
+								synEndOfFiles = true;
+							} else {
+								synResult.data["data"]["list"].forEach(element => {
+									let PictureDate: Date | null = null;
+									if (element.time){
+										PictureDate = new Date(element.time);
+									}
+									CurrentImageList.push( {path: element.id, url: "", info1: element.description, info2: "", info3: element.filename, date: PictureDate, x: element.additional.resolution.height, y: element.additional.resolution.width } );
+								});
+								synOffset = synOffset + 500;
+							}
+						}else{
+							Helper.ReportingError(null, "Error getting pictures from Synology", "Synology", "updatePictureList/List", JSON.stringify(synResult.data), false);
+							return { success: false, picturecount: 0 };
 						}
-					}else{
-						Helper.ReportingError(null, "Error getting pictures from Synology", "Synology", "updatePictureList/List", JSON.stringify(synResult.data), false);
-						return { success: false, picturecount: 0 };
 					}
-				} else {
-					let synURL = `http://${Helper.Adapter.config.syno_path}/photo/webapi/photo.php?api=SYNO.PhotoStation.Photo&method=list&version=1&limit=500&type=photo&offset=${synOffset}`;
-					switch (Helper.Adapter.config.syno_order){
-						case 1:
-							//Filename
-							synURL = synURL + "&sort_by=filename";
-							break;
-						case 2:
-							//Createdate
-							synURL = synURL + "&sort_by=createdate";
-							break;
-						default:
-							//Takendate
-							synURL = synURL + "&sort_by=takendate";
-							break;
-					}
+				}
+			} else {
+				let synEndOfFiles = false;
+				let synOffset = 0;
+				while (synEndOfFiles === false){
+					const synURL = `http://${Helper.Adapter.config.syno_path}/photo/webapi/photo.php?api=SYNO.PhotoStation.Photo&method=list&version=1&limit=500&type=photo&offset=${synOffset}`;
 					const synResult = await (synoConnection.get<any>(synURL));
 					if (synResult.data["success"] === true && Array.isArray(synResult.data["data"]["items"])){
 						synResult.data["data"]["items"].forEach(element => {
@@ -207,20 +201,30 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictu
 			}else{
 				CurrentImages = CurrentImageListFilter1;
 			}
-			// Random order ?
-			if (Helper.Adapter.config.syno_order === 3){
-				// See https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-				let currentIndex = CurrentImages.length, temporaryValue: SynoPicture, randomIndex: number;
-				// While there remain elements to shuffle...
-				while (0 !== currentIndex) {
-					// Pick a remaining element...
-					randomIndex = Math.floor(Math.random() * currentIndex);
-					currentIndex -= 1;
-					// And swap it with the current element.
-					temporaryValue = CurrentImages[currentIndex];
-					CurrentImages[currentIndex] = CurrentImages[randomIndex];
-					CurrentImages[randomIndex] = temporaryValue;
-				}
+			// Sorting
+			switch (Helper.Adapter.config.syno_order){
+				case 0:
+					// Takendate
+					CurrentImages = await sortByKey(CurrentImages, "date");
+					break;
+				case 1:
+					// Filename
+					CurrentImages = await sortByKey(CurrentImages, "info3");
+					break;
+				case 3:
+					// Random
+					// See https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+					let currentIndex = CurrentImages.length, temporaryValue: SynoPicture, randomIndex: number;
+					// While there remain elements to shuffle...
+					while (0 !== currentIndex) {
+						// Pick a remaining element...
+						randomIndex = Math.floor(Math.random() * currentIndex);
+						currentIndex -= 1;
+						// And swap it with the current element.
+						temporaryValue = CurrentImages[currentIndex];
+						CurrentImages[currentIndex] = CurrentImages[randomIndex];
+						CurrentImages[randomIndex] = temporaryValue;
+					}
 			}
 		} catch (err){
 			Helper.ReportingError(err as Error, "Unknown Error", "Synology", "updatePictureList/Filter");
@@ -352,4 +356,44 @@ async function synoCheckConnection(Helper: GlobalHelper): Promise<boolean>{
 		}
 	}
 	return false;
+}
+
+async function synoGetFolders(Helper: GlobalHelper, FolderID: number): Promise<boolean>{
+	try{
+		let synoEndOfFolders = false;
+		let synoOffset = 0;
+		while (synoEndOfFolders === false){
+			const synoURL = `http://${Helper.Adapter.config.syno_path}/photo/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Folder&method=list&version=1&id=${FolderID}&limit=500&offset=${synoOffset}&SynoToken=${synoToken}`;
+			Helper.ReportingInfo("Debug", "Synology", `Iterating folder id ${FolderID} `, {URL: synoURL} );
+			const synResult = await (synoConnection.get<any>(synoURL));
+			Helper.ReportingInfo("Debug", "Synology", `Result iterating folder id ${FolderID}`, {JSON: JSON.stringify(synResult.data)} );
+			if (synResult.data["success"] === true && Array.isArray(synResult.data["data"]["list"])){
+				if (synResult.data["data"]["list"].length === 0){
+					synoEndOfFolders = true;
+				} else {
+					for (const element of synResult.data["data"]["list"]) {
+						synoFolders.push({ id: element.id, name: element.name, parent: element.parent });
+						await synoGetFolders(Helper, element.id)
+					}
+					synoOffset = synoOffset + 500;
+				}
+			}else{
+				Helper.ReportingError(null, "Error getting folders from Synology", "Synology", "synoGetFolders", JSON.stringify(synResult.data), false);
+				return false;
+			}
+
+		}
+		return true;
+	}catch(err){
+		Helper.ReportingError(err as Error, "Unknown error", "Synology", "synoGetFolders");
+		return false;
+	}
+}
+
+async function sortByKey(array: Array<any>, key: string): Promise<Array<any>> {
+	return array.sort(function(a: any, b: any) {
+		const x = a[key];
+		const y = b[key];
+		return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+	});
 }
