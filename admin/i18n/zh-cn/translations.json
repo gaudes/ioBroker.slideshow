@@ -5,6 +5,7 @@
     "display_order_filename": "文档名称",
     "display_order_random": "随机",
     "display_order_taken": "拍摄日期",
+    "downloadLocationData": "下载位置信息（需要互联网连接）",
     "fs_format": "显示格式",
     "fs_format_all": "所有格式",
     "fs_format_landscape": "横向格式",

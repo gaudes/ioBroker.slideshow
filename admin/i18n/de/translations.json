@@ -5,6 +5,7 @@
     "display_order_filename": "Dateiname",
     "display_order_random": "Zufällig",
     "display_order_taken": "Aufnahmedatum",
+    "downloadLocationData": "Standortinformationen herunterladen (Internetverbindung erforderlich)",
     "fs_format": "Formate anzeigen",
     "fs_format_all": "Alle Formate",
     "fs_format_landscape": "Querformat",

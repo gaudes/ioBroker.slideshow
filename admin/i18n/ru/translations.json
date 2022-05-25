@@ -5,6 +5,7 @@
     "display_order_filename": "Имя файла",
     "display_order_random": "Случайный",
     "display_order_taken": "Дата записи",
+    "downloadLocationData": "загрузить информацию о местоположении (требуется подключение к Интернету)",
     "fs_format": "Показать форматы",
     "fs_format_all": "Все форматы",
     "fs_format_landscape": "альбомный формат",

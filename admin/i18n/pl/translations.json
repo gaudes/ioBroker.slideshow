@@ -5,6 +5,7 @@
     "display_order_filename": "Nazwa pliku",
     "display_order_random": "Losowy",
     "display_order_taken": "Data nagrania",
+    "downloadLocationData": "pobierz informacje o lokalizacji (wymagane połączenie internetowe)",
     "fs_format": "Pokaż formaty",
     "fs_format_all": "Wszystkie formaty",
     "fs_format_landscape": "format poziomy",
