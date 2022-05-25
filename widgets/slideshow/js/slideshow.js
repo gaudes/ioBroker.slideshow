@@ -12,7 +12,7 @@ $.extend(
 	true,
 	systemDictionary,
 	{
-		"AutoViewChange":{
+		"AutoViewChange": {
 			"en": "Enable",
 			"de": "Aktivieren",
 			"ru": "включить",
@@ -24,7 +24,7 @@ $.extend(
 			"pl": "Włączyć",
 			"zh-cn": "启用"
 		},
-		"AutoViewChange_tooltip":{
+		"AutoViewChange_tooltip": {
 			"en": "Enable automatic view change to this view on timeout",
 			"de": "Aktivieren Sie die automatische Ansichtsänderung zu dieser Ansicht bei Zeitüberschreitung",
 			"ru": "Включить автоматическое изменение представления для этого представления по истечении времени ожидания",
@@ -36,7 +36,7 @@ $.extend(
 			"pl": "Włącz automatyczną zmianę widoku w tym widoku po przekroczeniu limitu czasu",
 			"zh-cn": "在超时时启用对此视图的自动视图更改"
 		},
-		"AutoViewChangeTimeout":{
+		"AutoViewChangeTimeout": {
 			"en": "Timeout",
 			"de": "Timeout",
 			"ru": "Тайм-аут",
@@ -48,7 +48,7 @@ $.extend(
 			"pl": "Koniec czasu",
 			"zh-cn": "超时"
 		},
-		"AutoViewChangeTimeout_tooltip":{
+		"AutoViewChangeTimeout_tooltip": {
 			"en": "Inactivity time in seconds to start view with Slideshow",
 			"de": "Inaktivitätszeit in Sekunden, um die Ansicht mit Diashow zu starten",
 			"ru": "Время бездействия в секундах для запуска просмотра в режиме слайд-шоу",
@@ -60,7 +60,7 @@ $.extend(
 			"pl": "Czas bezczynności w sekundach, aby rozpocząć wyświetlanie z pokazem slajdów",
 			"zh-cn": "闲置时间（以秒为单位）以幻灯片显示开始查看"
 		},
-		"AutoViewNavTarget":{
+		"AutoViewNavTarget": {
 			"en": "Target on click",
 			"de": "Ziel beim Klicken",
 			"ru": "Таргетинг на клик",
@@ -72,7 +72,7 @@ $.extend(
 			"pl": "Cel po kliknięciu",
 			"zh-cn": "点击目标"
 		},
-		"AutoViewNavTarget_tooltip":{
+		"AutoViewNavTarget_tooltip": {
 			"en": "Target when click to leave Slideshow",
 			"de": "Ziel, wenn Sie klicken, um die Diashow zu verlassen",
 			"ru": "Таргетинг при нажатии, чтобы покинуть слайд-шоу",
@@ -84,7 +84,7 @@ $.extend(
 			"pl": "Kieruj na kliknięcie, aby opuścić pokaz slajdów",
 			"zh-cn": "单击以离开幻灯片放映时定位"
 		},
-		"AutoViewTarget":{
+		"AutoViewTarget": {
 			"en": "Target view",
 			"de": "Zielansicht",
 			"ru": "Целевой вид",
@@ -96,7 +96,7 @@ $.extend(
 			"pl": "Widok docelowy",
 			"zh-cn": "目标视图"
 		},
-		"AutoViewTarget_tooltip":{
+		"AutoViewTarget_tooltip": {
 			"en": "Target view when leave Slideshow with click on picture",
 			"de": "Zielansicht beim Verlassen der Diashow mit Klick auf das Bild",
 			"ru": "Целевой вид при выходе из слайд-шоу нажатием на картинку",
@@ -108,7 +108,7 @@ $.extend(
 			"pl": "Docelowy widok po wyjściu z pokazu slajdów za pomocą kliknięcia na zdjęcie",
 			"zh-cn": "单击图片离开幻灯片放映时的目标视图"
 		},
-		"PictureFitWidget":{
+		"PictureFitWidget": {
 			"en": "Fill widget with picture",
 			"de": "Widget mit Bild füllen",
 			"ru": "Заполнить виджет картинкой",
@@ -120,7 +120,7 @@ $.extend(
 			"pl": "Wypełnij widżet obrazem",
 			"zh-cn": "用图片填充小部件"
 		},
-		"PictureFitWidget_tooltip":{
+		"PictureFitWidget_tooltip": {
 			"en": "True = Picture fills widget, border of picture may be cut off\nFalse = Complete picture is shown, but widget may have empty zones",
 			"de": "True = Bild füllt das Widget, der Bildrand ist möglicherweise abgeschnitten \nFalse = Das vollständige Bild wird angezeigt, das Widget kann jedoch leere Zonen haben",
 			"ru": "True = изображение заполняет виджет, граница изображения может быть обрезана \nFalse = изображение отображается полностью, но виджет может иметь пустые зоны",
@@ -132,7 +132,7 @@ $.extend(
 			"pl": "True = Widżet wypełnia obraz, krawędź obrazu może zostać obcięta \nFalse = Wyświetlany jest cały obraz, ale widżet może mieć puste strefy",
 			"zh-cn": "True =图片填充小部件，图片的边框可能被剪掉\nFalse =显示完整图片，但小部件可能有空白区域"
 		},
-		"Debug":{
+		"Debug": {
 			"en": "Debug",
 			"de": "Debuggen",
 			"ru": "Отлаживать",
@@ -144,7 +144,7 @@ $.extend(
 			"pl": "Odpluskwić",
 			"zh-cn": "除错"
 		},
-		"Debug_tooltip":{
+		"Debug_tooltip": {
 			"en": "Debugging to Console",
 			"de": "Debuggen in die Konsole",
 			"ru": "Отладка в консоль",
@@ -156,7 +156,7 @@ $.extend(
 			"pl": "Debugowanie do konsoli",
 			"zh-cn": "调试到控制台"
 		},
-		"SlideShowEffect":{
+		"SlideShowEffect": {
 			"en": "Effect style",
 			"de": "Effektstil",
 			"ru": "Стиль эффекта",
@@ -168,7 +168,7 @@ $.extend(
 			"pl": "Styl efektu",
 			"zh-cn": "效果风格"
 		},
-		"SlideShowEffect_tooltip":{
+		"SlideShowEffect_tooltip": {
 			"en": "Basic effect when picture changes",
 			"de": "Grundeffekt bei Bildänderungen",
 			"ru": "Основной эффект при смене изображения",
@@ -180,7 +180,7 @@ $.extend(
 			"pl": "Podstawowy efekt przy zmianie obrazu",
 			"zh-cn": "图片变化时的基本效果"
 		},
-		"group_effect":{
+		"group_effect": {
 			"en": "Effect",
 			"de": "Effekt",
 			"ru": "Эффект",
@@ -192,7 +192,7 @@ $.extend(
 			"pl": "Efekt",
 			"zh-cn": "影响"
 		},
-		"EffectNone":{
+		"EffectNone": {
 			"en": "None",
 			"de": "Kein",
 			"ru": "никто",
@@ -204,7 +204,7 @@ $.extend(
 			"pl": "Żaden",
 			"zh-cn": "没有"
 		},
-		"EffectFade":{
+		"EffectFade": {
 			"en": "Fade",
 			"de": "Fade",
 			"ru": "Fade",
@@ -216,7 +216,7 @@ $.extend(
 			"pl": "Fade",
 			"zh-cn": "Fade"
 		},
-		"EffectTransition":{
+		"EffectTransition": {
 			"en": "Transition",
 			"de": "Transition",
 			"ru": "Transition",
@@ -228,7 +228,7 @@ $.extend(
 			"pl": "Transition",
 			"zh-cn": "Transition"
 		},
-		"EffectJQuery":{
+		"EffectJQuery": {
 			"en": "JQuery Effect",
 			"de": "JQuery-Effekt",
 			"ru": "Эффект JQuery",
@@ -240,7 +240,7 @@ $.extend(
 			"pl": "Efekt JQuery",
 			"zh-cn": "jQuery效果"
 		},
-		"FadeTime":{
+		"FadeTime": {
 			"en": "transition period",
 			"de": "Übergangsphase",
 			"ru": "переходный период",
@@ -252,7 +252,7 @@ $.extend(
 			"pl": "okres przejściowy",
 			"zh-cn": "过渡期"
 		},
-		"FadeTime_tooltip":{
+		"FadeTime_tooltip": {
 			"en": "Time in ms for transition period, for example from being shown to being hidden",
 			"de": "Zeit in ms für die Übergangszeit, zum Beispiel vom Anzeigen zum Ausblenden",
 			"ru": "Время в мс для переходного периода, например, от отображения до скрытия",
@@ -264,7 +264,7 @@ $.extend(
 			"pl": "Czas w ms okresu przejścia, na przykład od pokazania do ukrycia",
 			"zh-cn": "过渡周期（以毫秒为单位）的时间，例如从显示到隐藏"
 		},
-		"EffectTransitionStyle":{
+		"EffectTransitionStyle": {
 			"en": "Transition Style",
 			"de": "Transitionsstil",
 			"ru": "Transition Style",
@@ -276,7 +276,7 @@ $.extend(
 			"pl": "Transition Style",
 			"zh-cn": "Transition Style"
 		},
-		"EffectTransitionStyle_tooltip":{
+		"EffectTransitionStyle_tooltip": {
 			"en": "Speed curve of the transition",
 			"de": "Geschwindigkeitskurve des Übergangs",
 			"ru": "Кривая скорости перехода",
@@ -288,7 +288,7 @@ $.extend(
 			"pl": "Krzywa prędkości przejścia",
 			"zh-cn": "过渡速度曲线"
 		},
-		"TargetDefined":{
+		"TargetDefined": {
 			"en": "Configured view",
 			"de": "Konfigurierte Ansicht",
 			"ru": "Настроенный вид",
@@ -300,7 +300,7 @@ $.extend(
 			"pl": "Widok skonfigurowany",
 			"zh-cn": "配置视图"
 		},
-		"TargetLast":{
+		"TargetLast": {
 			"en": "Last used view",
 			"de": "Zuletzt verwendete Ansicht",
 			"ru": "Последний использованный просмотр",
@@ -312,7 +312,7 @@ $.extend(
 			"pl": "Ostatnio używany widok",
 			"zh-cn": "上次使用的视图"
 		},
-		"TargetNone":{
+		"TargetNone": {
 			"en": "None",
 			"de": "Kein",
 			"ru": "никто",
@@ -324,7 +324,7 @@ $.extend(
 			"pl": "Żaden",
 			"zh-cn": "没有"
 		},
-		"group_viewchange":{
+		"group_viewchange": {
 			"en": "Automatic Slideshow start",
 			"de": "Automatischer Diashow-Start",
 			"ru": "Автоматический запуск слайд-шоу",
@@ -335,7 +335,7 @@ $.extend(
 			"es": "Inicio automático de la presentación de diapositivas",
 			"pl": "Rozpoczęcie automatycznego pokazu slajdów",
 			"zh-cn": "自动幻灯片播放开始"
-		} 
+		}
 	}
 );
 
@@ -349,24 +349,24 @@ vis.binds["slideshow"] = {
 			vis.binds["slideshow"].version = null;
 		}
 	},
-	updateSlideshowEffect: function (wid, view){
-		if ($("#inspect_SlideshowEffect")[0].value === "EffectJQuery"){
+	updateSlideshowEffect: function (wid, view) {
+		if ($("#inspect_SlideshowEffect")[0].value === "EffectJQuery") {
 			vis.hideShowAttr("EffectJQuery", true);
 		} else {
 			vis.hideShowAttr("EffectJQuery", false);
-		} 
+		}
 	},
-	initSlideshowTimer: function (view){
+	initSlideshowTimer: function (view) {
 		if (!vis.views && !vis.editMode) {
 			return setTimeout(function () {
 				vis.binds["slideshow"].initSlideshowTimer();
 			}, 100);
 		}
-		function SlideShowTimeout(){
-			if (vis.activeView !== window.SlideShowView){
+		function SlideShowTimeout() {
+			if (vis.activeView !== window.SlideShowView) {
 				if (window.SlideShowTimer) clearTimeout(window.SlideShowTimer);
 				window.SlideShowLastView = vis.activeView;
-				window.SlideShowTimer = setTimeout(function(){
+				window.SlideShowTimer = setTimeout(function () {
 					window.SlideShowTimer = null;
 					window.SlideShowTimeoutStarted = false;
 					vis.changeView(window.SlideShowView);
@@ -375,27 +375,27 @@ vis.binds["slideshow"] = {
 			}
 		}
 
-		if (!vis.editMode && !window.SlideShowTimeoutStarted){
+		if (!vis.editMode && !window.SlideShowTimeoutStarted) {
 			// Searching view with Slideshow
-			for (view in vis.views){
-				if (vis.views[view].widgets){ 
-					for (const widgetid in vis.views[view].widgets){
-						if (vis.views[view].widgets[widgetid].tpl === "tplSlideshowPicture"){
-							if (vis.views[view].widgets[widgetid].data.AutoViewChange === true){ 
+			for (view in vis.views) {
+				if (vis.views[view].widgets) {
+					for (const widgetid in vis.views[view].widgets) {
+						if (vis.views[view].widgets[widgetid].tpl === "tplSlideshowPicture") {
+							if (vis.views[view].widgets[widgetid].data.AutoViewChange === true) {
 								console.log("SlideShowTimeout started");
 								window.SlideShowTimeoutTime = vis.views[view].widgets[widgetid].data.AutoViewChangeTimeout * 1000;
 								window.SlideShowTimeoutStarted = true;
 								window.SlideShowView = view;
 								$(document).click(SlideShowTimeout.bind());
 								SlideShowTimeout();
-							}	
-						}  
+							}
+						}
 					}
 				}
 			}
 		}
 	},
-	showSlideshow: function (widgetID, view, data, style){
+	showSlideshow: function (widgetID, view, data, style) {
 		var $div = $("#" + widgetID);
 		// if nothing found => wait
 		if (!$div.length) {
@@ -407,64 +407,70 @@ vis.binds["slideshow"] = {
 		let FadeTime = parseInt(data.FadeTime) || 0;
 
 		function onChange(e, newVal, oldVal) {
-			if (data.Debug === true){ console.log(`Picture change occured for widget #${widgetID}`)};
-			switch(data.SlideshowEffect){
+			let img = new Image();
+			img.src = newVal;
+
+			if (data.Debug === true) { console.log(`Picture change occured for widget #${widgetID}`) };
+
+			switch (data.SlideshowEffect) {
 				case "EffectFade":
-					$(`#${widgetID} .slideshowpicture1`).fadeOut(FadeTime, function() {
-                        $(`#${widgetID} .slideshowpicture1`).attr("src", newVal).load(function(){
-                    		$(`#${widgetID} .slideshowpicture1`).fadeIn(FadeTime);
-                        });
+					$(`#${widgetID} .slideshowpicture1`).fadeOut(FadeTime, function () {
+						$(`#${widgetID} .slideshowpicture1`).attr("src", img.src).load(function () {
+							$(`#${widgetID} .slideshowpicture1`).fadeIn(FadeTime);
+						});
 					});
 					break;
 				case "EffectTransition":
-					if (data.Debug === true){ console.log("Load new picture in hidden img")};
-					$(`#${widgetID} .slideshowpicturehidden`).load(function(){
-						if (data.Debug === true){ console.log("Toggle hidden class")};
-						if ($(this)[0].classList.contains("slideshowpicture1")){
+					if (data.Debug === true) { console.log("Load new picture in hidden img") };
+					$(`#${widgetID} .slideshowpicturehidden`).load(function () {
+						if (data.Debug === true) { console.log("Toggle hidden class") };
+						if ($(this)[0].classList.contains("slideshowpicture1")) {
 							$(`#${widgetID} .slideshowpicture2`).addClass("slideshowpicturehidden");
 							$(`#${widgetID} .slideshowpicture1`).removeClass("slideshowpicturehidden");
-						} else{
+						} else {
 							$(`#${widgetID} .slideshowpicture1`).addClass("slideshowpicturehidden");
 							$(`#${widgetID} .slideshowpicture2`).removeClass("slideshowpicturehidden");
-						}  
-					}).attr("src", newVal);
+						}
+					}).attr("src", img.src);
 					break;
 				case "EffectJQuery":
 					console.log(`Starting effect ${data.EffectJQuery}`)
-					if ($(`#${widgetID} .slideshowpicture2`).css("display") === "none"){
-						$(`#${widgetID} .slideshowpicture2`).attr("src", newVal);
+					if ($(`#${widgetID} .slideshowpicture2`).css("display") === "none") {
+						$(`#${widgetID} .slideshowpicture2`).attr("src", img.src);
 						$(`#${widgetID} .slideshowpicture2`).css("z-index", 2);
-						$(`#${widgetID} .slideshowpicture2`).show(data.EffectJQuery, data.EffectTransitionStyle, FadeTime, function() {$(`#${widgetID} .slideshowpicture1`).css("display", "none");} )
-					} else{
-						$(`#${widgetID} .slideshowpicture1`).attr("src", newVal);
+						$(`#${widgetID} .slideshowpicture2`).show(data.EffectJQuery, data.EffectTransitionStyle, FadeTime, function () { $(`#${widgetID} .slideshowpicture1`).css("display", "none"); })
+					} else {
+						$(`#${widgetID} .slideshowpicture1`).attr("src", img.src);
 						$(`#${widgetID} .slideshowpicture2`).css("z-index", 0);
-						$(`#${widgetID} .slideshowpicture1`).show(data.EffectJQuery, data.EffectTransitionStyle, FadeTime, function() {$(`#${widgetID} .slideshowpicture2`).css("display", "none");} )
+						$(`#${widgetID} .slideshowpicture1`).show(data.EffectJQuery, data.EffectTransitionStyle, FadeTime, function () { $(`#${widgetID} .slideshowpicture2`).css("display", "none"); })
 					}
 					break;
 				default:
-					$(`#${widgetID} .slideshowpicture1`).attr("src", newVal);
+					$(`#${widgetID} .slideshowpicture1`).attr("src", img.src);
 					break;
 			}
+
+			img.remove();
 		}
 
 		$div.on('click touchend', function (e) {
 			// Protect against two events
 			if (vis.detectBounce(this)) return;
-			if (data.AutoViewNavTarget === "TargetLast"){
+			if (data.AutoViewNavTarget === "TargetLast") {
 				vis.changeView(window.SlideShowLastView);
-			}else if(data.AutoViewNavTarget === "TargetDefined"){
+			} else if (data.AutoViewNavTarget === "TargetDefined") {
 				vis.changeView(data.AutoViewTarget);
 			}
 		});
 
-		Array.from($(`#${widgetID} .slideshowpicture`)).forEach(image =>{
+		Array.from($(`#${widgetID} .slideshowpicture`)).forEach(image => {
 			image.addEventListener("load", () => SlideShowFitImage(image, widgetID));
 		})
 
-		function SlideShowFitImage(image, widgetID){
-			if (data.PictureFitWidget === false){
+		function SlideShowFitImage(image, widgetID) {
+			if (data.PictureFitWidget === false) {
 				$(`#${widgetID} .slideshowpicture`).css("object-fit", "contain");
-			}else{ 	
+			} else {
 				const imgFormat = image.naturalWidth / image.naturalHeight;
 				if (imgFormat > 1) {
 					// image is landscape
@@ -473,28 +479,28 @@ vis.binds["slideshow"] = {
 				} else if (imgFormat < 1) {
 					// image is portrait
 					image.style.width = '100%';
-			  		image.style.maxHeight = '100%';
+					image.style.maxHeight = '100%';
 				} else {
 					// image is square
 					image.style.Width = '100%';
 					image.style.maxHeight = '100%';
-				}	
+				}
 			}
 		}
 
-		if (vis.editMode){
+		if (vis.editMode) {
 			setTimeout(function () {
 				vis.binds["slideshow"].updateSlideshowEffect();
 			}, 100);
 		}
 
-		if (data.oid){ 
+		if (data.oid) {
 			vis.states.bind(data.oid + ".val", onChange);
 		}
-		if (data.SlideshowEffect === "EffectFade"){
+		if (data.SlideshowEffect === "EffectFade") {
 			$(`#${widgetID} .slideshowpicture2`).css("display", "none");
 		}
-		if (data.SlideshowEffect === "EffectTransition"){
+		if (data.SlideshowEffect === "EffectTransition") {
 			$(`#${widgetID} .slideshowpicture2`).addClass("slideshowpicturehidden");
 			$(`#${widgetID} .slideshowpicturehidden`).css("transition-property", "opacity");
 			$(`#${widgetID} .slideshowpicturehidden`).css("transition-duration", FadeTime + "ms");
@@ -505,7 +511,7 @@ vis.binds["slideshow"] = {
 			$(`#${widgetID} .slideshowpicture`).css("transition-timing-function", data.EffectTransitionStyle);
 			$(`#${widgetID} .slideshowpicture`).css("transition-delay", "0s");
 		}
-		if (data.SlideshowEffect === "EffectJQuery"){
+		if (data.SlideshowEffect === "EffectJQuery") {
 			$(`#${widgetID} .slideshowpicture2`).css("display", "none");
 		}
 	}
