@@ -17,6 +17,9 @@
     "type": "git",
     "url": "https://github.com/gaudes/ioBroker.slideshow"
   },
+  "engines": {
+    "node": ">=14"
+  },
   "dependencies": {
     "@iobroker/adapter-core": "^2.6.0",
     "axios": "^0.27.2",
