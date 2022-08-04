@@ -38,7 +38,7 @@ export class GlobalHelper{
 		try{
 			if (this.Sentry && this.Adapter.config.sentry_disable === false && ReportSentry === true) {
 				this.Sentry && this.Sentry.withScope(scope => {
-					scope.setLevel(SentryObj.Severity.Error);
+					scope.setLevel("error" as SentryObj.SeverityLevel);
 					scope.setExtra("NameFunction", NameFunction);
 					scope.setExtra("NameAction", NameAction);
 					if (Info){
