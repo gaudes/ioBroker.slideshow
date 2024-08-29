@@ -424,7 +424,7 @@ class Slideshow extends utils.Adapter {
 						await this.setStateAsync("location.city", { val: storedLocations[CurrentPictureResult.path].city || "", ack: true });
 						await this.setStateAsync("location.display_name", { val: storedLocations[CurrentPictureResult.path].display_name || "", ack: true });
 					} else {
-						const locationInfos = await nominatim.getLocationInfos(Helper, CurrentPictureResult.latitude, CurrentPictureResult.longitude);
+						const locationInfos = await nominatim.getLocationInfos(Helper, CurrentPictureResult);
 
 						if (locationInfos && CurrentPictureResult.path) {
 							storedLocations[CurrentPictureResult.path] = locationInfos;
