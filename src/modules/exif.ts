@@ -5,6 +5,7 @@ import moment from "moment";
 import gpsCoordParser from "coordinate-parser";
 
 
+
 export interface exifinfo {
 	info1: string;
 	info2: string;
@@ -16,15 +17,21 @@ export interface exifinfo {
 
 export async function getPictureInformation(Helper: GlobalHelper, file: string | Buffer): Promise<exifinfo | null> {
 	try {
-		let PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal", "latitude", "longitude"]);
-		const GpsInfo = await exifr.gps(file);
+		let PictureInfo = await exifr.parse(file, true);
+		let GpsInfo = await exifr.gps(file);
 
-		if (!PictureInfo) {
-			// Sometimes full data load is needed		
-			PictureInfo = await exifr.parse(file, true);
+		if (!GpsInfo || !GpsInfo.latitude || !GpsInfo.longitude) {
+			GpsInfo = {
+				latitude: PictureInfo.latitude,
+				longitude: PictureInfo.longitude
+			};
 		}
 
 		let fallbackData = await getFallbackData(Helper, file, PictureInfo, GpsInfo);
+
+		if (!GpsInfo.latitude) {
+			Helper.Adapter.log.warn(`${file}: ${GpsInfo && GpsInfo.latitude ? GpsInfo.latitude : 'nix'}, ${fallbackData.latitude ? fallbackData.latitude : 'nix'}`);
+		}
 
 		return {
 			info1: PictureInfo && PictureInfo["XPTitle"] ? PictureInfo["XPTitle"] : "",
@@ -54,6 +61,8 @@ async function getFallbackData(Helper: GlobalHelper, file: string | Buffer, Pict
 
 	if (!PictureInfo || !PictureInfo["DateTimeOriginal"] || !GpsInfo || !GpsInfo.latitude || !GpsInfo.longitude) {
 		let fallbackData = await getExifFallback(Helper, file);
+
+		// Helper.Adapter.log.warn(JSON.stringify(fallbackData));
 
 		if (fallbackData) {
 			if (!PictureInfo || !PictureInfo["DateTimeOriginal"]) {
