@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "slideshow",
-        "version": "0.1.6",
+        "version": "0.1.7",
         "news": {
             "0.1.4": {
                 "en": "Configurable order for Filesystem (Git #37)\nConfigurable picture list update every n hours (Git #41)\nFix toggleClass for effect Transition (Git #42)\nConfigurable picture filling in widget (Git #38)\nFix for multiple widgets (Git #44)\nInclude Dependabot updates",

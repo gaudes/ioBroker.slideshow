@@ -29,9 +29,9 @@ export async function getPictureInformation(Helper: GlobalHelper, file: string |
 
 		let fallbackData = await getFallbackData(Helper, file, PictureInfo, GpsInfo);
 
-		if (!GpsInfo.latitude) {
-			Helper.Adapter.log.warn(`${file}: ${GpsInfo && GpsInfo.latitude ? GpsInfo.latitude : 'nix'}, ${fallbackData.latitude ? fallbackData.latitude : 'nix'}`);
-		}
+		// if (!GpsInfo.latitude) {
+		// 	Helper.Adapter.log.warn(`${file}: ${GpsInfo && GpsInfo.latitude ? GpsInfo.latitude : 'nix'}, ${fallbackData.latitude ? fallbackData.latitude : 'nix'}`);
+		// }
 
 		return {
 			info1: PictureInfo && PictureInfo["XPTitle"] ? PictureInfo["XPTitle"] : "",

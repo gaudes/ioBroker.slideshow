@@ -79,6 +79,12 @@ class Slideshow extends utils.Adapter {
       });
       await this.setStateAsync("updatepicturelist", false, true);
       this.subscribeStates("updatepicturelist");
+      if (this.config.downloadLocationData) {
+        const locationCacheState = await this.getStateAsync("location.cache");
+        if (locationCacheState && locationCacheState.val) {
+          storedLocations = JSON.parse(locationCacheState.val.toString());
+        }
+      }
       await this.updatePictureStoreTimer();
     } catch (err) {
       Helper.ReportingError(err, MsgErrUnknown, "onReady");
@@ -374,6 +380,19 @@ class Slideshow extends utils.Adapter {
             },
             native: {}
           });
+          await this.setObjectNotExistsAsync("location.cache", {
+            type: "state",
+            common: {
+              name: "cache",
+              type: "string",
+              role: "",
+              read: true,
+              write: false,
+              desc: "picture info cache",
+              def: "{}"
+            },
+            native: {}
+          });
           if (storedLocations && CurrentPictureResult.path && storedLocations[CurrentPictureResult.path]) {
             Helper.ReportingInfo("Debug", "Adapter", `[setLocationStates]: loading from cache (file: ${CurrentPictureResult.path}, data: ${JSON.stringify(storedLocations[CurrentPictureResult.path])}`);
             await this.setStateAsync("location.country", { val: storedLocations[CurrentPictureResult.path].country || "", ack: true });
@@ -382,7 +401,7 @@ class Slideshow extends utils.Adapter {
             await this.setStateAsync("location.city", { val: storedLocations[CurrentPictureResult.path].city || "", ack: true });
             await this.setStateAsync("location.display_name", { val: storedLocations[CurrentPictureResult.path].display_name || "", ack: true });
           } else {
-            const locationInfos = await nominatim.getLocationInfos(Helper, CurrentPictureResult.latitude, CurrentPictureResult.longitude);
+            const locationInfos = await nominatim.getLocationInfos(Helper, CurrentPictureResult);
             if (locationInfos && CurrentPictureResult.path) {
               storedLocations[CurrentPictureResult.path] = locationInfos;
               Helper.ReportingInfo("Debug", "Adapter", `[setLocationStates]: data downloaded (file: ${CurrentPictureResult.path}, data: ${JSON.stringify(storedLocations[CurrentPictureResult.path])}`);
@@ -391,8 +410,8 @@ class Slideshow extends utils.Adapter {
               await this.setStateAsync("location.county", { val: locationInfos.county || "", ack: true });
               await this.setStateAsync("location.city", { val: locationInfos.city || "", ack: true });
               await this.setStateAsync("location.display_name", { val: locationInfos.display_name || "", ack: true });
+              this.setState("location.cache", JSON.stringify(storedLocations), true);
             } else {
-              storedLocations[CurrentPictureResult.path] = { country: "", state: "", county: "", city: "", display_name: "" };
               await this.setStateAsync("location.country", { val: "", ack: true });
               await this.setStateAsync("location.state", { val: "", ack: true });
               await this.setStateAsync("location.county", { val: "", ack: true });

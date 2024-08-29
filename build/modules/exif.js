@@ -35,10 +35,13 @@ var import_moment = __toESM(require("moment"));
 var import_coordinate_parser = __toESM(require("coordinate-parser"));
 async function getPictureInformation(Helper, file) {
   try {
-    let PictureInfo = await exifr.parse(file, ["XPTitle", "XPComment", "XPSubject", "DateTimeOriginal", "latitude", "longitude"]);
-    const GpsInfo = await exifr.gps(file);
-    if (!PictureInfo) {
-      PictureInfo = await exifr.parse(file, true);
+    let PictureInfo = await exifr.parse(file, true);
+    let GpsInfo = await exifr.gps(file);
+    if (!GpsInfo || !GpsInfo.latitude || !GpsInfo.longitude) {
+      GpsInfo = {
+        latitude: PictureInfo.latitude,
+        longitude: PictureInfo.longitude
+      };
     }
     let fallbackData = await getFallbackData(Helper, file, PictureInfo, GpsInfo);
     return {
