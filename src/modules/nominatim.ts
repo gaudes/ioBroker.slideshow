@@ -1,6 +1,7 @@
 import { GlobalHelper } from "./global-helper";
 import nominatim from "nominatim-client";
 import { devNull } from "node:os";
+import moment from "moment";
 
 export interface locationInfos {
 	country: string | null;
@@ -9,6 +10,9 @@ export interface locationInfos {
 	city: string | null;
 	display_name: string | null;
 }
+
+let time: moment.Moment | null = null;
+const blockTimeout = 30;
 
 export async function getLocationInfos(Helper: GlobalHelper, CurrentPictureResult: any): Promise<locationInfos | null> {
 	try {
@@ -35,27 +39,35 @@ export async function getLocationInfos(Helper: GlobalHelper, CurrentPictureResul
 
 async function downloadLocationInfos(Helper: GlobalHelper, CurrentPictureResult: any): Promise<any | null> {
 	try {
-		const client = nominatim.createClient({
-			useragent: `ioBroker-slideshow-${(Math.random() * (100000 - 1)) + 1}@iobroker.net`,             // The name of your application
-			referer: 'https://nominatim.openstreetmap.org',  // The referer link
-		});
-
-		const query = {
-			lat: CurrentPictureResult.latitude.toFixed(8),
-			lon: CurrentPictureResult.longitude.toFixed(8),
-			zoom: 18,
-			"accept-language": Helper.getLanguage()
-		};
-
-		return new Promise(resolve => {
-			client.reverse(query).then((result) => {
-				Helper.ReportingInfo("Debug", "Adapter", `[downloadLocationInfos]: ${JSON.stringify(result)}`);
-				resolve(result);
-			}).catch((error) => {
-				Helper.ReportingError(error as Error, `${CurrentPictureResult.path}, query: ${JSON.stringify(query)} Unknown Error`, "exifr", "downloadLocationInfos");
-				resolve(undefined);
+		moment()
+		if (time === null || moment().diff(time, 'minutes') >= blockTimeout) {
+			const client = nominatim.createClient({
+				useragent: `ioBroker-slideshow-${(Math.random() * (100000 - 1)) + 1}@iobroker.net`,             // The name of your application
+				referer: 'https://nominatim.openstreetmap.org',  // The referer link
 			});
-		});
+
+			const query = {
+				lat: CurrentPictureResult.latitude.toFixed(8),
+				lon: CurrentPictureResult.longitude.toFixed(8),
+				zoom: 18,
+				"accept-language": Helper.getLanguage()
+			};
+
+			return new Promise(resolve => {
+				client.reverse(query).then((result) => {
+					Helper.ReportingInfo("Debug", "Adapter", `[downloadLocationInfos]: ${JSON.stringify(result)}`);
+					time = null;
+					resolve(result);
+				}).catch((error) => {
+					Helper.ReportingError(error as Error, `${CurrentPictureResult.path}, query: ${JSON.stringify(query)} Unknown Error`, "exifr", "downloadLocationInfos");
+					time = moment();
+					resolve(undefined);
+				});
+			});
+		} else {
+			Helper.ReportingInfo("Debug", "downloadLocationInfos", `Blocking prevention - waiting ${blockTimeout - moment().diff(time, 'minutes')} Min.`);
+		}
+
 	} catch (error) {
 		Helper.ReportingError(error as Error, `${CurrentPictureResult.path} Unknown Error`, "exifr", "downloadLocationInfos");
 		return null;
