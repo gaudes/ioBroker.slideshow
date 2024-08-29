@@ -84,6 +84,14 @@ class Slideshow extends utils.Adapter {
 			await this.setStateAsync("updatepicturelist", false, true);
 			this.subscribeStates("updatepicturelist");
 
+			if (this.config.downloadLocationData) {
+				const locationCacheState = await this.getStateAsync("location.cache");
+
+				if (locationCacheState && locationCacheState.val) {
+					storedLocations = JSON.parse(locationCacheState.val.toString());
+				}
+			}
+
 			// Starting updatePictureStoreTimer action
 			await this.updatePictureStoreTimer();
 		} catch (err) {
@@ -415,6 +423,20 @@ class Slideshow extends utils.Adapter {
 						native: {},
 					});
 
+					await this.setObjectNotExistsAsync("location.cache", {
+						type: "state",
+						common: {
+							name: "cache",
+							type: "string",
+							role: "",
+							read: true,
+							write: false,
+							desc: "picture info cache",
+							def: "{}"
+						},
+						native: {},
+					});
+
 					if (storedLocations && CurrentPictureResult.path && storedLocations[CurrentPictureResult.path]) {
 						Helper.ReportingInfo("Debug", "Adapter", `[setLocationStates]: loading from cache (file: ${CurrentPictureResult.path}, data: ${JSON.stringify(storedLocations[CurrentPictureResult.path])}`);
 
@@ -436,9 +458,11 @@ class Slideshow extends utils.Adapter {
 							await this.setStateAsync("location.county", { val: locationInfos.county || "", ack: true });
 							await this.setStateAsync("location.city", { val: locationInfos.city || "", ack: true });
 							await this.setStateAsync("location.display_name", { val: locationInfos.display_name || "", ack: true });
+
+							this.setState("location.cache", JSON.stringify(storedLocations), true);
 						}
 						else {
-							storedLocations[CurrentPictureResult.path] = { country: "", state: "", county: "", city: "", display_name: "" };
+							// storedLocations[CurrentPictureResult.path] = { country: "", state: "", county: "", city: "", display_name: "" };
 
 							await this.setStateAsync("location.country", { val: "", ack: true });
 							await this.setStateAsync("location.state", { val: "", ack: true });

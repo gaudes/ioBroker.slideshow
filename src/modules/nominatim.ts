@@ -36,13 +36,14 @@ export async function getLocationInfos(Helper: GlobalHelper, CurrentPictureResul
 async function downloadLocationInfos(Helper: GlobalHelper, CurrentPictureResult: any): Promise<any | null> {
 	try {
 		const client = nominatim.createClient({
-			useragent: "ioBroker-slideshow",             // The name of your application
+			// useragent: `ioBroker-slideshow-${(Math.random() * (100000 - 1)) + 1}`,             // The name of your application
+			useragent: 'info@iobroker.net',
 			referer: 'https://nominatim.openstreetmap.org',  // The referer link
 		});
 
 		const query = {
-			lat: CurrentPictureResult.latitude,
-			lon: CurrentPictureResult.longitude,
+			lat: CurrentPictureResult.latitude.toFixed(8),
+			lon: CurrentPictureResult.longitude.toFixed(8),
 			zoom: 18,
 			"accept-language": Helper.getLanguage()
 		};
@@ -52,7 +53,7 @@ async function downloadLocationInfos(Helper: GlobalHelper, CurrentPictureResult:
 				Helper.ReportingInfo("Debug", "Adapter", `[downloadLocationInfos]: ${JSON.stringify(result)}`);
 				resolve(result);
 			}).catch((error) => {
-				Helper.ReportingError(error as Error, `${CurrentPictureResult.path} Unknown Error`, "exifr", "downloadLocationInfos");
+				Helper.ReportingError(error as Error, `${CurrentPictureResult.path}, query: ${JSON.stringify(query)} Unknown Error`, "exifr", "downloadLocationInfos");
 				resolve(undefined);
 			});
 		});
