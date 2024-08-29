@@ -36,8 +36,7 @@ export async function getLocationInfos(Helper: GlobalHelper, CurrentPictureResul
 async function downloadLocationInfos(Helper: GlobalHelper, CurrentPictureResult: any): Promise<any | null> {
 	try {
 		const client = nominatim.createClient({
-			// useragent: `ioBroker-slideshow-${(Math.random() * (100000 - 1)) + 1}`,             // The name of your application
-			useragent: 'info@iobroker.net',
+			useragent: `ioBroker-slideshow-${(Math.random() * (100000 - 1)) + 1}@iobroker.net`,             // The name of your application
 			referer: 'https://nominatim.openstreetmap.org',  // The referer link
 		});
 
