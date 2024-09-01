@@ -140,7 +140,6 @@ class Slideshow extends utils.Adapter {
 
 	private async updatePictureStoreTimer(): Promise<void> {
 		UpdateRunning = true;
-		storedLocations = {};
 
 		let updatePictureStoreResult: PictureListUpdateResult = { success: false, picturecount: 0 };
 		Helper.ReportingInfo("Debug", "Adapter", "UpdatePictureStoreTimer occured");
