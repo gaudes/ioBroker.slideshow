@@ -112,7 +112,6 @@
                 "zh-cn": "首次出版"
             }
         },
-        "title": "Slideshow",
         "titleLang": {
             "en": "Slideshow",
             "de": "Slideshow",
@@ -141,12 +140,14 @@
             "Gaudes <ralf@gaudes.net>"
         ],
         "keywords": [
-            "ioBroker",
             "slideshow",
             "slide show",
             "diashow"
         ],
-        "license": "MIT",
+        "licenseInformation": {
+			"type": "free",
+			"license": "MIT"
+		},
         "platform": "Javascript/Node.js",
         "main": "build/main.js",
         "icon": "slideshow.png",
@@ -164,6 +165,7 @@
         "connectionType": "cloud",
         "dataSource": "poll",
         "materialize": true,
+        "tier": 3,
         "dependencies": [
             {
                 "js-controller": ">=3.0.0"
