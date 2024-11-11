@@ -13,7 +13,8 @@
                 "it": "Ordine configurabile per il filesystem (Git # 37)\nAggiornamento elenco immagini configurabile ogni n ore (Git # 41)\nRisolto il problema con toggleClass per la transizione degli effetti (Git # 42)\nImmagine configurabile compilando widget (Git # 38)\nCorrezione per più widget (Git # 44)\nIncludi gli aggiornamenti di Dependabot",
                 "es": "Orden configurable para el sistema de archivos (Git # 37)\nActualización de la lista de imágenes configurable cada n horas (Git # 41)\nSe corrigió toggleClass para la transición del efecto (Git # 42)\nRelleno de imagen configurable en widget (Git # 38)\nArreglo para múltiples widgets (Git # 44)\nIncluir actualizaciones de Dependabot",
                 "pl": "Konfigurowalna kolejność dla systemu plików (Git # 37)\nKonfigurowalna aktualizacja listy zdjęć co n godzin (Git # 41)\nNapraw toggleClass dla przejścia efektu (Git # 42)\nKonfigurowalne wypełnianie obrazu w widżecie (Git # 38)\nPoprawka dla wielu widżetów (Git # 44)\nDołącz aktualizacje Dependabot",
-                "zh-cn": "文件系统的可配置顺序（Git＃37）\n可配置的图片列表每n小时更新一次（Git＃41）\n修复toggleClass以实现效果过渡（Git＃42）\n可配置的图片填充在小部件中（Git＃38）\n修复了多个小部件（Git＃44）\n包括Dependabot更新"
+                "zh-cn": "文件系统的可配置顺序（Git＃37）\n可配置的图片列表每n小时更新一次（Git＃41）\n修复toggleClass以实现效果过渡（Git＃42）\n可配置的图片填充在小部件中（Git＃38）\n修复了多个小部件（Git＃44）\n包括Dependabot更新",
+                "uk": "Настроюваний порядок для файлової системи (Git #37)\nНастроюване оновлення списку зображень кожні n годин (Git #41)\nВиправлення toggleClass для ефекту Transition (Git #42)\nВіджет для заповнення зображенням (Git #38)\nВиправлення для кількох віджетів (Git #44)\nВключіть оновлення Dependabot"
             },
             "0.1.3": {
                 "en": "Handle Synology picture download error 502 (Sentry #A)\nFix update picture list (Git #30)\nHandle passwords with special characters for Synology (Git #12)\nFix empty result (Sentry #9)\nPrepare for WebLate translations\nQuality fixing (lgtm.com)\nInclude Dependabot updates",
@@ -25,7 +26,8 @@
                 "it": "Gestire l'errore di download delle immagini Synology 502 (Sentry #A)\nCorreggi l'elenco delle immagini di aggiornamento (Git # 30)\nGestisci le password con caratteri speciali per Synology (Git # 12)\nCorreggi il risultato vuoto (Sentry # 9)\nPreparati per le traduzioni WebLate\nFissaggio di qualità (lgtm.com)\nIncludi gli aggiornamenti di Dependabot",
                 "es": "Manejar el error 502 de descarga de imágenes de Synology (Sentry #A)\nArreglar la lista de actualización de imágenes (Git # 30)\nManejar contraseñas con caracteres especiales para Synology (Git # 12)\nCorregir resultado vacío (centinela n. ° 9)\nPrepárese para las traducciones WebLate\nFijación de calidad (lgtm.com)\nIncluir actualizaciones de Dependabot",
                 "pl": "Obsługa błędu pobierania obrazu Synology 502 (Sentry #A)\nNapraw aktualizację listy zdjęć (Git # 30)\nObsługa haseł ze znakami specjalnymi dla Synology (Git # 12)\nNapraw pusty wynik (Działka nr 9)\nPrzygotuj się na tłumaczenia WebLate\nPoprawa jakości (lgtm.com)\nDołącz aktualizacje Dependabot",
-                "zh-cn": "处理Synology图片下载错误502（Sentry #A）\n修复更新图片列表（Git＃30）\n处理具有特殊字符的Synology密码（Git＃12）\n修正空结果（步骤9）\n准备WebLate翻译\n质量修复（lgtm.com）\n包括Dependabot更新"
+                "zh-cn": "处理Synology图片下载错误502（Sentry #A）\n修复更新图片列表（Git＃30）\n处理具有特殊字符的Synology密码（Git＃12）\n修正空结果（步骤9）\n准备WebLate翻译\n质量修复（lgtm.com）\n包括Dependabot更新",
+                "uk": "Обробка помилки завантаження зображення Synology 502 (Sentry #A)\nВиправити оновлення списку зображень (Git #30)\nОбробка паролів зі спеціальними символами для Synology (Git #12)\nВиправити порожній результат (Sentry #9)\nПідготуйтеся до перекладів WebLate\nВиправлення якості (lgtm.com)\nВключіть оновлення Dependabot"
             },
             "0.1.2": {
                 "en": "Fix error with breadcrumb on Synology login",
@@ -37,7 +39,8 @@
                 "it": "Risolto l'errore con breadcrumb all'accesso a Synology",
                 "es": "Solucionar el error con la ruta de navegación en el inicio de sesión de Synology",
                 "pl": "Napraw błąd z menu nawigacyjnym przy logowaniu do Synology",
-                "zh-cn": "修复Synology登录上的面包屑错误"
+                "zh-cn": "修复Synology登录上的面包屑错误",
+                "uk": "Виправте помилку з навігацією під час входу в Synology"
             },
             "0.1.1": {
                 "en": "Rename Adapter to slideshow\nFix directory access denied (Sentry #4)\nError handling for Synology Login (Sentry #3)\nFix empty result (Sentry #2)\nFix file-not-found (Sentry #1)\nInclude Dependabot updates",
@@ -49,7 +52,8 @@
                 "it": "Rinomina l'adattatore in presentazione\nCorrezione dell'accesso alla directory negato (Sentry # 4)\nGestione degli errori per Synology Login (Sentry # 3)\nCorreggi il risultato vuoto (Sentry # 2)\nCorreggi file non trovato (Sentry # 1)\nIncludi gli aggiornamenti di Dependabot",
                 "es": "Cambiar el nombre del adaptador a presentación de diapositivas\nArreglar el acceso al directorio denegado (Centinela # 4)\nManejo de errores para el inicio de sesión de Synology (Sentry n. ° 3)\nCorregir resultado vacío (Centinela # 2)\nCorregir archivo no encontrado (centinela n. ° 1)\nIncluir actualizaciones de Dependabot",
                 "pl": "Zmień nazwę adaptera na pokaz slajdów\nNapraw odmowę dostępu do katalogu (Sentry # 4)\nObsługa błędów dla logowania Synology (Sentry # 3)\nNapraw pusty wynik (Sentry # 2)\nNapraw nie znaleziono pliku (Wartownik nr 1)\nDołącz aktualizacje Dependabot",
-                "zh-cn": "将适配器重命名为幻灯片\n修复目录访问被拒绝的问题（步骤4）\nSynology登录的错误处理（步骤3）\n修正空结果（哨兵＃2）\n修复文件未找到（哨兵＃1）\n包括Dependabot更新"
+                "zh-cn": "将适配器重命名为幻灯片\n修复目录访问被拒绝的问题（步骤4）\nSynology登录的错误处理（步骤3）\n修正空结果（哨兵＃2）\n修复文件未找到（哨兵＃1）\n包括Dependabot更新",
+                "uk": "Перейменуйте адаптер у слайд-шоу\nВиправити заборону доступу до каталогу (вартовий №4)\nОбробка помилок для входу в Synology (Sentry #3)\nВиправити порожній результат (Sentry #2)\nВиправити файл не знайдено (вартовий №1)\nВключіть оновлення Dependabot"
             },
             "0.1.0": {
                 "en": "Prepare for beta tests\nInclude Dependabot updates",
@@ -61,7 +65,8 @@
                 "it": "Preparati per i beta test\nIncludi gli aggiornamenti di Dependabot",
                 "es": "Prepárate para las pruebas beta\nIncluir actualizaciones de Dependabot",
                 "pl": "Przygotuj się do testów beta\nDołącz aktualizacje Dependabot",
-                "zh-cn": "准备进行Beta测试\n包括Dependabot更新"
+                "zh-cn": "准备进行Beta测试\n包括Dependabot更新",
+                "uk": "Підготуйтеся до бета-тестів\nВключіть оновлення Dependabot"
             },
             "0.0.5": {
                 "en": "Adaptive width and height in widget depending on orientation\nFix format option for Synology\nWriting extended picture information to objects\nButton for update picture list\nSave picture count as object\nQuality fixing (lgtm.com)\nInclude Sentry error reporting\nInclude Dependabot updates",
@@ -73,7 +78,8 @@
                 "it": "Larghezza e altezza adattive nel widget a seconda dell'orientamento\nCorrezione dell'opzione di formato per Synology\nScrittura di informazioni sulle immagini estese negli oggetti\nPulsante per l'aggiornamento dell'elenco delle immagini\nSalva il conteggio delle immagini come oggetto\nFissaggio di qualità (lgtm.com)\nIncludere la segnalazione degli errori di Sentry\nIncludi gli aggiornamenti di Dependabot",
                 "es": "Anchura y altura adaptables en el widget según la orientación\nOpción de formato fijo para Synology\nEscribir información ampliada de imágenes en objetos\nBotón para actualizar la lista de imágenes\nGuardar recuento de imágenes como objeto\nFijación de calidad (lgtm.com)\nIncluir informes de errores de Sentry\nIncluir actualizaciones de Dependabot",
                 "pl": "Adaptacyjna szerokość i wysokość w widgecie w zależności od orientacji\nNapraw opcję formatu dla Synology\nZapisywanie rozszerzonych informacji obrazkowych na obiektach\nPrzycisk aktualizacji listy zdjęć\nZapisz liczbę obrazów jako obiekt\nPoprawa jakości (lgtm.com)\nUwzględnij raportowanie błędów Sentry\nDołącz aktualizacje Dependabot",
-                "zh-cn": "小部件中的自适应宽度和高度取决于方向\nSynology的修复格式选项\n将扩展的图片信息写入对象\n用于更新图片列表的按钮\n将图片计数另存为对象\n质量修复（lgtm.com）\n包括哨兵错误报告\n包括Dependabot更新"
+                "zh-cn": "小部件中的自适应宽度和高度取决于方向\nSynology的修复格式选项\n将扩展的图片信息写入对象\n用于更新图片列表的按钮\n将图片计数另存为对象\n质量修复（lgtm.com）\n包括哨兵错误报告\n包括Dependabot更新",
+                "uk": "Адаптивна ширина та висота у віджеті залежно від орієнтації\nПараметр виправлення формату для Synology\nЗапис розширеної графічної інформації до об’єктів\nКнопка для оновлення списку зображень\nЗберегти кількість зображень як об'єкт\nВиправлення якості (lgtm.com)\nВключити повідомлення про помилки Sentry\nВключіть оновлення Dependabot"
             },
             "0.0.4": {
                 "en": "Allow PNG-files in Filesystem\nFix config problem with formats\nHandle portrait orientation in widget",
@@ -85,7 +91,8 @@
                 "it": "Consenti file PNG nel file system\nRisolve il problema di configurazione con i formati\nGestisci l'orientamento verticale nel widget",
                 "es": "Permitir archivos PNG en el sistema de archivos\nSolucionar problema de configuración con formatos\nManejar la orientación vertical en el widget",
                 "pl": "Zezwalaj na pliki PNG w systemie plików\nNapraw problem z konfiguracją z formatami\nObsługuj orientację pionową w widgecie",
-                "zh-cn": "允许文件系统中的PNG文件\n修复格式配置问题\n在小部件中处理纵向方向"
+                "zh-cn": "允许文件系统中的PNG文件\n修复格式配置问题\n在小部件中处理纵向方向",
+                "uk": "Дозволити файли PNG у файловій системі\nВиправте проблему конфігурації з форматами\nКерувати портретною орієнтацією у віджеті"
             },
             "0.0.3": {
                 "en": "Prepare for alpha tests",
@@ -97,7 +104,8 @@
                 "it": "Preparati per i test alfa",
                 "es": "Prepárate para las pruebas alfa",
                 "pl": "Przygotuj się do testów alfa",
-                "zh-cn": "准备进行Alpha测试"
+                "zh-cn": "准备进行Alpha测试",
+                "uk": "Підготуйтеся до альфа-тестів"
             },
             "0.0.2": {
                 "en": "initial release",
@@ -109,7 +117,8 @@
                 "it": "Versione iniziale",
                 "es": "Versión inicial",
                 "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
+                "zh-cn": "首次出版",
+                "uk": "початковий випуск"
             }
         },
         "titleLang": {
@@ -122,7 +131,8 @@
             "it": "Slideshow",
             "es": "Slideshow",
             "pl": "Slideshow",
-            "zh-cn": "Slideshow"
+            "zh-cn": "Slideshow",
+            "uk": "Слайд-шоу"
         },
         "desc": {
             "en": "Slideshow for VIS from different sources",
@@ -134,7 +144,8 @@
             "it": "Presentazione per VIS da diverse fonti",
             "es": "Presentación de diapositivas para VIS de diferentes fuentes",
             "pl": "Pokaz slajdów dla VIS z różnych źródeł",
-            "zh-cn": "来自不同来源的VIS幻灯片"
+            "zh-cn": "来自不同来源的VIS幻灯片",
+            "uk": "Слайд-шоу для VIS з різних джерел"
         },
         "authors": [
             "Gaudes <ralf@gaudes.net>"
@@ -145,9 +156,9 @@
             "diashow"
         ],
         "licenseInformation": {
-			"type": "free",
-			"license": "MIT"
-		},
+            "type": "free",
+            "license": "MIT"
+        },
         "platform": "Javascript/Node.js",
         "main": "build/main.js",
         "icon": "slideshow.png",
