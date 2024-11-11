@@ -31,16 +31,13 @@ let Helper;
 const MsgErrUnknown = "Unknown Error";
 let UpdateRunning = false;
 class Slideshow extends utils.Adapter {
+  isUnloaded;
   //#region Basic Adapter Functions
   constructor(options = {}) {
     super({
       ...options,
       name: "slideshow"
     });
-    //#endregion
-    //#region Timer and Action
-    this.tUpdatePictureStoreTimeout = null;
-    this.tUpdateCurrentPictureTimeout = null;
     this.on("ready", this.onReady.bind(this));
     this.on("stateChange", this.onStateChange.bind(this));
     this.on("unload", this.onUnload.bind(this));
@@ -102,6 +99,10 @@ class Slideshow extends utils.Adapter {
       callback();
     }
   }
+  //#endregion
+  //#region Timer and Action
+  tUpdatePictureStoreTimeout = null;
+  tUpdateCurrentPictureTimeout = null;
   async updatePictureStoreTimer() {
     UpdateRunning = true;
     let updatePictureStoreResult = { success: false, picturecount: 0 };

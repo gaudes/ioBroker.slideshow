@@ -22,6 +22,8 @@ __export(global_helper_exports, {
 });
 module.exports = __toCommonJS(global_helper_exports);
 class GlobalHelper {
+  Adapter;
+  Sentry;
   constructor(adapterInstance) {
     this.Adapter = adapterInstance;
     if (this.Adapter.supportsFeature && this.Adapter.supportsFeature("PLUGINS")) {
