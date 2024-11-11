@@ -2,6 +2,6 @@
   "version": 3,
   "sources": ["../../src/modules/exif.ts"],
   "sourcesContent": ["import * as exifr from \"exifr\";\nimport { GlobalHelper } from \"./global-helper\"\n\nexport interface exifinfo{\n\tinfo1: string;\n\tinfo2: string;\n\tinfo3: string;\n\tdate: Date;\n}\n\nexport async function getPictureInformation(Helper: GlobalHelper, file: string | Buffer ): Promise<exifinfo | null >{\n\ttry{\n\t\tconst PictureInfo = await exifr.parse(file, [\"XPTitle\", \"XPComment\", \"XPSubject\", \"DateTimeOriginal\"] );\n\t\treturn { info1: PictureInfo[\"XPTitle\"] || \"\", info2: PictureInfo[\"XPSubject\"] || \"\", info3: PictureInfo[\"XPComment\"] || \"\", date: new Date (PictureInfo[\"DateTimeOriginal\"])};\n\t} catch (error) {\n\t\treturn null;\n\t}\n}"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA,YAAuB;AAUvB,qCAA4C,QAAsB,MAAkD;AACnH,MAAG;AACF,UAAM,cAAc,MAAM,MAAM,MAAM,MAAM,CAAC,WAAW,aAAa,aAAa;AAClF,WAAO,EAAE,OAAO,YAAY,cAAc,IAAI,OAAO,YAAY,gBAAgB,IAAI,OAAO,YAAY,gBAAgB,IAAI,MAAM,IAAI,KAAM,YAAY;AAAA,WAChJ,OAAP;AACD,WAAO;AAAA;AAAA;",
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,YAAuB;AAUvB,eAAsB,sBAAsB,QAAsB,MAAkD;AACnH,MAAG;AACF,UAAM,cAAc,MAAM,MAAM,MAAM,MAAM,CAAC,WAAW,aAAa,aAAa,kBAAkB,CAAE;AACtG,WAAO,EAAE,OAAO,YAAY,SAAS,KAAK,IAAI,OAAO,YAAY,WAAW,KAAK,IAAI,OAAO,YAAY,WAAW,KAAK,IAAI,MAAM,IAAI,KAAM,YAAY,kBAAkB,CAAC,EAAC;AAAA,EAC7K,SAAS,OAAO;AACf,WAAO;AAAA,EACR;AACD;",
   "names": []
 }

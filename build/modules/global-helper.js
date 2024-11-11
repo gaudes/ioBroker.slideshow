@@ -1,29 +1,26 @@
+"use strict";
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
-var __reExport = (target, module2, copyDefault, desc) => {
-  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
-    for (let key of __getOwnPropNames(module2))
-      if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
-        __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-  return target;
+  return to;
 };
-var __toCommonJS = /* @__PURE__ */ ((cache) => {
-  return (module2, temp) => {
-    return cache && cache.get(module2) || (temp = __reExport(__markAsModule({}), module2, 1), cache && cache.set(module2, temp), temp);
-  };
-})(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var global_helper_exports = {};
 __export(global_helper_exports, {
   GlobalHelper: () => GlobalHelper
 });
+module.exports = __toCommonJS(global_helper_exports);
 class GlobalHelper {
   constructor(adapterInstance) {
     this.Adapter = adapterInstance;
@@ -34,6 +31,16 @@ class GlobalHelper {
       }
     }
   }
+  //#region Helper Function ReportingError
+  /**
+   * Function for global error reporting
+   * @param {Object} Err Error-Object
+   * @param {string} FriendlyError Error message for user
+   * @param {string} NameFunction Name of the function where error occured
+   * @param {string} NameAction Name of the subfunction where error occured
+   * @param {string} Info Contextual information
+   * @param {boolean} ReportSentry Report error to sentry, default true
+   */
   async ReportingError(Err, FriendlyError, NameFunction, NameAction = "", Info = "", ReportSentry = true) {
     try {
       let sErrMsg = `Error occured: ${FriendlyError} in ${NameFunction}`;
@@ -63,6 +70,15 @@ class GlobalHelper {
       this.Adapter.log.error(`Exception in ErrorReporting Sentry [${e}]`);
     }
   }
+  //#endregion
+  //#region Helper Function ReportingInfo
+  /**
+   * Function for global information reporting
+   * @param {"Info"|"Debug"} Level Level for ioBroker Logging
+   * @param {string} Category Category of information
+   * @param {string} Message Message
+   * @param {{[Key: string]: any}|undefined} Data Contextual data information
+   */
   ReportingInfo(Level, Category, Message, Data) {
     var _a;
     let iobMessage = Message;
@@ -84,8 +100,8 @@ class GlobalHelper {
       data: Data
     });
   }
+  //#endregion
 }
-module.exports = __toCommonJS(global_helper_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   GlobalHelper
