@@ -52,7 +52,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<LocalPict
 		} else {
 			await Promise.all(CurrentImageFiles.map(async file => {
 				const CurrentImageFile = await Helper.Adapter.readFileAsync("vis.0", `/slideshow/${file.file}`);
-				const fileInfo = await getPictureInformation(Helper, CurrentImageFile.data);
+				const fileInfo = await getPictureInformation(Helper, CurrentImageFile.file);
 				let info1, info2, info3 = "";
 				let date = null;
 				fileInfo?.info1 ? info1 = fileInfo?.info1 : info1 = "";
