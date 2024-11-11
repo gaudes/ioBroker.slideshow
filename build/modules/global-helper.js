@@ -98,7 +98,7 @@ class GlobalHelper {
     (_a = this.Sentry) == null ? void 0 : _a.addBreadcrumb({
       category: Category,
       message: Message,
-      level: Level,
+      //level: Level as SentryObj.Severity,
       data: Data
     });
   }

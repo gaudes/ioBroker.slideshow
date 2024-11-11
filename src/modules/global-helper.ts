@@ -80,7 +80,7 @@ export class GlobalHelper{
 		this.Sentry?.addBreadcrumb({
 			category: Category,
 			message: Message,
-			level: Level as SentryObj.Severity,
+			//level: Level as SentryObj.Severity,
 			data: Data
 		})
 	}
