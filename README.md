@@ -179,8 +179,7 @@ Yes, but not directly through the adapter. ioBroker now supports a large number 
 	Placeholder for the next version (at the beginning of the line):
 	### __WORK IN PROGRESS__
 -->
-
-### __WORK IN PROGRESS__
+### 0.2.0 (2024-11-13)
 * (Gaudes) Include support for Synology DSM 7
 * (Gaudes) Add controls for start/stop
 * (Gaudes) Remove support for older Node versions
