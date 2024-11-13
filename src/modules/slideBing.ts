@@ -59,42 +59,52 @@ export async function getPicture(Helper: GlobalHelper): Promise<BingPicture | nu
 
 export async function updatePictureList(Helper: GlobalHelper): Promise<BingPictureListUpdateResult> {
 	// Getting List from Bing.com
+	let WebResult: axios.AxiosResponse;
 	try{
 		BingPictureList = [];
-		const WebResult = await axios.get(BingUrl);
+		WebResult = await axios.get(BingUrl);
 		Helper.ReportingInfo("Debug", "Bing", "Picture list received", { JSON: JSON.stringify(WebResult.data) });
-		((WebResult.data) as BingJSONImageList).images.forEach(Image =>{
-			const ImageDetails = Image.copyright.match(/(.*)\s\(©\s(.*)\)/);
-			let ImageDescription = "";
-			let ImageCopyright = ""
-			if (ImageDetails){
-				ImageDescription = ImageDetails[1];
-				ImageCopyright = ImageDetails[2];
-			}
-			const ImageDate = new Date(parseInt(Image.startdate.substring(0,4)), parseInt(Image.startdate.substring(4,6)), parseInt(Image.startdate.substring(6,8)));
-			if (Array.isArray(BingPictureList)){
-				BingPictureList.push( {bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate} );
-			} else{
-				BingPictureList = [ {bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate} ];
-			}
-		});
-		Helper.ReportingInfo("Debug", "Bing", `Picture List from Bing: ${JSON.stringify(BingPictureList)}`,{JSON: JSON.stringify(BingPictureList.slice(0,10))});
 	} catch (err) {
-		Helper.ReportingError(err as Error, "Unknown Error", "Bing", "updatePictureList/List");
+		Helper.ReportingError(err as Error, "Unknown Error", "Bing", "updatePictureList/Retrieve");
 		return { success: false, picturecount: 0};
 	}
-	// Saving list to files
-	try{
-		for (const CountElement in BingPictureList){
-			const currentWebCall = await axios.get(BingPictureList[CountElement].bingurl,{responseType: "arraybuffer"});
-			await Helper.Adapter.writeFileAsync(Helper.Adapter.namespace, `bing/${CountElement}.jpg`, currentWebCall.data);
-			BingPictureList[CountElement].url = `/${Helper.Adapter.namespace}/bing/${CountElement}.jpg`;
-			BingPictureList[CountElement].path = BingPictureList[CountElement].url;
+	if (WebResult.data && WebResult.data != "" ){
+		try{
+			((WebResult.data) as BingJSONImageList).images.forEach(Image =>{
+				const ImageDetails = Image.copyright.match(/(.*)\s\(©\s(.*)\)/);
+				let ImageDescription = "";
+				let ImageCopyright = ""
+				if (ImageDetails){
+					ImageDescription = ImageDetails[1];
+					ImageCopyright = ImageDetails[2];
+				}
+				const ImageDate = new Date(parseInt(Image.startdate.substring(0,4)), parseInt(Image.startdate.substring(4,6)), parseInt(Image.startdate.substring(6,8)));
+				if (Array.isArray(BingPictureList)){
+					BingPictureList.push( {bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate} );
+				} else{
+					BingPictureList = [ {bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate} ];
+				}
+			});
+			Helper.ReportingInfo("Debug", "Bing", `Picture List from Bing: ${JSON.stringify(BingPictureList)}`,{JSON: JSON.stringify(BingPictureList.slice(0,10))});
+		} catch (err) {
+			Helper.ReportingError(err as Error, "Unknown Error", "Bing", "updatePictureList/List");
+			return { success: false, picturecount: 0};
 		}
-		Helper.ReportingInfo("Info", "Bing", `${BingPictureList.length} pictures downloaded from Bing`, {JSON: JSON.stringify(BingPictureList.slice(0, 10))} );
-		return { success: true, picturecount: BingPictureList.length};
-	} catch (err){
-		Helper.ReportingError(err as Error, "Unknown Error", "Bing", "updatePictureList/Download");
+		// Saving list to files
+		try{
+			for (const CountElement in BingPictureList){
+				const currentWebCall = await axios.get(BingPictureList[CountElement].bingurl,{responseType: "arraybuffer"});
+				await Helper.Adapter.writeFileAsync(Helper.Adapter.namespace, `bing/${CountElement}.jpg`, currentWebCall.data);
+				BingPictureList[CountElement].url = `/${Helper.Adapter.namespace}/bing/${CountElement}.jpg`;
+				BingPictureList[CountElement].path = BingPictureList[CountElement].url;
+			}
+			Helper.ReportingInfo("Info", "Bing", `${BingPictureList.length} pictures downloaded from Bing`, {JSON: JSON.stringify(BingPictureList.slice(0, 10))} );
+			return { success: true, picturecount: BingPictureList.length};
+		} catch (err){
+			Helper.ReportingError(err as Error, "Unknown Error", "Bing", "updatePictureList/Download");
+			return { success: false, picturecount: 0};
+		}
+	} else{
 		return { success: false, picturecount: 0};
 	}
 }

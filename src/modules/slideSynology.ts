@@ -119,15 +119,17 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictu
 				await synoGetFolders(Helper, 1);
 				Helper.ReportingInfo("Debug", "Synology", `${synoFolders.length} folders found, receiving pictures`);
 				for(const synoFolder of synoFolders){
+					Helper.ReportingInfo("Debug", "Synology", `Getting pictures of Synofolder ID ${synoFolder.id} with name ${synoFolder.name}`);
 					let synEndOfFiles = false;
 					let synOffset = 0;
 					while (synEndOfFiles === false){
-						const synURL = `http://${Helper.Adapter.config.syno_path}/photo/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Item&method=list&version=1&limit=500&item_type=%5B0%5D&additional=%5B%22description%22%2C%22orientation%22%2C%22tag%22%2C%22resolution%22%5D&offset=${synOffset}&SynoToken=${synoToken}&folder_id=${synoFolder.id}`;
+						const synURL = `http://${Helper.Adapter.config.syno_path}/webapi/entry.cgi?api=SYNO.FotoTeam.Browse.Item&method=list&version=1&limit=500&item_type=%5B0%5D&additional=%5B%22description%22%2C%22orientation%22%2C%22tag%22%2C%22resolution%22%5D&offset=${synOffset}&SynoToken=${synoToken}&folder_id=${synoFolder.id}`;
 						const synResult = await (synoConnection.get<any>(synURL));
 						if (synResult.data["success"] === true && Array.isArray(synResult.data["data"]["list"])){
 							if (synResult.data["data"]["list"].length === 0){
 								synEndOfFiles = true;
 							} else {
+								Helper.ReportingInfo("Debug", "Synology", `Synofolder ${synoFolder.id} has ${synResult.data["data"]["list"].length} pictures`);
 								synResult.data["data"]["list"].forEach(element => {
 									let PictureDate: Date | null = null;
 									if (element.time){
@@ -168,6 +170,7 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<SynoPictu
 					}
 				}
 			}
+			Helper.ReportingInfo("Debug", "Synology", `${CurrentImageList.length} pictures found before filtering`);
 		} catch (err){
 			Helper.ReportingError(err as Error, "Unknown Error", "Synology", "updatePictureList/List");
 			return { success: false, picturecount: 0 };
@@ -270,7 +273,7 @@ async function loginSyno(Helper: GlobalHelper): Promise<boolean>{
 		// Run Login
 		try{
 			if (Helper.Adapter.config.syno_version === 0){
-				const synoURL = `http://${Helper.Adapter.config.syno_path}/photo/webapi/entry.cgi?api=SYNO.API.Auth&version=6&method=login&account=${Helper.Adapter.config.syno_username}&passwd=${encodeURIComponent(Helper.Adapter.config.syno_userpass)}&enable_syno_token=yes`;
+				const synoURL = `http://${Helper.Adapter.config.syno_path}/webapi/entry.cgi?api=SYNO.API.Auth&version=6&method=login&account=${Helper.Adapter.config.syno_username}&passwd=${encodeURIComponent(Helper.Adapter.config.syno_userpass)}&enable_syno_token=yes`;
  				const synResult = await (synoConnection.get<any>(synoURL));
 				if (synResult.data && synResult.data["data"] && synResult.data["data"]["sid"] && synResult.data["success"] === true){
 					synoToken = synResult.data["data"]["synotoken"];

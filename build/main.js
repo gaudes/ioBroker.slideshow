@@ -30,6 +30,7 @@ var slideSyno = __toESM(require("./modules/slideSynology"));
 let Helper;
 const MsgErrUnknown = "Unknown Error";
 let UpdateRunning = false;
+let ControlPlay = true;
 class Slideshow extends utils.Adapter {
   isUnloaded;
   //#region Basic Adapter Functions
@@ -63,7 +64,50 @@ class Slideshow extends utils.Adapter {
         native: {}
       });
       await this.setStateAsync("updatepicturelist", false, true);
+      await this.setObjectNotExistsAsync("control_play", {
+        type: "state",
+        common: {
+          name: "control_play",
+          type: "boolean",
+          role: "button",
+          read: true,
+          write: true,
+          desc: "Play slideshow",
+          def: false
+        },
+        native: {}
+      });
+      await this.setStateAsync("control_play", false, true);
+      await this.setObjectNotExistsAsync("control_stop", {
+        type: "state",
+        common: {
+          name: "control_stop",
+          type: "boolean",
+          role: "button",
+          read: true,
+          write: true,
+          desc: "Stop slideshow",
+          def: false
+        },
+        native: {}
+      });
+      await this.setStateAsync("control_stop", false, true);
+      await this.setObjectNotExistsAsync("state", {
+        type: "state",
+        common: {
+          name: "state",
+          type: "string",
+          role: "state",
+          read: true,
+          write: false,
+          desc: "Current state",
+          def: false
+        },
+        native: {}
+      });
+      await this.setStateAsync("state", { val: "play", ack: true });
       this.subscribeStates("updatepicturelist");
+      this.subscribeStates("control_*");
       await this.updatePictureStoreTimer();
     } catch (err) {
       Helper.ReportingError(err, MsgErrUnknown, "onReady");
@@ -83,6 +127,48 @@ class Slideshow extends utils.Adapter {
           await this.updatePictureStoreTimer();
         }
         await this.setStateAsync("updatepicturelist", false, false);
+      }
+      if (id === `${this.namespace}.control_play` && (state == null ? void 0 : state.val) === true && (state == null ? void 0 : state.ack) === false) {
+        if (ControlPlay === false) {
+          Helper.ReportingInfo("Info", "Adapter", "Start slideshow per control");
+          this.updateCurrentPictureTimer();
+          ControlPlay = true;
+          await this.setObjectNotExistsAsync("state", {
+            type: "state",
+            common: {
+              name: "state",
+              type: "string",
+              role: "state",
+              read: true,
+              write: false,
+              desc: "Current state"
+            },
+            native: {}
+          });
+          await this.setStateAsync("state", { val: "play", ack: true });
+          await this.setStateAsync("control_play", false, false);
+        }
+      }
+      if (id === `${this.namespace}.control_stop` && (state == null ? void 0 : state.val) === true && (state == null ? void 0 : state.ack) === false) {
+        if (ControlPlay === true) {
+          Helper.ReportingInfo("Info", "Adapter", "Stop slideshow per control");
+          clearTimeout(this.tUpdateCurrentPictureTimeout);
+          ControlPlay = false;
+          await this.setObjectNotExistsAsync("state", {
+            type: "state",
+            common: {
+              name: "state",
+              type: "string",
+              role: "state",
+              read: true,
+              write: false,
+              desc: "Current state"
+            },
+            native: {}
+          });
+          await this.setStateAsync("state", { val: "stop", ack: true });
+          await this.setStateAsync("control_stop", false, false);
+        }
       }
     }
   }
