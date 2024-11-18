@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "slideshow",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
+      "0.2.1": {
+        "en": "Update in package.json for VIS",
+        "de": "Update im Paket. json für VIS",
+        "ru": "Обновление в пакете. json для VIS",
+        "pt": "Atualização no pacote. json para VIS",
+        "nl": "Update in pakket. json voor VIS",
+        "fr": "Mettre à jour dans le paquet. json pour VIS",
+        "it": "Aggiornamento in pacchetto. json per VIS",
+        "es": "Actualización en paquete. json for VIS",
+        "pl": "Aktualizacja w pakiecie. json for VIS",
+        "uk": "Оновлення в пакеті. json для VIS",
+        "zh-cn": "以软件包更新 。 Json 用于VIS"
+      },
       "0.2.0": {
         "en": "Include support for Synology DSM 7\nAdd controls for start/stop\nRemove support for older Node versions\nUpdate to newest Adapter creator for internal dependencies\nInclude adapter-dev\nInclude Dependabot updates",
         "de": "Unterstützung für Synology DSM einschließen 7\nBedienelemente für Start/Stopp hinzufügen\nUnterstützung für ältere Node Versionen entfernen\nUpdate auf neueste Adapter-Ersteller für interne Abhängigkeiten\nInclude Adapter-dev\nInclude Dependabot Updates",

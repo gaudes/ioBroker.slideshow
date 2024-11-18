@@ -179,7 +179,7 @@ Yes, but not directly through the adapter. ioBroker now supports a large number 
 	Placeholder for the next version (at the beginning of the line):
 	### __WORK IN PROGRESS__
 -->
-### __WORK IN PROGRESS__
+### 0.2.1 (2024-11-18)
 * (Gaudes) Update in package.json for VIS
 
 ### 0.2.0 (2024-11-13)
