@@ -246,7 +246,7 @@ Yes, but not directly through the adapter. ioBroker now supports a large number 
 ## License
 MIT License
 
-Copyright (c) 2024 Gaudes <ralf@gaudes.net>
+Copyright (c) 2024-2026 Gaudes <ralf@gaudes.net>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
