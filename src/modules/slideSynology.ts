@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { wrapper } from "axios-cookiejar-support"
 import { CookieJar } from "tough-cookie";
 
-import * as path from "path";
+import * as path from "node:path";
 
 export interface SynoPicture{
 	url: string,
