@@ -18,10 +18,18 @@
 	<script type="text/javascript" src="words.js"></script>
 
 	<script type="text/javascript">
+		// Cached album list state for the admin page
+		var __slideshow_album_list = [];          // [{name, space}, ...] from info.albums
+		var __slideshow_selected_albums = [];     // currently checked names
+		var __slideshow_onChange = null;
+
 		// This will be called by the admin adapter when the settings page loads
 		function load(settings, onChange) {
 			// example: select elements with id=key and class=value and insert value
 			if (!settings) return;
+			__slideshow_onChange = onChange;
+			__slideshow_selected_albums = Array.isArray(settings.syno_albums) ? settings.syno_albums.slice() : [];
+
 			$('.value').each(function () {
 				var $key = $(this);
 				var id = $key.attr('id');
@@ -44,9 +52,92 @@
 
 			ChangeSource();
 
+			// Load album list from info.albums state and render checkboxes
+			loadAlbumListFromState();
+
+			$('#syno_albums_reload').off('click').on('click', function () {
+				reloadAlbumListFromAdapter();
+			});
+
 			onChange(false);
 			// reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
 			if (M) M.updateTextFields();
+		}
+
+		function loadAlbumListFromState() {
+			var stateId = adapter + '.' + instance + '.info.albums';
+			socket.emit('getState', stateId, function (err, state) {
+				if (err || !state || !state.val) {
+					renderAlbumList([]);
+					return;
+				}
+				try {
+					var parsed = JSON.parse(state.val);
+					if (Array.isArray(parsed)) {
+						__slideshow_album_list = parsed;
+					}
+				} catch (e) {
+					__slideshow_album_list = [];
+				}
+				renderAlbumList(__slideshow_album_list);
+			});
+		}
+
+		function reloadAlbumListFromAdapter() {
+			var $btn = $('#syno_albums_reload');
+			$btn.prop('disabled', true);
+			sendTo(null, 'listAlbums', {}, function (result) {
+				$btn.prop('disabled', false);
+				if (Array.isArray(result)) {
+					__slideshow_album_list = result;
+					renderAlbumList(__slideshow_album_list);
+				}
+			});
+		}
+
+		function renderAlbumList(albums) {
+			var $container = $('#syno_albums_container');
+			$container.empty();
+
+			if (!albums || albums.length === 0) {
+				$container.append('<p class="translate" style="color:#888;">syno_albums_empty</p>');
+				if (typeof translateAll === 'function') translateAll();
+				return;
+			}
+
+			// Group by space for readability
+			var groups = { 'personal': [], 'shared-with-me': [], 'team': [] };
+			albums.forEach(function (a) {
+				var key = groups[a.space] ? a.space : 'personal';
+				groups[key].push(a);
+			});
+
+			['personal', 'shared-with-me', 'team'].forEach(function (space) {
+				if (groups[space].length === 0) return;
+				$container.append('<div style="font-weight:bold; margin-top:6px;" class="translate">syno_space_' + space + '</div>');
+				groups[space].forEach(function (a) {
+					var checked = __slideshow_selected_albums.indexOf(a.name) !== -1 ? 'checked' : '';
+					var safeName = String(a.name).replace(/"/g, '&quot;');
+					$container.append(
+						'<p style="margin:2px 0;"><label>' +
+						'<input type="checkbox" class="syno_album_cb" data-name="' + safeName + '" ' + checked + ' />' +
+						'<span>' + safeName + '</span>' +
+						'</label></p>'
+					);
+				});
+			});
+
+			$container.find('.syno_album_cb').on('change', function () {
+				var name = $(this).data('name');
+				if ($(this).prop('checked')) {
+					if (__slideshow_selected_albums.indexOf(name) === -1) __slideshow_selected_albums.push(name);
+				} else {
+					__slideshow_selected_albums = __slideshow_selected_albums.filter(function (n) { return n !== name; });
+				}
+				if (typeof __slideshow_onChange === 'function') __slideshow_onChange();
+			});
+
+			if (typeof translateAll === 'function') translateAll();
 		}
 		
 		
@@ -85,10 +176,11 @@
 					obj[$this.attr('id')] = parseInt($this.val());
 				} else if ($this.attr('type') === 'radio'){
 					obj['provider'] = parseInt($("input:radio[name ='provider']:checked").val());
-				} else { 
+				} else {
 					obj[$this.attr('id')] = $this.val();
 				}
 			});
+			obj.syno_albums = __slideshow_selected_albums.slice();
 			callback(obj);
 		}
 	</script>
@@ -226,6 +318,18 @@
 							<div class="input-field">
 								<input type="password" class="value" id="syno_userpass" />
 								<label for="syno_userpass" class="translate">syno_userpass</label>
+							</div>
+							<div><br /></div>
+							<!-- Legacy single-album field, kept hidden for backwards compatibility -->
+							<input type="hidden" class="value" id="syno_album" />
+							<div style="margin-bottom:16px;">
+								<div style="font-weight:500; margin-bottom:6px;" class="translate">syno_albums_label</div>
+								<div id="syno_albums_container" style="max-height:260px; overflow-y:auto; border:1px solid #d0d0d0; border-radius:3px; padding:8px 12px; background:#fafafa;"></div>
+								<div style="margin-top:8px;">
+									<a class="btn waves-effect waves-light" id="syno_albums_reload">
+										<i class="material-icons left">refresh</i><span class="translate">syno_albums_reload</span>
+									</a>
+								</div>
 							</div>
 							<div><br /></div>
 							<div class="input-field">

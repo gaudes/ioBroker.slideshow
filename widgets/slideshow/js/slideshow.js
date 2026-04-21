@@ -120,6 +120,34 @@ $.extend(
 			"pl": "Wypełnij widżet obrazem",
 			"zh-cn": "用图片填充小部件"
 		},
+		"PictureBackgroundBlur": {
+			"en": "Blurred background",
+			"de": "Verschwommener Hintergrund",
+			"ru": "Размытый фон",
+			"pt": "Fundo da borrada",
+			"nl": "Wazige achtergrond",
+			"fr": "Fond flou",
+			"it": "Sfondo sfocato",
+			"es": "Fondo borroso",
+			"pl": "Rozmyte tło",
+			"zh-cn": "模糊背景"
+		},
+		"ZoomPortraitOnly": {
+			"en": "Zoom portrait pictures only",
+			"de": "Nur Hochkant-Bilder zoomen"
+		},
+		"ZoomPortraitOnly_tooltip": {
+			"en": "When enabled, the zoom slider only affects portrait pictures. Landscape pictures stay at their natural scale.",
+			"de": "Wenn aktiv, wirkt der Zoom-Slider nur auf Hochkant-Bilder. Querformat bleibt unskaliert."
+		},
+		"EnableFullscreenToggle": {
+			"en": "Toggle fullscreen on tap",
+			"de": "Vollbild per Tipp umschalten"
+		},
+		"EnableFullscreenToggle_tooltip": {
+			"en": "Tap/click on the widget toggles fullscreen. Replaces the view-change action on click.",
+			"de": "Tipp/Klick aufs Widget schaltet Vollbild um. Ersetzt die Ansichtswechsel-Aktion beim Klick."
+		},
 		"PictureFitWidget_tooltip": {
 			"en": "True = Picture fills widget, border of picture may be cut off\nFalse = Complete picture is shown, but widget may have empty zones",
 			"de": "True = Bild füllt das Widget, der Bildrand ist möglicherweise abgeschnitten \nFalse = Das vollständige Bild wird angezeigt, das Widget kann jedoch leere Zonen haben",
@@ -335,6 +363,194 @@ $.extend(
 			"es": "Inicio automático de la presentación de diapositivas",
 			"pl": "Rozpoczęcie automatycznego pokazu slajdów",
 			"zh-cn": "自动幻灯片播放开始"
+		},
+		"group_display": {
+			"en": "Display",
+			"de": "Darstellung"
+		},
+		"PictureFitMode": {
+			"en": "Fit mode",
+			"de": "Anzeigemodus"
+		},
+		"PictureFitMode_tooltip": {
+			"en": "contain = show whole image (letterbox), cover = fill container and crop overflow, smart = landscape uses cover+zoom, portrait uses contain",
+			"de": "contain = ganzes Bild zeigen (Letterbox), cover = Container füllen und Überhang abschneiden, smart = Querformat nutzt cover+Zoom, Hochformat nutzt contain"
+		},
+		"contain": {
+			"en": "contain",
+			"de": "contain"
+		},
+		"cover": {
+			"en": "cover",
+			"de": "cover"
+		},
+		"smart": {
+			"en": "smart (per orientation)",
+			"de": "smart (je nach Format)"
+		},
+		"PictureZoomFactor": {
+			"en": "Zoom factor",
+			"de": "Zoomfaktor"
+		},
+		"PictureZoomFactor_tooltip": {
+			"en": "Additional scale factor applied in cover/smart mode for landscape images (1.0 = no extra zoom)",
+			"de": "Zusätzlicher Skalierungsfaktor für Querformat-Bilder in cover/smart-Modus (1.0 = kein zusätzlicher Zoom)"
+		},
+		"PictureBlurAmount": {
+			"en": "Blur amount (px)",
+			"de": "Blur-Stärke (px)"
+		},
+		"PictureBlurAmount_tooltip": {
+			"en": "Blur radius for the background image in pixels (0 = no blur)",
+			"de": "Weichzeichnungs-Radius für das Hintergrundbild in Pixeln (0 = kein Blur)"
+		},
+		"group_overlays": {
+			"en": "Overlays",
+			"de": "Overlays"
+		},
+		"OverlayNavi": {
+			"en": "Navigation arrows",
+			"de": "Navigationspfeile"
+		},
+		"OverlayNavi_tooltip": {
+			"en": "Show subtle prev/next arrows on the picture. Tapping an arrow does not toggle fullscreen.",
+			"de": "Zeigt dezente Vor/Zurück-Pfeile auf dem Bild. Ein Tipp auf den Pfeil schaltet nicht den Vollbildmodus um."
+		},
+		"OverlayProgress": {
+			"en": "Progress bar",
+			"de": "Fortschrittsbalken"
+		},
+		"OverlayProgress_tooltip": {
+			"en": "Show a thin bar at the bottom that fills until the next automatic picture change.",
+			"de": "Zeigt einen dünnen Balken am unteren Rand, der bis zum nächsten automatischen Bildwechsel aufgefüllt wird."
+		},
+		"OverlayInfo": {
+			"en": "Picture info overlay",
+			"de": "Bildinformationen-Overlay"
+		},
+		"OverlayInfo_tooltip": {
+			"en": "Show picture metadata as an overlay at the bottom of the picture.",
+			"de": "Zeigt Bild-Metadaten als Overlay am unteren Rand des Bildes an."
+		},
+		"OverlayInfoTemplate": {
+			"en": "Info template",
+			"de": "Info-Template"
+		},
+		"OverlayInfoTemplate_tooltip": {
+			"en": "HTML template with placeholders {album}, {date}, {info1}, {info2}, {info3}. Default: <b>{album}</b><br><small>{date} Uhr</small>",
+			"de": "HTML-Template mit Platzhaltern {album}, {date}, {info1}, {info2}, {info3}. Standard: <b>{album}</b><br><small>{date} Uhr</small>"
+		},
+		"OverlayInfoDateFormat": {
+			"en": "Date format",
+			"de": "Datumsformat"
+		},
+		"OverlayInfoDateFormat_tooltip": {
+			"en": "Tokens: YYYY YY MM DD hh mm ss. Default: DD.MM.YY hh:mm",
+			"de": "Tokens: YYYY YY MM DD hh mm ss. Standard: DD.MM.YY hh:mm"
+		},
+		"ProgressColor1": {
+			"en": "Progress color (start)",
+			"de": "Progressbar-Farbe (Start)"
+		},
+		"ProgressColor1_tooltip": {
+			"en": "Left/start color of the progress bar. If equal to the end color, the bar is solid.",
+			"de": "Linke/Start-Farbe des Fortschrittsbalkens. Gleich wie Endfarbe = einfarbig."
+		},
+		"ProgressColor2": {
+			"en": "Progress color (end)",
+			"de": "Progressbar-Farbe (Ende)"
+		},
+		"ProgressColor2_tooltip": {
+			"en": "Right/end color of the progress bar. Creates a linear gradient if different from the start color.",
+			"de": "Rechte/End-Farbe des Fortschrittsbalkens. Erzeugt einen linearen Verlauf, wenn verschieden vom Startwert."
+		},
+		"none": {
+			"en": "off",
+			"de": "aus"
+		},
+		"normal": {
+			"en": "normal only",
+			"de": "nur normal"
+		},
+		"fullscreen": {
+			"en": "fullscreen only",
+			"de": "nur Vollbild"
+		},
+		"both": {
+			"en": "normal + fullscreen",
+			"de": "normal + Vollbild"
+		},
+		"NaviStyle": {
+			"en": "Navi style",
+			"de": "Navi-Stil"
+		},
+		"NaviStyle_tooltip": {
+			"en": "Shape of the prev/next buttons.",
+			"de": "Form der Vor/Zurück-Buttons."
+		},
+		"circle": {
+			"en": "circle",
+			"de": "Kreis"
+		},
+		"button": {
+			"en": "button",
+			"de": "Button"
+		},
+		"NaviPosition": {
+			"en": "Navi position",
+			"de": "Navi-Position"
+		},
+		"NaviPosition_tooltip": {
+			"en": "Placement of the prev/next buttons.",
+			"de": "Platzierung der Vor/Zurück-Buttons."
+		},
+		"sides": {
+			"en": "left + right (centered)",
+			"de": "links + rechts (mittig)"
+		},
+		"bottomright": {
+			"en": "bottom right (pair)",
+			"de": "unten rechts (Paar)"
+		},
+		"bottomleft": {
+			"en": "bottom left (pair)",
+			"de": "unten links (Paar)"
+		},
+		"topright": {
+			"en": "top right (pair)",
+			"de": "oben rechts (Paar)"
+		},
+		"topleft": {
+			"en": "top left (pair)",
+			"de": "oben links (Paar)"
+		},
+		"NaviBgColor": {
+			"en": "Navi background color",
+			"de": "Navi-Hintergrundfarbe"
+		},
+		"NaviIconColor": {
+			"en": "Navi icon color",
+			"de": "Navi-Pfeilfarbe"
+		},
+		"NaviBorderColor": {
+			"en": "Navi border color",
+			"de": "Navi-Rahmenfarbe"
+		},
+		"InfoPosition": {
+			"en": "Info position",
+			"de": "Info-Position"
+		},
+		"InfoPosition_tooltip": {
+			"en": "bottom/top: full-width strip with gradient fade. Corner positions render a compact box useful when navigation buttons occupy the same area.",
+			"de": "bottom/top: breiter Streifen mit Verlauf. Eck-Positionen rendern eine kompakte Box, sinnvoll wenn die Navi-Buttons dieselbe Ecke belegen."
+		},
+		"bottom": {
+			"en": "bottom (bar)",
+			"de": "unten (Leiste)"
+		},
+		"top": {
+			"en": "top (bar)",
+			"de": "oben (Leiste)"
 		}
 	}
 );
@@ -406,85 +622,449 @@ vis.binds["slideshow"] = {
 		console.log(`Integrating Slideshow for widget #${widgetID}`);
 		let FadeTime = parseInt(data.FadeTime) || 0;
 
-		function onChange(e, newVal, oldVal) {
-			let img = new Image();
-			img.src = newVal;
+		// Instance namespace derived once from data.oid (e.g. "slideshow.0.picture" -> "slideshow.0")
+		const instanceNs = data.oid ? data.oid.split(".").slice(0, 2).join(".") : "";
 
-			if (data.Debug === true) { console.log(`Picture change occured for widget #${widgetID}`) };
+		// Monotonic swap sequence. Rapid arrow clicks can launch multiple preloads
+		// in flight; only the most recent one may apply, otherwise a stale preload
+		// finishing late overwrites the fresh background.
+		let swapSeq = 0;
+		let currentSlidePayload = null;
+
+		// Heartbeat: tell the adapter that a VIS view with a slideshow widget is active.
+		// One global interval per page handles all slideshow widgets.
+		if (data.oid && !vis.editMode) {
+			const heartbeatStateId = `${instanceNs}.vis_heartbeat`;
+			const sendHeartbeat = function () {
+				if ($(".slideshow-class").length === 0) {
+					if (window.__slideshowHeartbeatInterval) {
+						clearInterval(window.__slideshowHeartbeatInterval);
+						window.__slideshowHeartbeatInterval = null;
+					}
+					return;
+				}
+				try {
+					vis.conn.setState(heartbeatStateId, Date.now());
+				} catch (e) {
+					if (data.Debug === true) { console.error("Slideshow heartbeat failed:", e); }
+				}
+			};
+			sendHeartbeat();
+			if (!window.__slideshowHeartbeatInterval) {
+				window.__slideshowHeartbeatInterval = setInterval(sendHeartbeat, 15000);
+			}
+		}
+
+		function applyBlurAmount() {
+			const raw = parseFloat(data.PictureBlurAmount);
+			const amount = isNaN(raw) ? 20 : Math.max(0, raw);
+			$(`#${widgetID} .slideshowpicture_bg`).css("filter", `blur(${amount}px)`);
+		}
+
+		function overlayMatches(setting) {
+			if (!setting || setting === "none") return false;
+			const isFs = $(`#${widgetID}`).hasClass("slideshow-fullscreen");
+			if (setting === "both") return true;
+			if (setting === "normal") return !isFs;
+			if (setting === "fullscreen") return isFs;
+			return false;
+		}
+
+		function applyOverlayVisibility() {
+			const showNavi = overlayMatches(data.OverlayNavi);
+			const showProgress = overlayMatches(data.OverlayProgress);
+			const showInfo = overlayMatches(data.OverlayInfo);
+			$(`#${widgetID} .slideshow-navi`).css("display", showNavi ? "flex" : "none");
+			$(`#${widgetID} .slideshow-progress`).css("display", showProgress ? "block" : "none");
+			$(`#${widgetID} .slideshow-info`).css("display", showInfo ? "block" : "none");
+			$(`#${widgetID} .slideshow-info`).toggleClass("has-progress", showProgress && showInfo);
+		}
+
+		function resetProgressBar() {
+			const $bar = $(`#${widgetID} .slideshow-progress-bar`);
+			if ($bar.length === 0) return;
+			let intervalMs = 0;
+			if (instanceNs) {
+				const raw = vis.states.attr(`${instanceNs}.info.update_interval_ms.val`);
+				intervalMs = parseInt(raw, 10) || 0;
+			}
+			// The bar stays at full width; clip-path reveals it from the left.
+			// This keeps the gradient spanning the container so ProgressColor2
+			// only becomes visible once the bar is nearly full.
+			if (intervalMs <= 0) {
+				$bar.css({
+					"transition": "none",
+					"clip-path": "inset(0 100% 0 0)",
+					"-webkit-clip-path": "inset(0 100% 0 0)"
+				});
+				return;
+			}
+			$bar.css({
+				"transition": "none",
+				"clip-path": "inset(0 100% 0 0)",
+				"-webkit-clip-path": "inset(0 100% 0 0)"
+			});
+			void $bar[0].offsetWidth;
+			$bar.css({
+				"transition": `clip-path ${intervalMs}ms linear, -webkit-clip-path ${intervalMs}ms linear`,
+				"clip-path": "inset(0 0 0 0)",
+				"-webkit-clip-path": "inset(0 0 0 0)"
+			});
+		}
+
+		function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+
+		// Minimal date formatter supporting the tokens a VIS user would expect:
+		// YYYY YY MM DD hh mm ss. Longer tokens are replaced first to avoid
+		// partial-match collisions (e.g. DD inside within larger tokens).
+		function formatDateToken(fmt, d) {
+			const yyyy = d.getFullYear();
+			const rep = {
+				"YYYY": String(yyyy),
+				"YY": String(yyyy % 100).padStart(2, "0"),
+				"MM": pad2(d.getMonth() + 1),
+				"DD": pad2(d.getDate()),
+				"hh": pad2(d.getHours()),
+				"mm": pad2(d.getMinutes()),
+				"ss": pad2(d.getSeconds())
+			};
+			let out = fmt;
+			for (const tok of ["YYYY", "YY", "MM", "DD", "hh", "mm", "ss"]) {
+				out = out.split(tok).join(rep[tok]);
+			}
+			return out;
+		}
+
+		function formatPictureDate(raw, fmt) {
+			if (raw === null || raw === undefined || raw === "") return "";
+			const ts = typeof raw === "number" ? raw : parseInt(raw, 10);
+			if (!ts || isNaN(ts)) return "";
+			const d = new Date(ts);
+			if (isNaN(d.getTime())) return "";
+			return formatDateToken(fmt || "DD.MM.YY hh:mm", d);
+		}
+
+		const DEFAULT_INFO_TEMPLATE = "<b>{album}</b><br><small>{date} Uhr</small>";
+
+		function parseCurrentSlide(raw) {
+			if (typeof raw !== "string" || raw.trim().length === 0) return null;
+			try {
+				const parsed = JSON.parse(raw);
+				if (!parsed || typeof parsed.url !== "string" || parsed.url.trim().length === 0) return null;
+				return {
+					url: parsed.url,
+					album: parsed.album || "",
+					info1: parsed.info1 || "",
+					info2: parsed.info2 || "",
+					info3: parsed.info3 || "",
+					date: parsed.date
+				};
+			} catch (e) {
+				if (data.Debug === true) { console.error("Slideshow: invalid current_slide payload", e, raw); }
+				return null;
+			}
+		}
+
+		function updateInfoOverlay() {
+			if (!instanceNs) return;
+			const $host = $(`#${widgetID} .slideshow-info`);
+			if ($host.length === 0) return;
+			const album = currentSlidePayload ? currentSlidePayload.album : (vis.states.attr(`${instanceNs}.info_album.val`) || "");
+			const info1 = currentSlidePayload ? currentSlidePayload.info1 : (vis.states.attr(`${instanceNs}.info1.val`) || "");
+			const info2 = currentSlidePayload ? currentSlidePayload.info2 : (vis.states.attr(`${instanceNs}.info2.val`) || "");
+			const info3 = currentSlidePayload ? currentSlidePayload.info3 : (vis.states.attr(`${instanceNs}.info3.val`) || "");
+			const dateRaw = currentSlidePayload ? currentSlidePayload.date : vis.states.attr(`${instanceNs}.date.val`);
+			const dateStr = formatPictureDate(dateRaw, data.OverlayInfoDateFormat);
+			const template = (typeof data.OverlayInfoTemplate === "string" && data.OverlayInfoTemplate.trim().length > 0)
+				? data.OverlayInfoTemplate
+				: DEFAULT_INFO_TEMPLATE;
+			const rendered = template
+				.split("{album}").join(album)
+				.split("{date}").join(dateStr)
+				.split("{info1}").join(info1)
+				.split("{info2}").join(info2)
+				.split("{info3}").join(info3);
+			$host.html(rendered);
+		}
+
+		function applySlidePayload(payload) {
+			if (!payload || typeof payload.url !== "string" || payload.url.trim().length === 0) return;
+			currentSlidePayload = payload;
+			const mySeq = ++swapSeq;
+			const preload = new Image();
+			const apply = function (ok) {
+				if (mySeq !== swapSeq) {
+					if (data.Debug === true) { console.log(`Slideshow: superseded slide payload seq=${mySeq} latest=${swapSeq}`); }
+					return;
+				}
+				const isPortrait = ok && preload.naturalWidth > 0 && preload.naturalHeight > preload.naturalWidth;
+				swapPicture(preload.src, isPortrait);
+				updateInfoOverlay();
+				resetProgressBar();
+			};
+			preload.addEventListener("load", function () { apply(true); });
+			preload.addEventListener("error", function () {
+				if (data.Debug === true) { console.error("Slideshow: failed to preload slide payload picture", preload.src); }
+				apply(false);
+			});
+			preload.src = payload.url;
+		}
+
+		function applyProgressColors() {
+			const $bar = $(`#${widgetID} .slideshow-progress-bar`);
+			if ($bar.length === 0) return;
+			const c1 = data.ProgressColor1 || "#00bcd4";
+			const c2 = data.ProgressColor2 || c1;
+			if (c1 === c2) {
+				$bar.css("background", c1);
+			} else {
+				$bar.css("background", `linear-gradient(to right, ${c1}, ${c2})`);
+			}
+		}
+
+		function applyInfoVariants() {
+			const $info = $(`#${widgetID} .slideshow-info`);
+			if ($info.length === 0) return;
+			const allowed = ["bottom", "top", "bottomleft", "bottomright", "topleft", "topright"];
+			const posRaw = (data.InfoPosition || "bottom").toLowerCase();
+			const pos = allowed.indexOf(posRaw) !== -1 ? posRaw : "bottom";
+			$info
+				.removeClass(allowed.map(p => `slideshow-info--pos-${p}`).join(" "))
+				.addClass(`slideshow-info--pos-${pos}`);
+		}
+
+		function applyNaviVariants() {
+			const $navis = $(`#${widgetID} .slideshow-navi`);
+			if ($navis.length === 0) return;
+			const style = data.NaviStyle === "button" ? "button" : "circle";
+			const posRaw = (data.NaviPosition || "sides").toLowerCase();
+			const allowedPos = ["sides", "bottomright", "bottomleft", "topright", "topleft"];
+			const pos = allowedPos.indexOf(posRaw) !== -1 ? posRaw : "sides";
+			$navis
+				.removeClass("slideshow-navi--style-circle slideshow-navi--style-button")
+				.removeClass("slideshow-navi--pos-sides slideshow-navi--pos-bottomright slideshow-navi--pos-bottomleft slideshow-navi--pos-topright slideshow-navi--pos-topleft")
+				.addClass(`slideshow-navi--style-${style}`)
+				.addClass(`slideshow-navi--pos-${pos}`);
+
+			const bg = data.NaviBgColor || "#1e1e1e";
+			const border = data.NaviBorderColor || "#ffffff";
+			const icon = data.NaviIconColor || "#ffffff";
+			$navis.css({
+				"background-color": bg,
+				"border-color": border
+			});
+			$(`#${widgetID} .slideshow-navi-icon`).css("background-color", icon);
+		}
+
+		function sendControl(command) {
+			if (!instanceNs) return;
+			try {
+				vis.conn.setState(`${instanceNs}.control_${command}`, true);
+			} catch (e) {
+				if (data.Debug === true) { console.error("Slideshow control send failed:", e); }
+			}
+		}
+
+		function swapPicture(src, isPortrait) {
+			// The blur background is only meaningful for portrait pictures (landscape
+			// already fills the widget). Keeping it single-layer and swapping instantly
+			// avoids drift between foreground transitions and a separately animated bg.
+			const wantBg = data.PictureBackgroundBlur !== false && isPortrait === true;
+			const $bg1 = $(`#${widgetID} .slideshowpicture1_bg`);
+			const $bg2 = $(`#${widgetID} .slideshowpicture2_bg`);
+			// picture2_bg is never used — only picture1_bg carries the blur layer.
+			$bg2.hide();
+			if (wantBg) {
+				$bg1.attr("src", src).show();
+			} else {
+				$bg1.hide();
+			}
 
 			switch (data.SlideshowEffect) {
-				case "EffectFade":
-					$(`#${widgetID} .slideshowpicture1`).fadeOut(FadeTime, function () {
-						$(`#${widgetID} .slideshowpicture1`).attr("src", img.src).load(function () {
-							$(`#${widgetID} .slideshowpicture1`).fadeIn(FadeTime);
-						});
+				case "EffectFade": {
+					const $fg = $(`#${widgetID} .slideshowpicture1`);
+					$fg.fadeOut(FadeTime, function () {
+						$fg.attr("src", src).fadeIn(FadeTime);
 					});
 					break;
-				case "EffectTransition":
-					if (data.Debug === true) { console.log("Load new picture in hidden img") };
-					$(`#${widgetID} .slideshowpicturehidden`).load(function () {
-						if (data.Debug === true) { console.log("Toggle hidden class") };
-						if ($(this)[0].classList.contains("slideshowpicture1")) {
-							$(`#${widgetID} .slideshowpicture2`).addClass("slideshowpicturehidden");
-							$(`#${widgetID} .slideshowpicture1`).removeClass("slideshowpicturehidden");
-						} else {
-							$(`#${widgetID} .slideshowpicture1`).addClass("slideshowpicturehidden");
-							$(`#${widgetID} .slideshowpicture2`).removeClass("slideshowpicturehidden");
-						}
-					}).attr("src", img.src);
-					break;
-				case "EffectJQuery":
-					console.log(`Starting effect ${data.EffectJQuery}`)
-					if ($(`#${widgetID} .slideshowpicture2`).css("display") === "none") {
-						$(`#${widgetID} .slideshowpicture2`).attr("src", img.src);
-						$(`#${widgetID} .slideshowpicture2`).css("z-index", 2);
-						$(`#${widgetID} .slideshowpicture2`).show(data.EffectJQuery, data.EffectTransitionStyle, FadeTime, function () { $(`#${widgetID} .slideshowpicture1`).css("display", "none"); })
+				}
+				case "EffectTransition": {
+					if (data.Debug === true) { console.log("Swapping picture with transition effect"); }
+					const $hidden = $(`#${widgetID} .slideshowpicture.slideshowpicturehidden`);
+					$hidden.attr("src", src);
+					// Toggle visible/hidden class on the two fg layers
+					if ($hidden.hasClass("slideshowpicture1")) {
+						$(`#${widgetID} .slideshowpicture2`).addClass("slideshowpicturehidden");
+						$(`#${widgetID} .slideshowpicture1`).removeClass("slideshowpicturehidden");
 					} else {
-						$(`#${widgetID} .slideshowpicture1`).attr("src", img.src);
-						$(`#${widgetID} .slideshowpicture2`).css("z-index", 0);
-						$(`#${widgetID} .slideshowpicture1`).show(data.EffectJQuery, data.EffectTransitionStyle, FadeTime, function () { $(`#${widgetID} .slideshowpicture2`).css("display", "none"); })
+						$(`#${widgetID} .slideshowpicture1`).addClass("slideshowpicturehidden");
+						$(`#${widgetID} .slideshowpicture2`).removeClass("slideshowpicturehidden");
 					}
 					break;
+				}
+				case "EffectJQuery": {
+					if (data.Debug === true) { console.log(`Starting effect ${data.EffectJQuery}`); }
+					const p1Hidden = $(`#${widgetID} .slideshowpicture2`).css("display") === "none";
+					const $incoming = p1Hidden ? $(`#${widgetID} .slideshowpicture2`) : $(`#${widgetID} .slideshowpicture1`);
+					const $outgoing = p1Hidden ? $(`#${widgetID} .slideshowpicture1`) : $(`#${widgetID} .slideshowpicture2`);
+
+					$incoming.attr("src", src);
+					$incoming.css("z-index", 2);
+					$outgoing.css("z-index", 1);
+					$incoming.show(data.EffectJQuery, data.EffectTransitionStyle, FadeTime, function () {
+						$outgoing.css("display", "none");
+					});
+					break;
+				}
 				default:
-					$(`#${widgetID} .slideshowpicture1`).attr("src", img.src);
+					$(`#${widgetID} .slideshowpicture1`).attr("src", src);
 					break;
 			}
 
-			img.remove();
+			// Re-apply fit + blur after swap so reactive changes in the editor take effect
+			applyBlurAmount();
+			Array.from($(`#${widgetID} .slideshowpicture`)).forEach(image => {
+				if (image.complete && image.naturalWidth > 0) {
+					SlideShowFitImage(image, widgetID);
+				}
+			});
+		}
+
+		function onChange(e, newVal, oldVal) {
+			if (data.Debug === true) { console.log(`Picture change occured for widget #${widgetID}`); }
+			if (currentSlidePayload && currentSlidePayload.url === newVal) return;
+
+			const mySeq = ++swapSeq;
+			// Preload the image once so we can read natural dimensions before swap.
+			// Orientation drives whether the blur bg is loaded at all.
+			const preload = new Image();
+			const apply = function (ok) {
+				if (mySeq !== swapSeq) {
+					if (data.Debug === true) { console.log(`Slideshow: superseded preload seq=${mySeq} latest=${swapSeq}`); }
+					return;
+				}
+				const isPortrait = ok && preload.naturalWidth > 0 && preload.naturalHeight > preload.naturalWidth;
+				swapPicture(preload.src, isPortrait);
+				updateInfoOverlay();
+				resetProgressBar();
+			};
+			preload.addEventListener("load", function () { apply(true); });
+			preload.addEventListener("error", function () {
+				if (data.Debug === true) { console.error("Slideshow: failed to preload picture", preload.src); }
+				apply(false);
+			});
+			preload.src = newVal;
 		}
 
 		$div.on('click touchend', function (e) {
+			// Clicks on navi arrows are handled by their own delegated handlers.
+			if ($(e.target).closest(".slideshow-navi").length > 0) return;
 			// Protect against two events
 			if (vis.detectBounce(this)) return;
-			if (data.AutoViewNavTarget === "TargetLast") {
+			if (vis.editMode) return;
+
+			// Fullscreen toggle takes priority over view navigation
+			if (data.EnableFullscreenToggle === true) {
+				const $w = $(`#${widgetID}`);
+				$w.toggleClass("slideshow-fullscreen");
+				// Re-apply fit + overlay visibility on next frame
+				requestAnimationFrame(function () {
+					Array.from($(`#${widgetID} .slideshowpicture`)).forEach(image => {
+						if (image.complete && image.naturalWidth > 0) {
+							SlideShowFitImage(image, widgetID);
+						}
+					});
+					applyOverlayVisibility();
+				});
+				return;
+			}
+
+			if (data.AutoViewNavTarget === "TargetLast" && window.SlideShowLastView) {
 				vis.changeView(window.SlideShowLastView);
-			} else if (data.AutoViewNavTarget === "TargetDefined") {
+			} else if (data.AutoViewNavTarget === "TargetDefined" && data.AutoViewTarget) {
 				vis.changeView(data.AutoViewTarget);
 			}
 		});
 
+		// Arrow click handlers — do not propagate to the widget click handler so
+		// they never toggle fullscreen. Stop immediate propagation to be safe with
+		// both click and touchend on top-level $div.
+		$div.on('click touchend', '.slideshow-navi-left', function (e) {
+			if (vis.editMode) return;
+			e.stopPropagation();
+			if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
+			if (vis.detectBounce(this)) return;
+			sendControl("previous");
+		});
+		$div.on('click touchend', '.slideshow-navi-right', function (e) {
+			if (vis.editMode) return;
+			e.stopPropagation();
+			if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
+			if (vis.detectBounce(this)) return;
+			sendControl("next");
+		});
+
+		function applyInitialBackground() {
+			// Drive initial bg visibility from the currently visible foreground
+			// picture. Picks picture1 by default; if it hasn't loaded yet, try picture2.
+			const pics = $(`#${widgetID} .slideshowpicture`).toArray();
+			const loaded = pics.find(img => img.complete && img.naturalWidth > 0);
+			if (!loaded) return;
+			const isPortrait = loaded.naturalHeight > loaded.naturalWidth;
+			const wantBg = data.PictureBackgroundBlur !== false && isPortrait === true;
+			const $bg1 = $(`#${widgetID} .slideshowpicture1_bg`);
+			const $bg2 = $(`#${widgetID} .slideshowpicture2_bg`);
+			$bg2.hide();
+			if (wantBg) {
+				if (!$bg1.attr("src")) $bg1.attr("src", loaded.src);
+				$bg1.show();
+			} else {
+				$bg1.hide();
+			}
+		}
+
 		Array.from($(`#${widgetID} .slideshowpicture`)).forEach(image => {
-			image.addEventListener("load", () => SlideShowFitImage(image, widgetID));
-		})
+			image.addEventListener("load", () => {
+				SlideShowFitImage(image, widgetID);
+				applyInitialBackground();
+			});
+			if (image.complete && image.naturalWidth > 0) {
+				SlideShowFitImage(image, widgetID);
+			}
+		});
+		applyInitialBackground();
 
 		function SlideShowFitImage(image, widgetID) {
-			if (data.PictureFitWidget === false) {
-				$(`#${widgetID} .slideshowpicture`).css("object-fit", "contain");
+			// Determine effective fit mode with backward-compatibility fallback
+			let mode = data.PictureFitMode;
+			if (!mode) {
+				mode = data.PictureFitWidget === true ? "cover" : "contain";
+			}
+			const zoom = parseFloat(data.PictureZoomFactor) || 1.0;
+			const isLandscape = image.naturalWidth > image.naturalHeight;
+
+			let effectiveFit;
+			if (mode === "contain") {
+				effectiveFit = "contain";
+			} else if (mode === "cover") {
+				effectiveFit = "cover";
 			} else {
-				const imgFormat = image.naturalWidth / image.naturalHeight;
-				if (imgFormat > 1) {
-					// image is landscape
-					image.style.width = '100%';
-					image.style.maxHeight = '100%';
-				} else if (imgFormat < 1) {
-					// image is portrait
-					image.style.width = '100%';
-					image.style.maxHeight = '100%';
-				} else {
-					// image is square
-					image.style.Width = '100%';
-					image.style.maxHeight = '100%';
-				}
+				// smart: landscape -> cover, portrait/square -> contain
+				effectiveFit = isLandscape ? "cover" : "contain";
+			}
+
+			// Zoom applies to the foreground picture. If ZoomPortraitOnly is enabled,
+			// landscape pictures keep their natural scale so nothing gets cropped on the sides.
+			const portraitOnly = data.ZoomPortraitOnly === true;
+			const applyZoom = zoom !== 1.0 && (!portraitOnly || !isLandscape);
+
+			image.style.width = "100%";
+			image.style.height = "100%";
+			image.style.maxHeight = "";
+			image.style.objectFit = effectiveFit;
+			image.style.transform = applyZoom ? `scale(${zoom})` : "";
+			if (data.Debug === true) {
+				console.log(`SlideShowFitImage: mode=${mode} fit=${effectiveFit} zoom=${zoom} applied=${applyZoom} landscape=${isLandscape}`);
 			}
 		}
 
@@ -494,14 +1074,84 @@ vis.binds["slideshow"] = {
 			}, 100);
 		}
 
+		// Initial blur background visibility + blur amount
+		if (data.PictureBackgroundBlur === false) {
+			$(`#${widgetID} .slideshowpicture_bg`).hide();
+		}
+		applyBlurAmount();
+
 		if (data.oid) {
 			vis.states.bind(data.oid + ".val", onChange);
 		}
+
+		applyProgressColors();
+		applyNaviVariants();
+		applyInfoVariants();
+
+		// Overlay initial state + bindings for album/date/interval.
+		// States outside of data.oid are not auto-subscribed by VIS, so we
+		// register them explicitly via vis.conn.subscribe and seed the values
+		// with vis.conn.getStates before binding change callbacks.
+		applyOverlayVisibility();
+		if (instanceNs) {
+			const infoIds = [
+				`${instanceNs}.current_slide`,
+				`${instanceNs}.info_album`,
+				`${instanceNs}.info1`,
+				`${instanceNs}.info2`,
+				`${instanceNs}.info3`,
+				`${instanceNs}.date`,
+				`${instanceNs}.info.update_interval_ms`
+			];
+			try {
+				if (vis.conn && typeof vis.conn.subscribe === "function") {
+					vis.conn.subscribe(infoIds);
+				}
+			} catch (e) {
+				if (data.Debug === true) { console.error("Slideshow: subscribe failed", e); }
+			}
+			if (vis.conn && typeof vis.conn.getStates === "function") {
+				vis.conn.getStates(infoIds, function (err, states) {
+					if (err || !states) return;
+					for (const id in states) {
+						if (states[id]) {
+							vis.states.attr(`${id}.val`, states[id].val);
+							vis.states.attr(`${id}.ts`, states[id].ts);
+							vis.states.attr(`${id}.ack`, states[id].ack);
+						}
+					}
+					const initialSlide = parseCurrentSlide(vis.states.attr(`${instanceNs}.current_slide.val`));
+					if (initialSlide) {
+						applySlidePayload(initialSlide);
+						return;
+					}
+					updateInfoOverlay();
+					resetProgressBar();
+				});
+			}
+			vis.states.bind(`${instanceNs}.current_slide.val`, function (e, newVal) {
+				const payload = parseCurrentSlide(newVal);
+				if (payload) {
+					applySlidePayload(payload);
+				}
+			});
+			const onInfoStateChange = function () { updateInfoOverlay(); };
+			vis.states.bind(`${instanceNs}.info_album.val`, onInfoStateChange);
+			vis.states.bind(`${instanceNs}.info1.val`, onInfoStateChange);
+			vis.states.bind(`${instanceNs}.info2.val`, onInfoStateChange);
+			vis.states.bind(`${instanceNs}.info3.val`, onInfoStateChange);
+			vis.states.bind(`${instanceNs}.date.val`, onInfoStateChange);
+			vis.states.bind(`${instanceNs}.info.update_interval_ms.val`, function () { resetProgressBar(); });
+			updateInfoOverlay();
+			resetProgressBar();
+		}
 		if (data.SlideshowEffect === "EffectFade") {
 			$(`#${widgetID} .slideshowpicture2`).css("display", "none");
+			$(`#${widgetID} .slideshowpicture2_bg`).css("display", "none");
 		}
 		if (data.SlideshowEffect === "EffectTransition") {
 			$(`#${widgetID} .slideshowpicture2`).addClass("slideshowpicturehidden");
+			$(`#${widgetID} .slideshowpicture2_bg`).addClass("slideshowpicturehidden");
 			$(`#${widgetID} .slideshowpicturehidden`).css("transition-property", "opacity");
 			$(`#${widgetID} .slideshowpicturehidden`).css("transition-duration", FadeTime + "ms");
 			$(`#${widgetID} .slideshowpicturehidden`).css("transition-timing-function", data.EffectTransitionStyle);
@@ -510,9 +1160,15 @@ vis.binds["slideshow"] = {
 			$(`#${widgetID} .slideshowpicture`).css("transition-duration", FadeTime + "ms")
 			$(`#${widgetID} .slideshowpicture`).css("transition-timing-function", data.EffectTransitionStyle);
 			$(`#${widgetID} .slideshowpicture`).css("transition-delay", "0s");
+			
+			$(`#${widgetID} .slideshowpicture_bg`).css("transition-property", "opacity");
+			$(`#${widgetID} .slideshowpicture_bg`).css("transition-duration", FadeTime + "ms")
+			$(`#${widgetID} .slideshowpicture_bg`).css("transition-timing-function", data.EffectTransitionStyle);
+			$(`#${widgetID} .slideshowpicture_bg`).css("transition-delay", "0s");
 		}
 		if (data.SlideshowEffect === "EffectJQuery") {
 			$(`#${widgetID} .slideshowpicture2`).css("display", "none");
+			$(`#${widgetID} .slideshowpicture2_bg`).css("display", "none");
 		}
 	}
 };

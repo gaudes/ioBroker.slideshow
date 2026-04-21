@@ -127,7 +127,8 @@
     "readme": "https://github.com/gaudes/ioBroker.slideshow/blob/main/README.md",
     "loglevel": "info",
     "restartAdapters": [
-      "vis"
+      "vis",
+      "vis-2"
     ],
     "localLinks": {
       "_default": "%web_protocol%://%ip%:%web_port%/vis/edit.html"
@@ -173,9 +174,12 @@
     "fs_format": 0,
     "fs_order": 0,
     "sentry_disable": false,
+    "syno_version": 0,
     "syno_path": "",
     "syno_username": "",
     "syno_userpass": "",
+    "syno_album": "",
+    "syno_albums": [],
     "syno_format": 0,
     "syno_order": 0,
     "downloadLocationData": false

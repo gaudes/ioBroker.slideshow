@@ -31,8 +31,11 @@ let Helper;
 const MsgErrUnknown = "Unknown Error";
 let UpdateRunning = false;
 let ControlPlay = true;
+let CurrentPictureRunning = false;
+const VIS_HEARTBEAT_STALE_MS = 45e3;
 class Slideshow extends utils.Adapter {
   isUnloaded;
+  lastVisHeartbeat = 0;
   //#region Basic Adapter Functions
   constructor(options = {}) {
     super({
@@ -41,6 +44,7 @@ class Slideshow extends utils.Adapter {
     });
     this.on("ready", this.onReady.bind(this));
     this.on("stateChange", this.onStateChange.bind(this));
+    this.on("message", this.onMessage.bind(this));
     this.on("unload", this.onUnload.bind(this));
     this.isUnloaded = false;
   }
@@ -92,6 +96,47 @@ class Slideshow extends utils.Adapter {
         native: {}
       });
       await this.setStateAsync("control_stop", false, true);
+      await this.setObjectNotExistsAsync("control_previous", {
+        type: "state",
+        common: {
+          name: "control_previous",
+          type: "boolean",
+          role: "button",
+          read: true,
+          write: true,
+          desc: "Show previous picture",
+          def: false
+        },
+        native: {}
+      });
+      await this.setStateAsync("control_previous", false, true);
+      await this.setObjectNotExistsAsync("control_next", {
+        type: "state",
+        common: {
+          name: "control_next",
+          type: "boolean",
+          role: "button",
+          read: true,
+          write: true,
+          desc: "Show next picture",
+          def: false
+        },
+        native: {}
+      });
+      await this.setStateAsync("control_next", false, true);
+      await this.setObjectNotExistsAsync("info.update_interval_ms", {
+        type: "state",
+        common: {
+          name: "info.update_interval_ms",
+          type: "number",
+          role: "value.interval",
+          read: true,
+          write: false,
+          desc: "Current picture cycling interval in milliseconds"
+        },
+        native: {}
+      });
+      await this.setStateAsync("info.update_interval_ms", { val: this.config.update_interval * 1e3, ack: true });
       await this.setObjectNotExistsAsync("state", {
         type: "state",
         common: {
@@ -106,8 +151,27 @@ class Slideshow extends utils.Adapter {
         native: {}
       });
       await this.setStateAsync("state", { val: "play", ack: true });
+      await this.setObjectNotExistsAsync("vis_heartbeat", {
+        type: "state",
+        common: {
+          name: "vis_heartbeat",
+          type: "number",
+          role: "indicator",
+          read: true,
+          write: true,
+          desc: "Timestamp of last VIS widget heartbeat (ms)",
+          def: 0
+        },
+        native: {}
+      });
+      const prevHeartbeat = await this.getStateAsync("vis_heartbeat");
+      this.lastVisHeartbeat = typeof (prevHeartbeat == null ? void 0 : prevHeartbeat.val) === "number" ? prevHeartbeat.val : 0;
       this.subscribeStates("updatepicturelist");
       this.subscribeStates("control_*");
+      this.subscribeStates("vis_heartbeat");
+      if (this.config.provider === 4) {
+        await this.refreshSynoAlbumList();
+      }
       await this.updatePictureStoreTimer();
     } catch (err) {
       Helper.ReportingError(err, MsgErrUnknown, "onReady");
@@ -118,6 +182,14 @@ class Slideshow extends utils.Adapter {
    */
   async onStateChange(id, state) {
     if (state) {
+      if (id === `${this.namespace}.vis_heartbeat` && (state == null ? void 0 : state.ack) === false) {
+        const ts = typeof state.val === "number" ? state.val : 0;
+        if (ts > 0) {
+          this.lastVisHeartbeat = ts;
+          await this.setStateAsync("vis_heartbeat", { val: ts, ack: true });
+        }
+        return;
+      }
       if (id === `${this.namespace}.updatepicturelist` && (state == null ? void 0 : state.val) === true && (state == null ? void 0 : state.ack) === false) {
         if (UpdateRunning === true) {
           Helper.ReportingInfo("Info", "Adapter", "Update picture list already running");
@@ -148,6 +220,16 @@ class Slideshow extends utils.Adapter {
           await this.setStateAsync("state", { val: "play", ack: true });
           await this.setStateAsync("control_play", false, false);
         }
+      }
+      if (id === `${this.namespace}.control_previous` && (state == null ? void 0 : state.val) === true && (state == null ? void 0 : state.ack) === false) {
+        await this.setStateAsync("control_previous", false, false);
+        await this.triggerManualNav(-1);
+        return;
+      }
+      if (id === `${this.namespace}.control_next` && (state == null ? void 0 : state.val) === true && (state == null ? void 0 : state.ack) === false) {
+        await this.setStateAsync("control_next", false, false);
+        await this.triggerManualNav(1);
+        return;
       }
       if (id === `${this.namespace}.control_stop` && (state == null ? void 0 : state.val) === true && (state == null ? void 0 : state.ack) === false) {
         if (ControlPlay === true) {
@@ -183,6 +265,49 @@ class Slideshow extends utils.Adapter {
       callback();
     } catch (e) {
       callback();
+    }
+  }
+  /**
+   * Fetch the Synology album list and store it in state info.albums as JSON.
+   * Called on adapter start (if provider = Synology) and on 'listAlbums' sendTo message.
+   */
+  async refreshSynoAlbumList() {
+    try {
+      const albums = await slideSyno.getAlbumList(Helper);
+      await this.setObjectNotExistsAsync("info.albums", {
+        type: "state",
+        common: {
+          name: "info.albums",
+          type: "string",
+          role: "json",
+          read: true,
+          write: false,
+          desc: "Synology albums discovered at adapter start"
+        },
+        native: {}
+      });
+      const payload = albums.map((a) => ({ name: a.name, space: a.space }));
+      await this.setStateAsync("info.albums", { val: JSON.stringify(payload), ack: true });
+      Helper.ReportingInfo("Info", "Adapter", `Synology album list refreshed: ${albums.length} albums`);
+      return albums;
+    } catch (err) {
+      Helper.ReportingError(err, MsgErrUnknown, "refreshSynoAlbumList");
+      return [];
+    }
+  }
+  /**
+   * Is called if a message is sent to this instance (e.g. from the admin config page)
+   */
+  async onMessage(obj) {
+    if (!obj || !obj.command)
+      return;
+    if (obj.command === "listAlbums") {
+      slideSyno.invalidateSession();
+      const albums = await this.refreshSynoAlbumList();
+      const payload = albums.map((a) => ({ name: a.name, space: a.space }));
+      if (obj.callback) {
+        this.sendTo(obj.from, obj.command, payload, obj.callback);
+      }
     }
   }
   //#endregion
@@ -248,32 +373,63 @@ class Slideshow extends utils.Adapter {
     }
     UpdateRunning = false;
   }
-  async updateCurrentPictureTimer() {
-    var _a;
+  /**
+   * Manual prev/next navigation from VIS widget or a control state.
+   * Bumps the heartbeat (so a pause state doesn't swallow the input),
+   * cancels the running timer, and advances the picture in the given
+   * direction. Reschedules only if the slideshow is currently playing.
+   */
+  async triggerManualNav(direction) {
+    Helper.ReportingInfo("Debug", "Adapter", `Manual navigation, direction=${direction}`);
+    this.lastVisHeartbeat = Date.now();
+    try {
+      this.tUpdateCurrentPictureTimeout && clearTimeout(this.tUpdateCurrentPictureTimeout);
+    } catch (err) {
+      Helper.ReportingError(err, MsgErrUnknown, "triggerManualNav", "Clear Timer");
+    }
+    await this.updateCurrentPictureTimer(direction);
+  }
+  async updateCurrentPictureTimer(direction = 1) {
+    var _a, _b;
+    if (CurrentPictureRunning === true) {
+      Helper.ReportingInfo("Debug", "Adapter", "updateCurrentPictureTimer skipped, already running");
+      return;
+    }
+    CurrentPictureRunning = true;
     let CurrentPictureResult = null;
     let Provider = "";
-    Helper.ReportingInfo("Debug", "Adapter", "updateCurrentPictureTimer occured");
+    Helper.ReportingInfo("Debug", "Adapter", `updateCurrentPictureTimer occured (direction=${direction})`);
     try {
       this.tUpdateCurrentPictureTimeout && clearTimeout(this.tUpdateCurrentPictureTimeout);
     } catch (err) {
       Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Clear Timer");
     }
+    if (this.lastVisHeartbeat > 0 && Date.now() - this.lastVisHeartbeat > VIS_HEARTBEAT_STALE_MS) {
+      Helper.ReportingInfo("Debug", "Adapter", `Paused (VIS heartbeat stale, last seen ${new Date(this.lastVisHeartbeat).toISOString()})`);
+      if (this.isUnloaded === false) {
+        this.tUpdateCurrentPictureTimeout = setTimeout(() => {
+          this.updateCurrentPictureTimer();
+        }, this.config.update_interval * 1e3);
+      }
+      CurrentPictureRunning = false;
+      return;
+    }
     try {
       switch (this.config.provider) {
         case 1:
-          CurrentPictureResult = await slideBing.getPicture(Helper);
+          CurrentPictureResult = await slideBing.getPicture(Helper, direction);
           Provider = "Bing";
           break;
         case 2:
-          CurrentPictureResult = await slideLocal.getPicture(Helper);
+          CurrentPictureResult = await slideLocal.getPicture(Helper, direction);
           Provider = "Local";
           break;
         case 3:
-          CurrentPictureResult = await slideFS.getPicture(Helper);
+          CurrentPictureResult = await slideFS.getPicture(Helper, direction);
           Provider = "FileSystem";
           break;
         case 4:
-          CurrentPictureResult = await slideSyno.getPicture(Helper);
+          CurrentPictureResult = await slideSyno.getPicture(Helper, direction);
           Provider = "Synology";
           break;
       }
@@ -283,82 +439,71 @@ class Slideshow extends utils.Adapter {
     try {
       if (CurrentPictureResult !== null && this.isUnloaded === false) {
         Helper.ReportingInfo("Debug", Provider, `Set picture to ${CurrentPictureResult.path}`);
-        await this.setObjectNotExistsAsync("picture", {
-          type: "state",
-          common: {
-            name: "picture",
-            type: "string",
-            role: "text",
-            read: true,
-            write: false,
-            desc: "Current picture"
-          },
-          native: {}
-        });
-        await this.setStateAsync("picture", { val: CurrentPictureResult.url, ack: true });
         await this.setObjectNotExistsAsync("info1", {
           type: "state",
-          common: {
-            name: "info1",
-            type: "string",
-            role: "text",
-            read: true,
-            write: false,
-            desc: "Info 1 for picture"
-          },
+          common: { name: "info1", type: "string", role: "text", read: true, write: false, desc: "Info 1 for picture" },
           native: {}
         });
-        await this.setStateAsync("info1", { val: CurrentPictureResult.info1, ack: true });
         await this.setObjectNotExistsAsync("info2", {
           type: "state",
-          common: {
-            name: "info2",
-            type: "string",
-            role: "text",
-            read: true,
-            write: false,
-            desc: "Info 2 for picture"
-          },
+          common: { name: "info2", type: "string", role: "text", read: true, write: false, desc: "Info 2 for picture" },
           native: {}
         });
-        await this.setStateAsync("info2", { val: CurrentPictureResult.info2, ack: true });
         await this.setObjectNotExistsAsync("info3", {
           type: "state",
-          common: {
-            name: "info3",
-            type: "string",
-            role: "text",
-            read: true,
-            write: false,
-            desc: "Info 3 for picture"
-          },
+          common: { name: "info3", type: "string", role: "text", read: true, write: false, desc: "Info 3 for picture" },
           native: {}
         });
-        await this.setStateAsync("info3", { val: CurrentPictureResult.info3, ack: true });
+        await this.setObjectNotExistsAsync("info_album", {
+          type: "state",
+          common: { name: "info_album", type: "string", role: "text", read: true, write: false, desc: "Album of picture" },
+          native: {}
+        });
         await this.setObjectNotExistsAsync("date", {
           type: "state",
-          common: {
-            name: "date",
-            type: "number",
-            role: "date",
-            read: true,
-            write: false,
-            desc: "Date of picture"
-          },
+          common: { name: "date", type: "number", role: "date", read: true, write: false, desc: "Date of picture" },
           native: {}
         });
-        await this.setStateAsync("date", { val: ((_a = CurrentPictureResult.date) == null ? void 0 : _a.getTime()) || null, ack: true });
+        await this.setObjectNotExistsAsync("picture", {
+          type: "state",
+          common: { name: "picture", type: "string", role: "text", read: true, write: false, desc: "Current picture" },
+          native: {}
+        });
+        await this.setObjectNotExistsAsync("current_slide", {
+          type: "state",
+          common: { name: "current_slide", type: "string", role: "json", read: true, write: false, desc: "Current slide payload with image and metadata" },
+          native: {}
+        });
+        const currentSlide = {
+          url: CurrentPictureResult.url,
+          path: CurrentPictureResult.path,
+          info1: CurrentPictureResult.info1,
+          info2: CurrentPictureResult.info2,
+          info3: CurrentPictureResult.info3,
+          date: ((_a = CurrentPictureResult.date) == null ? void 0 : _a.getTime()) || null,
+          album: CurrentPictureResult.album || ""
+        };
+        await this.setStateAsync("current_slide", { val: JSON.stringify(currentSlide), ack: true });
+        await this.setStateAsync("info1", { val: CurrentPictureResult.info1, ack: true });
+        await this.setStateAsync("info2", { val: CurrentPictureResult.info2, ack: true });
+        await this.setStateAsync("info3", { val: CurrentPictureResult.info3, ack: true });
+        await this.setStateAsync("info_album", { val: CurrentPictureResult.album || "", ack: true });
+        await this.setStateAsync("date", { val: ((_b = CurrentPictureResult.date) == null ? void 0 : _b.getTime()) || null, ack: true });
+        await this.setStateAsync("picture", { val: CurrentPictureResult.url, ack: true });
       }
     } catch (err) {
       Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Call Timer Action");
     }
     try {
-      this.tUpdateCurrentPictureTimeout = setTimeout(() => {
-        this.updateCurrentPictureTimer();
-      }, this.config.update_interval * 1e3);
+      if (ControlPlay === true && this.isUnloaded === false) {
+        this.tUpdateCurrentPictureTimeout = setTimeout(() => {
+          this.updateCurrentPictureTimer();
+        }, this.config.update_interval * 1e3);
+      }
     } catch (err) {
       Helper.ReportingError(err, MsgErrUnknown, "updateCurrentPictureTimer", "Set Timer");
     }
+    CurrentPictureRunning = false;
   }
 }
 if (module.parent) {

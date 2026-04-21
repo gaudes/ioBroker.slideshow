@@ -104,19 +104,11 @@
 		type="text/ejs"
 		class="vis-tpl"
 		data-vis-prev='<img src="/slideshow.admin/slideshow.png" width="120px" height="120px">'
-		data-vis-attrs="oid[slideshow.0.picture]/id;
-				PictureFitWidget[false]/checkbox;
-				Debug[false]/checkbox;"
-		data-vis-attrs0="group.effect;
-				SlideshowEffect[EffectNone]/select,EffectNone,EffectFade,EffectTransition,EffectJQuery/updateSlideshowEffect();
-				FadeTime[100]/number;
-				EffectTransitionStyle[ease]/select,ease,linear,ease-in,ease-out,ease-in-out;
-				EffectJQuery[blind]/select,blind,bounce,clip,drop,fade,fold,puff,pulsate,scale,shake,size,slide;"
-		data-vis-attrs1="group.viewchange;
-				AutoViewChange[false]/checkbox;
-				AutoViewChangeTimeout[15]/number;
-				AutoViewNavTarget[TargetLast]/select,TargetLast,TargetDefined,TargetNone;
-				AutoViewTarget/views;"
+		data-vis-attrs="oid[slideshow.0.picture]/id;Debug[false]/checkbox;"
+		data-vis-attrs0="group.display;PictureFitMode[smart]/select,contain,cover,smart;PictureZoomFactor[1.15]/slider,1,2,0.05;ZoomPortraitOnly[false]/checkbox;PictureBackgroundBlur[true]/checkbox;PictureBlurAmount[20]/slider,0,100,1;"
+		data-vis-attrs1="group.effect;SlideshowEffect[EffectNone]/select,EffectNone,EffectFade,EffectTransition,EffectJQuery/updateSlideshowEffect();FadeTime[100]/number;EffectTransitionStyle[ease]/select,ease,linear,ease-in,ease-out,ease-in-out;EffectJQuery[blind]/select,blind,bounce,clip,drop,fade,fold,puff,pulsate,scale,shake,size,slide;"
+		data-vis-attrs2="group.viewchange;AutoViewChange[false]/checkbox;AutoViewChangeTimeout[15]/number;AutoViewNavTarget[TargetLast]/select,TargetLast,TargetDefined,TargetNone;AutoViewTarget/views;EnableFullscreenToggle[false]/checkbox;"
+		data-vis-attrs3="group.overlays;OverlayNavi[none]/select,none,normal,fullscreen,both;NaviStyle[circle]/select,circle,button;NaviPosition[sides]/select,sides,bottomright,bottomleft,topright,topleft;NaviBgColor[#1e1e1e]/color;NaviIconColor[#ffffff]/color;NaviBorderColor[#ffffff]/color;OverlayProgress[none]/select,none,normal,fullscreen,both;ProgressColor1[#00bcd4]/color;ProgressColor2[#9c27b0]/color;OverlayInfo[none]/select,none,normal,fullscreen,both;InfoPosition[bottom]/select,bottom,top,bottomleft,bottomright,topleft,topright;OverlayInfoTemplate/html;OverlayInfoDateFormat[DD.MM.YY hh:mm]/text;"
 		data-vis-set="slideshow"
 		data-vis-type="image,slideshow"
 		data-vis-name="Slideshow"
@@ -124,8 +116,14 @@
 	<div class="vis-widget <%== this.data.attr('class') %>" style="width:230px; height:210px;" id="<%= this.data.attr('wid') %>" >
 		<div class="slideshow-class vis-widget-body <%== this.data.attr('class') %>" style="padding:2px" >
 			<% vis.binds['slideshow'].showSlideshow(this.data.wid, this.view, this.data, this.style); %>
-			<img class="slideshowpicture slideshowpicture1" src="<%= vis.states[data.oid + ".val"] %>">
-			<img class="slideshowpicture slideshowpicture2" src="<%= vis.states[data.oid + ".val"] %>">
+			<img class="slideshowpicture_bg slideshowpicture1_bg" src="<%= vis.states[data.oid + '.val'] %>">
+			<img class="slideshowpicture_bg slideshowpicture2_bg" src="<%= vis.states[data.oid + '.val'] %>">
+			<img class="slideshowpicture slideshowpicture1" src="<%= vis.states[data.oid + '.val'] %>">
+			<img class="slideshowpicture slideshowpicture2" src="<%= vis.states[data.oid + '.val'] %>">
+			<div class="slideshow-navi slideshow-navi-left" style="display:none;"><span class="slideshow-navi-icon"></span></div>
+			<div class="slideshow-navi slideshow-navi-right" style="display:none;"><span class="slideshow-navi-icon"></span></div>
+			<div class="slideshow-progress" style="display:none;"><div class="slideshow-progress-bar"></div></div>
+			<div class="slideshow-info" style="display:none;"></div>
 		</div>
 	</div>
 </script>

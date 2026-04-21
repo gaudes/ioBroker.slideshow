@@ -21,7 +21,8 @@ export interface BingPicture{
 	info1: string,
 	info2: string,
 	info3: string,
-	date: Date
+	date: Date,
+	album: string
 }
 
 export interface BingPictureListUpdateResult{
@@ -33,7 +34,7 @@ const BingUrl = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=10&m
 let BingPictureList: BingPicture[];
 let CurrentImage: BingPicture;
 
-export async function getPicture(Helper: GlobalHelper): Promise<BingPicture | null > {
+export async function getPicture(Helper: GlobalHelper, direction: 1 | -1 = 1): Promise<BingPicture | null > {
 	try{
 		if (BingPictureList.length === 0){
 			await updatePictureList(Helper);
@@ -42,10 +43,13 @@ export async function getPicture(Helper: GlobalHelper): Promise<BingPicture | nu
 			if (!CurrentImage){
 				CurrentImage = BingPictureList[0];
 			} else {
-				if (BingPictureList.indexOf(CurrentImage) === BingPictureList.length - 1){
+				const idx = BingPictureList.indexOf(CurrentImage);
+				if (idx === -1){
 					CurrentImage = BingPictureList[0];
 				} else {
-					CurrentImage = BingPictureList[BingPictureList.indexOf(CurrentImage) + 1];
+					const len = BingPictureList.length;
+					const nextIdx = (idx + direction + len) % len;
+					CurrentImage = BingPictureList[nextIdx];
 				}
 			}
 			return CurrentImage;
@@ -80,9 +84,9 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<BingPictu
 				}
 				const ImageDate = new Date(parseInt(Image.startdate.substring(0,4)), parseInt(Image.startdate.substring(4,6)), parseInt(Image.startdate.substring(6,8)));
 				if (Array.isArray(BingPictureList)){
-					BingPictureList.push( {bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate} );
+					BingPictureList.push( {bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate, album: ""} );
 				} else{
-					BingPictureList = [ {bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate} ];
+					BingPictureList = [ {bingurl: "https://bing.com" + Image.url, url: "", path: "", info1: Image.title, info2: ImageDescription, info3: ImageCopyright, date: ImageDate, album: ""} ];
 				}
 			});
 			Helper.ReportingInfo("Debug", "Bing", `Picture List from Bing: ${JSON.stringify(BingPictureList)}`,{JSON: JSON.stringify(BingPictureList.slice(0,10))});

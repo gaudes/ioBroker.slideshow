@@ -7,7 +7,8 @@ export interface LocalPicture{
 	info1: string,
 	info2: string,
 	info3: string,
-	date: Date | null
+	date: Date | null,
+	album: string
 }
 
 export interface LocalPictureListUpdateResult{
@@ -18,7 +19,7 @@ export interface LocalPictureListUpdateResult{
 let CurrentImages: LocalPicture[];
 let CurrentImage: LocalPicture;
 
-export async function getPicture(Helper: GlobalHelper): Promise<LocalPicture | null> {
+export async function getPicture(Helper: GlobalHelper, direction: 1 | -1 = 1): Promise<LocalPicture | null> {
 	try{
 		if (CurrentImages.length === 0){
 			await updatePictureList(Helper);
@@ -27,10 +28,13 @@ export async function getPicture(Helper: GlobalHelper): Promise<LocalPicture | n
 			if (!CurrentImage){
 				CurrentImage = CurrentImages[0];
 			} else {
-				if (CurrentImages.indexOf(CurrentImage) === CurrentImages.length - 1){
+				const idx = CurrentImages.indexOf(CurrentImage);
+				if (idx === -1){
 					CurrentImage = CurrentImages[0];
 				} else {
-					CurrentImage = CurrentImages[CurrentImages.indexOf(CurrentImage) + 1];
+					const len = CurrentImages.length;
+					const nextIdx = (idx + direction + len) % len;
+					CurrentImage = CurrentImages[nextIdx];
 				}
 			}
 			return CurrentImage;
@@ -60,9 +64,9 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<LocalPict
 				fileInfo?.info3 ? info3 = fileInfo?.info3 : info3 = "";
 				fileInfo?.date ? date = fileInfo?.date : date = null;
 				if (Array.isArray(CurrentImages)){
-					CurrentImages.push( {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date} );
+					CurrentImages.push( {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date, album: ""} );
 				}else{
-					CurrentImages = [ {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date} ];
+					CurrentImages = [ {url: `/vis.0/slideshow/${file.file}`, path: file.file, info1: info1, info2: info2, info3: info3, date: date, album: ""} ];
 				}
 			}))
 		}

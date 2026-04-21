@@ -25,7 +25,7 @@ module.exports = __toCommonJS(slideLocal_exports);
 var import_exif = require("./exif");
 let CurrentImages;
 let CurrentImage;
-async function getPicture(Helper) {
+async function getPicture(Helper, direction = 1) {
   try {
     if (CurrentImages.length === 0) {
       await updatePictureList(Helper);
@@ -34,10 +34,13 @@ async function getPicture(Helper) {
       if (!CurrentImage) {
         CurrentImage = CurrentImages[0];
       } else {
-        if (CurrentImages.indexOf(CurrentImage) === CurrentImages.length - 1) {
+        const idx = CurrentImages.indexOf(CurrentImage);
+        if (idx === -1) {
           CurrentImage = CurrentImages[0];
         } else {
-          CurrentImage = CurrentImages[CurrentImages.indexOf(CurrentImage) + 1];
+          const len = CurrentImages.length;
+          const nextIdx = (idx + direction + len) % len;
+          CurrentImage = CurrentImages[nextIdx];
         }
       }
       return CurrentImage;
@@ -66,9 +69,9 @@ async function updatePictureList(Helper) {
         (fileInfo == null ? void 0 : fileInfo.info3) ? info3 = fileInfo == null ? void 0 : fileInfo.info3 : info3 = "";
         (fileInfo == null ? void 0 : fileInfo.date) ? date = fileInfo == null ? void 0 : fileInfo.date : date = null;
         if (Array.isArray(CurrentImages)) {
-          CurrentImages.push({ url: `/vis.0/slideshow/${file.file}`, path: file.file, info1, info2, info3, date });
+          CurrentImages.push({ url: `/vis.0/slideshow/${file.file}`, path: file.file, info1, info2, info3, date, album: "" });
         } else {
-          CurrentImages = [{ url: `/vis.0/slideshow/${file.file}`, path: file.file, info1, info2, info3, date }];
+          CurrentImages = [{ url: `/vis.0/slideshow/${file.file}`, path: file.file, info1, info2, info3, date, album: "" }];
         }
       }));
     }

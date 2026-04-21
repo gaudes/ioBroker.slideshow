@@ -10,7 +10,8 @@ export interface FSPicture{
 	info1: string,
 	info2: string,
 	info3: string,
-	date: Date | null
+	date: Date | null,
+	album: string
 }
 
 export interface FSPictureListUpdateResult{
@@ -21,7 +22,7 @@ export interface FSPictureListUpdateResult{
 let CurrentImages: FSPicture[];
 let CurrentImage: FSPicture;
 
-export async function getPicture(Helper: GlobalHelper): Promise<FSPicture | null> {
+export async function getPicture(Helper: GlobalHelper, direction: 1 | -1 = 1): Promise<FSPicture | null> {
 	try{
 		if (CurrentImages.length === 0){
 			await updatePictureList(Helper);
@@ -30,17 +31,20 @@ export async function getPicture(Helper: GlobalHelper): Promise<FSPicture | null
 			if (!CurrentImage){
 				CurrentImage = CurrentImages[0];
 			} else {
-				if (CurrentImages.indexOf(CurrentImage) === CurrentImages.length - 1){
+				const idx = CurrentImages.indexOf(CurrentImage);
+				if (idx === -1){
 					CurrentImage = CurrentImages[0];
 				} else {
-					CurrentImage = CurrentImages[CurrentImages.indexOf(CurrentImage) + 1];
+					const len = CurrentImages.length;
+					const nextIdx = (idx + direction + len) % len;
+					CurrentImage = CurrentImages[nextIdx];
 				}
 			}
 			if (fs.existsSync(CurrentImage.path) === true){
 				try {
 					const PicContent = fs.readFileSync(CurrentImage.path);
-					const PicContentB64 = PicContent.toString("base64");
-					return { ...CurrentImage, url: `data:image/jpeg;base64,${PicContentB64}`};
+					await Helper.Adapter.writeFileAsync(Helper.Adapter.namespace, "fs_current.jpg", PicContent);
+					return { ...CurrentImage, url: `/${Helper.Adapter.namespace}/fs_current.jpg?t=${Date.now()}`};
 				} catch (err) {
 					Helper.ReportingError(null, `File not accessible: ${CurrentImage.path}`, "Filesystem", "getPicture", "", false);
 					return null;
@@ -81,16 +85,16 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 					if (ImageSize.width && ImageSize.height){
 						if ((Helper.Adapter.config.fs_format === 1 && ImageSize.width > ImageSize.height) === true){
 							if (Array.isArray(CurrentImages)){
-								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
+								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, album: path.basename(path.dirname(CurrentImageList[ImageIndex]))} );
 							}else{
-								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
+								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, album: path.basename(path.dirname(CurrentImageList[ImageIndex]))} ];
 							}
 						}
 						if ((Helper.Adapter.config.fs_format === 2 && ImageSize.height > ImageSize.width) === true){
 							if (Array.isArray(CurrentImages)){
-								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
+								CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, album: path.basename(path.dirname(CurrentImageList[ImageIndex]))} );
 							}else{
-								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
+								CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, album: path.basename(path.dirname(CurrentImageList[ImageIndex]))} ];
 							}
 						}
 					}
@@ -99,9 +103,9 @@ export async function updatePictureList(Helper: GlobalHelper): Promise<FSPicture
 				}
 			}else{
 				if (Array.isArray(CurrentImages)){
-					CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} );
+					CurrentImages.push( {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, album: path.basename(path.dirname(CurrentImageList[ImageIndex]))} );
 				}else{
-					CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null} ];
+					CurrentImages = [ {path: CurrentImageList[ImageIndex], url: "", info1: "", info2: "", info3: "", date: null, album: path.basename(path.dirname(CurrentImageList[ImageIndex]))} ];
 				}
 			}
 		}
