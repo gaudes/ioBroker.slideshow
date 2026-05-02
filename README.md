@@ -179,6 +179,9 @@ Yes, but not directly through the adapter. ioBroker now supports a large number 
 	Placeholder for the next version (at the beginning of the line):
 	### __WORK IN PROGRESS__
 -->
+### **WORK IN PROGRESS**
+- (copilot) Adapter requires node.js >= 22 now
+
 ### 0.2.1 (2024-11-18)
 * (Gaudes) Update in package.json for VIS
 
