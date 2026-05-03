@@ -243,6 +243,8 @@ Yes, but not directly through the adapter. ioBroker now supports a large number 
 ### 0.0.2 (2021-01-11)
 * (Gaudes) initial release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 
