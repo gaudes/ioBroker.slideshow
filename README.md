@@ -175,6 +175,9 @@ Can network drives be integrated?
 Yes, but not directly through the adapter. ioBroker now supports a large number of operating systems. Accessing and connecting network shares is completely different depending on the operating system. In some cases, additional components such as Samba for Linux are also required. The connection of the network drive (mapping or mount) can  be done directly by the operating system. Under Linux, the mount takes place in a specified directory, e.g. / mnt / pictures. This directory can then be used in the adapter configuration.
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+- (iobroker-bot) Adapter requires node.js >= 22 now.
 <!--
 	Placeholder for the next version (at the beginning of the line):
 	### __WORK IN PROGRESS__
